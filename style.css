@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Baskervville', serif;
+    /* font-style: italic; */
+    overscroll-behavior-y: none;
+
+}
+
+header {
+    overscroll-behavior-y: none;
+
+}
+
+.titles-container {
+    width: 100%;
+    height: 340vh;
+    /* background-color: blueviolet; */
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: absolute;
+    top: 60vh;
+}
+
+.titles {
+    font-size: 24px;
+    background-color: brown;
+    /* z-index: 10; */
+    position: sticky;
+    top: 20px;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    background-color: aqua;
+}
+
+section {
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(182, 182, 182);
+}
+
+section:nth-child(even) {
+    background-color: aqua;
+}
+
+.krv-container {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    /* background-color: aqua; */
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    /* display: none; */
+}
+
+.krv{
+    font-size: 36px;
+    z-index: 2;
+}
+
