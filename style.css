@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+body.preload * {
+    animation-duration: 0s !important;
+    -webkit-animation-duration: 0s !important;
+    transition:background-color 0s, opacity 0s, color 0s, width 0s, height 0s, padding 0s, margin 0s !important;}
+
 body {
     scroll-behavior: smooth;
 }
@@ -13,9 +18,11 @@ main {
     height: 100vh;
     overflow-y: scroll;
     scroll-snap-type: y proximity;
-    display: block;
+    display: grid;
     align-items: center;
     background-color: wheat;
+    justify-content: stretch;
+    justify-items: center;
 }
 
 main div {
@@ -36,22 +43,122 @@ main div {
     transform: translateX(-50%);
     z-index: 10;
     pointer-events: none;
-    transition: all .5s ease-out;
+    /* transition: all .5s ease-out; */
+}
+
+.my-name {
+    margin-top: 10px;
+    position: absolute;
+    letter-spacing: .1rem;
+    transition: all 0.5s ease-out;
+    z-index: 10;
+}
+
+.my-name-observed {
+    transform: scale(500%) translateY(-50px);
+    opacity: 0;
 }
 
 .krv-observed {
-    font-size: 2rem;
+    /* font-size: 2rem;
     top: 0;
-    left: 20px;
-    transform: translateX(0%) rotate(360deg);
+    left: 20px; */
+    /* transform: translateX(0%) rotate(360deg); */
+    -webkit-animation: krv .5s linear forwards;
+    animation: krv .5s linear forwards;
+}
 
+.krv-unobserved {
+    /* font-size: 2rem;
+    top: 0;
+    left: 20px; */
+    /* transform: translateX(0%) rotate(360deg); */
+    -webkit-animation: krv2 .5s ease-out forwards;    
+    animation: krv2 .5s ease-out forwards;
+
+}
+@-webkit-keyframes krv {
+    55% {
+        top: 10%;
+        left: 20%;
+        -webkit-transform: translateX(0%) rotate(-180deg) scale(200%);
+        transform: translateX(0%) rotate(-180deg) scale(200%);
+    }
+    
+    to {
+        font-size: 2rem;
+        top: 0;
+        left: 20px;
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }    
+}
+@keyframes krv {
+    55% {
+        top: 10%;
+        left: 20%;
+        -webkit-transform: translateX(0%) rotate(-180deg) scale(200%);
+        transform: translateX(0%) rotate(-180deg) scale(200%);
+    }
+    
+    to {
+        font-size: 2rem;
+        top: 0;
+        left: 20px;
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }    
+}
+
+
+@-webkit-keyframes krv2 {
+    from {
+        font-size: 2rem;
+        top: 0;
+        left: 20px;
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }    
+    50% {
+        -webkit-transform: translateX(-25%);
+        transform: translateX(-25%);
+
+    }
+    to {
+        top: 40%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes krv2 {
+    from {
+        font-size: 2rem;
+        top: 0;
+        left: 20px;
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }    
+    50% {
+        -webkit-transform: translateX(-25%);
+        transform: translateX(-25%);
+
+    }
+    to {
+        top: 40%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+    }
+    
 }
 
 .title {
-    /* width: fit-content; */
+    width: 100%;
     font-size: 2rem;
     scroll-snap-align: start;
-    margin-top: 80vh;
+    margin-top: 70vh;
     background-color: wheat;
     position: -webkit-sticky;
     position: -moz-sticky;
@@ -62,18 +169,31 @@ main div {
     top: 0px;
 }
 
+.title-underline {
+    border-bottom: 1px solid black;
+}
+
 section {
     width: 100%;
     height: 100vh;
-    background: rgb(0, 0, 0);
     scroll-snap-align: start;
+    color: black;
+    border-bottom: 1px solid black;
+    display: grid;
+    /* place-items: center; */
+    
 }
 
 section:nth-child(even){
-    background: blue;
+    background-color: rgb(215, 215, 215);
 }
 
 .sec1 {
-    margin-top: 50vh;
+    /* border-top: 1px solid black; */
+    margin-top: 25vh;
+}
+.sec1-obs {
+    /* border-top: 1px solid black; */
+    margin-top: 0;
 }
 
