@@ -1,71 +1,73 @@
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Baskervville', serif;
-    /* font-style: italic; */
-    overscroll-behavior-y: none;
-
-}
-
-header {
-    overscroll-behavior-y: none;
-
-}
-
-.titles-container {
-    width: 100%;
-    height: 340vh;
-    /* background-color: blueviolet; */
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    position: absolute;
-    top: 60vh;
-}
-
-.titles {
-    font-size: 24px;
-    background-color: brown;
-    /* z-index: 10; */
-    position: sticky;
-    top: 20px;
+    scroll-behavior: smooth;
 }
 
 main {
     width: 100%;
-    height: 100%;
-    background-color: aqua;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+    display: block;
+    align-items: center;
+    background-color: wheat;
+}
+
+main div {
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
+
+}
+
+.krv {
+    /* background-color: antiquewhite; */
+    font-size: 8rem;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    pointer-events: none;
+    transition: all .5s ease-out;
+}
+
+.krv-observed {
+    font-size: 4rem;
+    top: 0;
+    left: 20px;
+    transform: translateX(0%) rotate(360deg);
+
+}
+
+.title {
+    /* width: fit-content; */
+    font-size: 2rem;
+    scroll-snap-align: start;
+    margin-top: 80vh;
+    background-color: wheat;
+    position: sticky;
+    padding: 20px 0px;
+    top: 0px;
 }
 
 section {
     width: 100%;
     height: 100vh;
-    background-color: rgb(182, 182, 182);
+    background: rgb(0, 0, 0);
+    scroll-snap-align: start;
 }
 
-section:nth-child(even) {
-    background-color: aqua;
+section:nth-child(even){
+    background: blue;
 }
 
-.krv-container {
-    width: 100%;
-    height: 40vh;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    /* background-color: aqua; */
-    position: fixed;
-    top: 0;
-    z-index: 10;
-    /* display: none; */
-}
-
-.krv{
-    font-size: 36px;
-    z-index: 2;
+.sec1 {
+    margin-top: 50vh;
 }
 
