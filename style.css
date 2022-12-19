@@ -27,7 +27,9 @@ main div {
 
 .krv {
     /* background-color: antiquewhite; */
-    font-size: 8rem;
+    font-size: 6rem;
+    text-align: center;
+    line-height: 5rem;
     position: fixed;
     top: 40%;
     left: 50%;
@@ -38,7 +40,7 @@ main div {
 }
 
 .krv-observed {
-    font-size: 4rem;
+    font-size: 2rem;
     top: 0;
     left: 20px;
     transform: translateX(0%) rotate(360deg);
@@ -51,6 +53,10 @@ main div {
     scroll-snap-align: start;
     margin-top: 80vh;
     background-color: wheat;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -o-sticky;
+    position: -ms-sticky;
     position: sticky;
     padding: 20px 0px;
     top: 0px;
