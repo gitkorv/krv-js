@@ -50,9 +50,32 @@ main div {
     z-index: 10;
     pointer-events: none;
     /* transition: all .5s ease-out; */
-    animation: krv2 0.2s ease-out forwards;
+    animation: krv2 .2s ease-out forwards;
     /* overflow: hidden; */
 }
+
+    
+@keyframes krv2 {
+    from {
+        font-size: 1rem;
+        line-height: 2rem;
+        top: 0;
+        left: 30%;
+        transform: translateX(0);
+
+    }    
+    380% {
+        transform: rotate(90deg) translateX(0);
+
+    }
+    to {
+        top: 35%;
+        left: 50%;
+        transform: rotate(180deg) translateX(50%);
+    }
+    
+}
+
 
 .krv-observed {
     font-size: 2rem;
@@ -66,8 +89,27 @@ main div {
 
 
     /* transform: translateX(0%) rotate(360deg); */
-    animation: krv 0.4s linear forwards;
+    animation: krv .2s ease-out forwards;
 
+}
+
+@keyframes krv {
+    from {
+        top: 35%;
+        left: 50%;
+        transform: rotate(180deg) translateX(50%);
+    }
+
+    50% {
+        font-size: 4rem;
+    }
+    
+    to {
+        font-size: 2rem;
+        top: 0;
+        left: 20px;
+        transform: rotate(360deg);
+    }
 }
 
 
@@ -135,41 +177,5 @@ section:nth-child(even){
 
 
 
-@keyframes krv {
-    from {
-        top: 35%;
-        left: 50%;
-        transform: rotate(-240deg);
-    }
 
-    50% {
-        font-size: 4rem;
-    }
-    
-    to {
-        font-size: 2rem;
-        top: 0;
-        left: 20px;
-        transform: rotate(-360deg);
-    }    
-}
 
-@keyframes krv2 {
-    from {
-        font-size: 2rem;
-        top: 0;
-        left: 30%;
-        transform: rotate(-360deg) translateX(-50%);
-
-    }    
-    50% {
-        transform: translateX(-25%);
-
-    }
-    to {
-        top: 35%;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    
-}
