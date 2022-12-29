@@ -39,7 +39,7 @@ main div {
 
 .krv {
     /* display: block; */
-    background-color: rgb(61, 205, 45);
+    /* background-color: rgb(61, 205, 45); */
     font-size: 6rem;
     text-align: center;
     line-height: 5rem;
@@ -137,7 +137,8 @@ section:nth-child(even){
 
 @keyframes krv {
     from {
-        top: 40%;
+        top: 35%;
+        left: 50%;
         transform: rotate(-240deg);
     }
 
@@ -157,15 +158,16 @@ section:nth-child(even){
     from {
         font-size: 2rem;
         top: 0;
-        left: 20px;
-        transform: rotate(-360deg);
+        left: 30%;
+        transform: rotate(-360deg) translateX(-50%);
+
     }    
     50% {
         transform: translateX(-25%);
 
     }
     to {
-        bottom: 50%;
+        top: 35%;
         left: 50%;
         transform: translateX(-50%);
     }
