@@ -18,11 +18,16 @@ main {
     height: 100vh;
     overflow-y: scroll;
     scroll-snap-type: y proximity;
+    
     display: grid;
+    /* -webkit-display: flex;
+    -moz-display: flex;
+    -ms--display: flex;
+    flex-direction: column; */
+
     align-items: center;
     background-color: wheat;
     justify-content: stretch;
-    justify-items: center;
 }
 
 main div {
@@ -33,25 +38,47 @@ main div {
 }
 
 .krv {
-    /* background-color: antiquewhite; */
+    /* display: block; */
+    background-color: rgb(61, 205, 45);
     font-size: 6rem;
     text-align: center;
     line-height: 5rem;
     position: fixed;
-    top: 40%;
+    top: 35%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
     pointer-events: none;
     /* transition: all .5s ease-out; */
+    animation: krv2 0.2s ease-out forwards;
+    /* overflow: hidden; */
 }
+
+.krv-observed {
+    font-size: 2rem;
+    position: absolute;
+    top: 0;
+    left: 20px;
+
+    display: flex;
+    transform: translateX(0%);
+    line-height: auto;
+
+
+    /* transform: translateX(0%) rotate(360deg); */
+    animation: krv 0.4s linear forwards;
+
+}
+
+
 
 .my-name {
     margin-top: 10px;
-    position: absolute;
     letter-spacing: .1rem;
     transition: all 0.5s ease-out;
     z-index: 10;
+    background-color: aquamarine;
+    text-align: center;
 }
 
 .my-name-observed {
@@ -59,100 +86,8 @@ main div {
     opacity: 0;
 }
 
-.krv-observed {
-    /* font-size: 2rem;
-    top: 0;
-    left: 20px; */
-    /* transform: translateX(0%) rotate(360deg); */
-    -webkit-animation: krv .5s linear forwards;
-    animation: krv .5s linear forwards;
-}
-
-.krv-unobserved {
-    /* font-size: 2rem;
-    top: 0;
-    left: 20px; */
-    /* transform: translateX(0%) rotate(360deg); */
-    -webkit-animation: krv2 .5s ease-out forwards;    
-    animation: krv2 .5s ease-out forwards;
-
-}
-@-webkit-keyframes krv {
-    55% {
-        top: 10%;
-        left: 20%;
-        -webkit-transform: translateX(0%) rotate(-180deg) scale(200%);
-        transform: translateX(0%) rotate(-180deg) scale(200%);
-    }
-    
-    to {
-        font-size: 2rem;
-        top: 0;
-        left: 20px;
-        -webkit-transform: rotate(-360deg);
-        transform: rotate(-360deg);
-    }    
-}
-@keyframes krv {
-    55% {
-        top: 10%;
-        left: 20%;
-        -webkit-transform: translateX(0%) rotate(-180deg) scale(200%);
-        transform: translateX(0%) rotate(-180deg) scale(200%);
-    }
-    
-    to {
-        font-size: 2rem;
-        top: 0;
-        left: 20px;
-        -webkit-transform: rotate(-360deg);
-        transform: rotate(-360deg);
-    }    
-}
 
 
-@-webkit-keyframes krv2 {
-    from {
-        font-size: 2rem;
-        top: 0;
-        left: 20px;
-        -webkit-transform: rotate(-360deg);
-        transform: rotate(-360deg);
-    }    
-    50% {
-        -webkit-transform: translateX(-25%);
-        transform: translateX(-25%);
-
-    }
-    to {
-        top: 40%;
-        left: 50%;
-        -webkit-transform: translateX(-50%);
-        transform: translateX(-50%);
-    }
-}
-
-@keyframes krv2 {
-    from {
-        font-size: 2rem;
-        top: 0;
-        left: 20px;
-        -webkit-transform: rotate(-360deg);
-        transform: rotate(-360deg);
-    }    
-    50% {
-        -webkit-transform: translateX(-25%);
-        transform: translateX(-25%);
-
-    }
-    to {
-        top: 40%;
-        left: 50%;
-        -webkit-transform: translateX(-50%);
-        transform: translateX(-50%);
-    }
-    
-}
 
 .title {
     width: 100%;
@@ -179,8 +114,9 @@ section {
     scroll-snap-align: start;
     color: black;
     border-bottom: 1px solid black;
-    display: grid;
-    /* place-items: center; */
+    display: grid; 
+    grid-template-rows: 100vh;
+    place-items: center;
     
 }
 
@@ -197,3 +133,41 @@ section:nth-child(even){
     margin-top: 0;
 }
 
+
+
+@keyframes krv {
+    from {
+        top: 40%;
+        transform: rotate(-240deg);
+    }
+
+    50% {
+        font-size: 4rem;
+    }
+    
+    to {
+        font-size: 2rem;
+        top: 0;
+        left: 20px;
+        transform: rotate(-360deg);
+    }    
+}
+
+@keyframes krv2 {
+    from {
+        font-size: 2rem;
+        top: 0;
+        left: 20px;
+        transform: rotate(-360deg);
+    }    
+    50% {
+        transform: translateX(-25%);
+
+    }
+    to {
+        bottom: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+}
