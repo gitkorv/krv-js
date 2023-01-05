@@ -37,27 +37,26 @@ const krvAllCharNoSpaces = krvWords.join("");
 
 // Make array of krvInnerHTML
 let krvArray = [...krvAllCharNoSpaces];
-console.log(krvArray);
+    console.log(krvArray);
 
 // Get krv total length
 let krvTotalLength = krvArray.length;
+    console.log("krv total lenght is " + krvTotalLength);
 
-
+// Grab elements from page
 const title = document.querySelector('.title');
 const myName = document.querySelector('.my-name');
 const sec1 = document.querySelector('.sec1');
 const krvAmountOfWords = krvWords.length;
 
 // Find out how many letters each word is
-
 const krvEachWordLength = krv.innerHTML.split("<br>").map(w => w.length);
-
+console.log(krvEachWordLength);
 
 
 console.log("Below here I try to figure out how to grab specific letters");
 
 // First find out what each words first letter is
-
 const getFirstLetters = function(array) {
     const firstLetters = array.map(word => word[0]);
   
@@ -118,10 +117,45 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
         // Get K R V elements
         const krvDivs = document.querySelectorAll(".krv div");
-        console.log(krvDivs[0]);
-        krvDivs.forEach((entry, i) => {
-            entry.classList.add('hidden')
-        });
+        console.log(krvDivs);
+        // krvDivs.forEach((entry, i) => {
+        //     entry.classList.add('hidden');
+
+        // });
+
+
+        for (let i = 0; i < krvTotalLength; i++) {
+            // console.log(krvDivs[i]);
+            if (krvDivs[i] !== krvDivs[firstWordIndexes[0]] && krvDivs[i] !== krvDivs[firstWordIndexes[1]] && krvDivs[i] !== krvDivs[firstWordIndexes[2]]) {
+                krvDivs[i] = krvDivs[i].classList.add('hidden');
+            } else if (krvDivs[i] === krvDivs[firstWordIndexes[0]] || krvDivs[i] === krvDivs[firstWordIndexes[1]]){
+                krvDivs[i].innerHTML = krvDivs[i].innerHTML.toLowerCase();
+                krvDivs[i] = krvDivs[i].classList.add('newKrv');
+            } else {
+                krvDivs[i].innerHTML = krvDivs[i].innerHTML.toLowerCase();
+                krvDivs[i] = krvDivs[i].classList.add('newKrv');
+
+            }
+        }
+
+        const newTopKrv = document.querySelectorAll('.newKrv');
+        console.log(newTopKrv.length);
+
+        // setTimeout(addDotts(newTopKrv), 500000);
+        setTimeout(() => {addDotts(newTopKrv)}, 1000);
+
+        // setTimeout(() => {console.log("this is the second message")}, 3000);
+        // setTimeout(() => {console.log("this is the third message")}, 1000);
+
+        function addDotts(what) {
+            for (let i = 0; i < what.length -1; i++) {
+                what[i].innerHTML = what[i].innerHTML+".";
+                
+            }
+        }
+
+        
+
 
         const karlK = document.querySelector(".krv0");
         const rickardR = document.querySelector(".krv4");
@@ -130,12 +164,12 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
         // Add animation (observed) class
         krv.classList.add('krv-observed')
 
-        karlK.classList.remove('hidden');
-        karlK.innerHTML = karlK.innerHTML.toLowerCase()+".";
-        rickardR.classList.remove('hidden');
-        rickardR.innerHTML = rickardR.innerHTML.toLowerCase()+".";
-        vestinV.classList.remove('hidden');
-        vestinV.innerHTML = vestinV.innerHTML.toLowerCase();
+        // krvDivs[firstWordIndexes[0]].classList.remove('hidden');
+        // karlK.innerHTML = karlK.innerHTML.toLowerCase()+".";
+        // krvDivs[firstWordIndexes[1]].classList.remove('hidden');
+        // rickardR.innerHTML = rickardR.innerHTML.toLowerCase()+".";
+        // vestinV.classList.remove('hidden');
+        // vestinV.innerHTML = vestinV.innerHTML.toLowerCase();
 
         // karlK.classList.add('krv-observed');
         
@@ -148,9 +182,6 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 }, titleOptions);
 
 titleObserver.observe(title);
-
-
-
 
 
 
