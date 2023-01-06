@@ -89,17 +89,16 @@ const titleOptions = {
 };
 
 const titleObserver = new IntersectionObserver(function(entries, titleObserver) {
-    
+
     entries.forEach(entry => {
 
-        
+        // title.classList.toggle("title-observed", entry.isIntersecting);
+
 
         // console.log(entry.target, entry.isIntersecting);
         if (entry.isIntersecting) {
             // Set krv innerHTML string to blank 
             krv.innerHTML = " ";
-            // title.classList.add("title-no-margin")
-            // title.classList.add("title-no-margin");
            
             // Make a div with specific classes for each character
             krvArray.forEach((character, i) => {
@@ -169,19 +168,22 @@ titleObserver.observe(title);
 
 // Second try to make a border bottom when sticky element is stuck
 
-const titleBorder = document.querySelector(".title-border-hidden");
+const titleBorder = document.querySelector(".line");
 console.log(titleBorder);
 
 const titleBorderBottomObsOptions = {
     root: null,
     threshold: 0,
-    rootMargin: `0px 0px -99% 0px` 
+    rootMargin: `0px 0px -95% 0px` 
 }
 
 const titleBorderBottomObs = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         console.log(entry);
-        titleBorder.classList.toggle("title-border-show", entry.isIntersecting);
+        titleBorder.classList.toggle("line-show", entry.isIntersecting);
+        // if(!entry.isIntersecting) {
+        //     title.classList.remove("title-observed");
+        // }
     })
 }, titleBorderBottomObsOptions);
 
