@@ -77,8 +77,9 @@ let krvTotalLength = krvArray.length;
     }
     // console.log(firstWordIndexes); 
 
-
-
+// Make arrays of each word
+    let firstWordArray = [...krvWords[0]];
+    // console.log(firstWordArray);
 
 // intersection observer for ${title} hitting 50% of viewport
 
@@ -103,42 +104,57 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
             // Make a div with specific classes for each character
             krvArray.forEach((character, i) => {
                 // console.log(character,i);
+                // console.log(krvWords[0]);
                 let lowerCaseChar = character.toLowerCase();
 
                 if(i >= + krvTotalLength - krvWords[2].length) {
-                    let nameClass = "vestin";
-                    krv.innerHTML += `<div class="krv_${nameClass}-${lowerCaseChar} krv${i}">${character}</div>`;
+                    let nameClass = "lastName";
+                    krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
                 }
                 else if (i < krvTotalLength - (krvWords[1].length + krvWords[2].length)) {
-                    let nameClass = "karl";
-                    krv.innerHTML += `<div class="krv_${nameClass}-${lowerCaseChar} krv${i}">${character}</div>`;
+                    let nameClass = "firstName";
+                    krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
                 }
                 else {
-                    let nameClass = "rickard";
-                    krv.innerHTML += `<div class="krv_${nameClass}-${lowerCaseChar} krv${i}">${character}</div>`;
+                    let nameClass = "middleName";
+                    krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
                 }
             });
 
+            // firstWordArray.forEach((char, i) => {
+            //     console.log(char, i);
+            // });
 
+
+        
         // Get KRV elements
         const krvDivs = document.querySelectorAll(".krv div");
         // console.log(krvDivs);
 
+
         for (let i = 0; i < krvTotalLength; i++) {
             // console.log(krvDivs[i]);
             if (krvDivs[i] !== krvDivs[firstWordIndexes[0]] && krvDivs[i] !== krvDivs[firstWordIndexes[1]] && krvDivs[i] !== krvDivs[firstWordIndexes[2]]) {
-                krvDivs[i] = krvDivs[i].classList.add('hidden');
-            } else if (krvDivs[i] === krvDivs[firstWordIndexes[0]] || krvDivs[i] === krvDivs[firstWordIndexes[1]]){
-                krvDivs[i].innerHTML = krvDivs[i].innerHTML.toLowerCase();
-                krvDivs[i] = krvDivs[i].classList.add('newKrv');
+                krvDivs[i] = krvDivs[i].classList.add('old-krv-divs');
             } else {
                 krvDivs[i].innerHTML = krvDivs[i].innerHTML.toLowerCase();
-                krvDivs[i] = krvDivs[i].classList.add('newKrv');
+                krvDivs[i] = krvDivs[i].classList.add('new-krv-divs');
             }
         }
+        
+
+        // Add class name to each names first character
+        const firstNameFirstChar = document.querySelector(".firstName");
+        firstNameFirstChar.classList.add("name1-char1");
+        const middleNameFirstChar = document.querySelector(".middleName");
+        middleNameFirstChar.classList.add("name2-char1");
+        const lastNameFirstChar = document.querySelector(".lastName");
+        lastNameFirstChar.classList.add("name3-char1");
+
+        // console.log(firstNameFirstChar, middleNameFirstChar, lastNameFirstChar);
 
         // Grab newly formed top left KRV
-        const newTopKrv = document.querySelectorAll('.newKrv');
+        const newTopKrv = document.querySelectorAll('.new-krv-divs');
         // console.log(newTopKrv);
 
         // Function for adding dots to two first letters
@@ -149,16 +165,19 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
             }
         }
         // Call above function after Xs 
-        setTimeout(() => {addDotts(newTopKrv)}, 1000);
+        setTimeout(() => {addDotts(newTopKrv)}, 1400);
 
 
-        // Add animation (observed) class
-        krv.classList.add('krv-observed')
+        // Add animation (changed) class
+        krv.classList.remove('krv-changed-back');
+        krv.classList.toggle('krv-changed');
 
         
         } else {
-            // Remove animation (observed) class
-            krv.classList.remove('krv-observed');
+            // Remove animation (changed) class
+            krv.classList.remove('krv-changed');
+            krv.classList.add('krv-changed-back');
+
             krv.innerHTML = krvInnerHTML;
         }
     });
@@ -188,6 +207,13 @@ const titleBorderBottomObs = new IntersectionObserver(entries => {
 }, titleBorderBottomObsOptions);
 
 titleBorderBottomObs.observe(title)
+
+
+
+
+
+
+
 
 
 // Observe section 1, and when in view, underline sticky title element
