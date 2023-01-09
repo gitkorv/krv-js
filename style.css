@@ -13,24 +13,14 @@ body {
     scroll-behavior: smooth;
 }
 
-.wrapper {
-    display: block;
-
+.logo-wrapper {
+    position: absolute;
+    overflow-x: hidden;
+    top: 0px;
+    left: 0;
     width: 100%;
     height: 100dvh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scroll-snap-type: y proximity;
-}
-
-.home {
-    display: block;
-    position: relative;
-    height: 70dvh;
-    scroll-snap-align: start;
-    /* background-color: antiquewhite; */
-    /* place-items: start; */
-    /* scroll-snap-align: start; */
+    pointer-events: none;
 }
 
 .line-wrapper {
@@ -43,6 +33,7 @@ body {
     align-items: flex-end;
     justify-content: center;
     z-index: 100;
+    /* pointer-events: none; */
 }
 
 .line {
@@ -75,7 +66,7 @@ body {
 
     padding-bottom: 70dvh;
     z-index: 20;    
-    pointer-events: none;
+    /* pointer-events: none; */
     /* transform: scale(50%); */
 }
 
@@ -109,7 +100,13 @@ body {
     justify-content: left;
     align-items: start;
     text-align: left;
+    left: 0;
     /* width: auto; */
+}
+
+.krv-changed-again {
+    left: 50%;
+    transition: all .2s linear;
 }
 
 .new-krv-divs {
@@ -145,10 +142,10 @@ body {
 }
 
 .name1-char1 {
-    animation: krv0-anim-up 1s ease-out;
+    animation: name1-char1-up 1s ease-out;
 }
 
-@keyframes krv0-anim-up {
+@keyframes name1-char1-up {
     from {
         /* width: 50%; */
         font-size: 10rem;
@@ -175,48 +172,70 @@ body {
 }
 
     
-.old-krv-divs {
-    font-size: 2rem;
+.restof-krv-divs {
+    
+    position: absolute;
+    top: 60%;
+    right: 50%;
+    font-size: 3rem;
     line-height: normal;
     
-    top: 0;
-    right: 20px;
-   
-    position: absolute;
-    display: flex;
+    display: block;
 
-    animation: krv-old-divs-up 1s ease-out  ;
-    border: 1px solid red;
+    /* animation: restof-krv-divs-up 1s ease-out  ; */
+    /* animation-direction: reverse; */
+    /* border: 1px solid red; */
+    transition: all 4s ease-out;
+    transform: scale(200%);
 
-    opacity: 0;
+    opacity: 1;
 
 }
-@keyframes krv-old-divs-up {
+
+.transform {
+    top: -10px;
+    transform: rotate(0deg) scale(100%);
+}
+/* @keyframes restof-krv-divs-up {
     from {
         text-align: right;
-        display: flex;
-        font-size: 6rem;
+        display: block;
+        font-size: 10rem;
         top: 50%;
         right: 50%;
 
         opacity: 0;
 
     }
+} */
+
+.main-wrapper {
+    display: block;
+
+    width: 100%;
+    height: 100dvh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-snap-type: y proximity;
 }
 
+.home {
+    display: block;
+    position: relative;
+    height: 70dvh;
+    scroll-snap-align: end;
+    scroll-snap-stop: always;
+}
 
-
-
-
-.my-name {
+/* .my-name {
     display: none;
     margin-top: 10px;
     letter-spacing: .1rem;
     transition: all 0.5s ease-out;
     z-index: 10;
-    /* background-color: aquamarine; */
+    background-color: aquamarine;
     text-align: center;
-}
+} */
 
 .title {
     display: flex;
@@ -225,21 +244,18 @@ body {
     height: 80px;
     font-size: 2rem;
     scroll-snap-align: start;
-    /* margin-top: 70dvh; */
-    /* margin-bottom: 25dvh; */
-    background-color: rgb(255, 255, 255);
+    /* background-color: rgb(171, 164, 164); */
+    
     position: -webkit-sticky;
     position: -moz-sticky;
     position: -o-sticky;
     position: -ms-sticky;
     position: sticky;
+    
     padding: 20px 0px;
     top: 0px;
     z-index: 10;
-    transform: translate(0, 200px, 0);
-    /* transition: all 2s linear; */
 
-    /* transition: margin 5s ease-in; */
 }
 
 

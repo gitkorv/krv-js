@@ -127,50 +127,96 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
 
         
-        // Get KRV elements
-        const krvDivs = document.querySelectorAll(".krv div");
-        // console.log(krvDivs);
+            // Get KRV elements
+            const krvDivs = document.querySelectorAll(".krv div");
+            // console.log(krvDivs);
 
-
-        for (let i = 0; i < krvTotalLength; i++) {
-            // console.log(krvDivs[i]);
-            if (krvDivs[i] !== krvDivs[firstWordIndexes[0]] && krvDivs[i] !== krvDivs[firstWordIndexes[1]] && krvDivs[i] !== krvDivs[firstWordIndexes[2]]) {
-                krvDivs[i] = krvDivs[i].classList.add('old-krv-divs');
-            } else {
-                krvDivs[i].innerHTML = krvDivs[i].innerHTML.toLowerCase();
-                krvDivs[i] = krvDivs[i].classList.add('new-krv-divs');
+            // Add one class to first letters of names, and another to the rest
+            for (let i = 0; i < krvTotalLength; i++) {
+                // console.log(krvDivs[i]);
+                // console.log(firstWordIndexes[i]);
+                if (krvDivs[i] === krvDivs[firstWordIndexes[0]] || krvDivs[i] === krvDivs[firstWordIndexes[1]] || krvDivs[i] === krvDivs[firstWordIndexes[2]]) {
+                    krvDivs[i].innerHTML = krvDivs[i].innerHTML.toLowerCase();
+                    krvDivs[i] = krvDivs[i].classList.add('new-krv-divs');
+                } else {
+                    krvDivs[i] = krvDivs[i].classList.add('restof-krv-divs');
+                }
             }
-        }
+        
+            // Grab newly formed top left KRV
+            const newKrvDivs = document.querySelectorAll('.new-krv-divs');
+            // console.log(newTopKrv);
+
+            // Add unique class name to each names first character
+            function addClassToFirstLetter(divs, extra) {
+                divs.forEach((div, i) => {
+                    i++;
+                    div.classList.add(`${extra}${i}-char1`);
+                });            
+            };
+
+            addClassToFirstLetter(newKrvDivs, "name");
+
+            // console.log(firstNameFirstChar, middleNameFirstChar, lastNameFirstChar);
+
         
 
-        // Add class name to each names first character
-        const firstNameFirstChar = document.querySelector(".firstName");
-        firstNameFirstChar.classList.add("name1-char1");
-        const middleNameFirstChar = document.querySelector(".middleName");
-        middleNameFirstChar.classList.add("name2-char1");
-        const lastNameFirstChar = document.querySelector(".lastName");
-        lastNameFirstChar.classList.add("name3-char1");
-
-        // console.log(firstNameFirstChar, middleNameFirstChar, lastNameFirstChar);
-
-        // Grab newly formed top left KRV
-        const newTopKrv = document.querySelectorAll('.new-krv-divs');
-        // console.log(newTopKrv);
-
-        // Function for adding dots to two first letters
-        function addDotts(what) {
-            for (let i = 0; i < what.length -1; i++) {
-                what[i].innerHTML = what[i].innerHTML+".";
-                
+            // Function for adding dots to two first letters
+            function addDotts(what) {
+                for (let i = 0; i < what.length -1; i++) {
+                    what[i].innerHTML = what[i].innerHTML+".";
+                    
+                }
             }
-        }
-        // Call above function after Xs 
-        setTimeout(() => {addDotts(newTopKrv)}, 1400);
+            // Call above function after Xs 
+            setTimeout(() => {addDotts(newKrvDivs)}, 1400);
 
 
-        // Add animation (changed) class
-        krv.classList.remove('krv-changed-back');
-        krv.classList.toggle('krv-changed');
+            // Grab rest of divs
+            const restOfKrvDivs = document.querySelectorAll(".restof-krv-divs");
+
+            // console.log(restOfKrvDivs);
+
+            // Add unique effect to each of restofKrvDivs
+            function addEffectToRestofKrvDivs(divs) {
+            let windowWidth = window.innerWidth - 100;
+            console.log(windowWidth);
+
+                // Random number function
+                function makeRandomNumberArray(roof, length) {
+                    let randomNumberArray = [];
+                    for (let i = 0; i < length; i++) {
+                        let randomNumber = Math.round(Math.random() * roof);
+                        if (!randomNumberArray.includes(randomNumber)) {
+                            randomNumberArray.push(randomNumber);
+                        } else if (randomNumberArray.includes(randomNumber)) {
+                            i--;
+                        }
+                    }
+                    return randomNumberArray;
+                }
+
+                let randomStyleRightNumbers = makeRandomNumberArray(windowWidth, restOfKrvDivs.length);
+                
+                console.log(randomStyleRightNumbers);
+
+                let randomRotateNumber = makeRandomNumberArray(360, restOfKrvDivs.length)
+
+                console.log(randomRotateNumber);
+
+                divs.forEach((div, i) => {
+                    // console.log(div.innerHTML);
+                    div.classList.add('transform');
+                    div.style.right=`${randomStyleRightNumbers[i]}px`;
+                    div.style.transform=`rotate(${randomRotateNumber[i]}deg) scale(100%)`;
+                });            
+            };
+
+            addEffectToRestofKrvDivs(restOfKrvDivs);
+
+            // Add animation (changed) class
+            krv.classList.remove('krv-changed-back');
+            krv.classList.toggle('krv-changed');
 
         
         } else {
@@ -185,6 +231,9 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
 titleObserver.observe(title);
 
+const newKrvDivs = document.querySelectorAll('.new-krv-divs');
+
+console.log(newKrvDivs);
 // Second try to make a border bottom when sticky element is stuck
 
 const titleBorder = document.querySelector(".line");
@@ -200,14 +249,17 @@ const titleBorderBottomObs = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         console.log(entry);
         titleBorder.classList.toggle("line-show", entry.isIntersecting);
-        // if(!entry.isIntersecting) {
-        //     title.classList.remove("title-observed");
+        
+        // if(entry.isIntersecting) {
+        //     krv.classList.remove("krv-changed-again");
+        // } else {
+        //     krv.classList.add("krv-changed-again");
+            
         // }
     })
 }, titleBorderBottomObsOptions);
 
 titleBorderBottomObs.observe(title)
-
 
 
 
