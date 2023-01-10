@@ -179,50 +179,130 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
             // Add unique effect to each of restofKrvDivs
             function addEffectToRestofKrvDivs(divs) {
-            let windowWidth = window.innerWidth - 100;
+            let windowWidth = window.innerWidth;
             console.log(windowWidth);
 
-                // Random number function
-                function makeRandomNumberArray(roof, length) {
-                    let randomNumberArray = [];
+                // Unique random number function
+                function makeUniqueRandomNumbersArray(min, max, length) {
+                    let uniqueRandomNumberArray = [];
                     for (let i = 0; i < length; i++) {
-                        let randomNumber = Math.round(Math.random() * roof);
-                        if (!randomNumberArray.includes(randomNumber)) {
-                            randomNumberArray.push(randomNumber);
-                        } else if (randomNumberArray.includes(randomNumber)) {
+                        let uniqueRandomNumber = Math.round(Math.random() * (max - min));
+                        if (!uniqueRandomNumberArray.includes(uniqueRandomNumber)) {
+                            uniqueRandomNumberArray.push(uniqueRandomNumber);
+                        } else if (uniqueRandomNumberArray.includes(uniqueRandomNumber)) {
                             i--;
                         }
                     }
-                    return randomNumberArray;
+                    return uniqueRandomNumberArray;
                 }
 
-                let randomStyleRightNumbers = makeRandomNumberArray(windowWidth, restOfKrvDivs.length);
+                let randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.5, restOfKrvDivs.length);
                 
-                console.log(randomStyleRightNumbers);
+                console.log("right " + randomStyleRightNumbers);
 
-                let randomRotateNumber = makeRandomNumberArray(360, restOfKrvDivs.length)
+                let randomRotateNumber = makeUniqueRandomNumbersArray(0, 360, restOfKrvDivs.length)
 
-                console.log(randomRotateNumber);
+                console.log("rotate " + randomRotateNumber);
+
+                // Non Unique random number function
+                function makeRandomNumber(min, max, length) {
+                    let randomNumberArray = [];
+                    for (let i = 0; i < length; i++) {
+                        let randomNumber = Math.floor(Math.random() * (max - min + 1) ) + min;
+                        randomNumberArray.push(randomNumber);
+                    }
+                    return randomNumberArray;
+                };
+
+                let randomFontSizes = makeRandomNumber(1,14,restOfKrvDivs.length);
+
+                console.log("fontSizes" + randomFontSizes);
+
+                // Add styles to each div
 
                 divs.forEach((div, i) => {
-                    // console.log(div.innerHTML);
-                    div.classList.add('transform');
+                    console.log(div.innerHTML);
+                    // 50-50 if rotation gets a -(minus) or not infront of rotation number
+                    let plusOrMinus = Math.random() < 0.5;
+                    if(plusOrMinus){
+                        div.style.transform=`rotate(${randomRotateNumber[i]}deg)`;
+                    } else {
+                        div.style.transform=`rotate(-${randomRotateNumber[i]}deg)`;
+                    }
                     div.style.right=`${randomStyleRightNumbers[i]}px`;
-                    div.style.transform=`rotate(${randomRotateNumber[i]}deg) scale(100%)`;
-                });            
+                    div.style.fontSize=`${randomFontSizes[i]}rem`;
+
+                    console.log(div.style.fontSize);
+                    switch (div.style.fontSize) {
+                        case "10rem":
+                            div.style.top="-50px";
+                            break;
+                        case "9rem":
+                        case "8rem":
+                            div.style.top="-40px";
+                            break;
+                        case "7rem":
+                        case "6rem":
+                            div.style.top="-30px";
+                            break;
+                        case "5rem":
+                        case "4rem":
+                            div.style.top="-20px";
+                            break;
+                        case "3rem":
+                            div.style.top="-15px";
+                            break;
+                        default:
+                            break;
+                    }
+                });  
+                
+
+                // Pick 3 random elements from array and make them align right
+
+                function pickRandomElements(array, amount) {
+                    let randomElementsArray = [];
+                    for (let i = 0; i < amount; i++) {
+                       let randomElement = array[Math.floor(Math.random()*array.length)];
+                        if (!randomElementsArray.includes(randomElement)) {
+                            randomElementsArray.push(randomElement);
+                        } else if (randomElementsArray.includes(randomElement)) {
+                            i--;
+                        }
+                    }
+                    return randomElementsArray;
+                }
+
+                let pickedElementsToGoRight = pickRandomElements(restOfKrvDivs, 7);
+
+                console.log(pickedElementsToGoRight);
+
+                let moveYElements = makeRandomNumber(0,200, 3);
+                console.log(moveYElements);
+
+                let windowHeight = window.innerHeight;
+                console.log(windowHeight);
+
+                pickedElementsToGoRight.forEach((div, i) => {
+                    div.style.right="0px";
+                    div.style.animationDuration=".5s";
+                    div.style.top=`${moveYElements[i]}px`
+                });
+
+                
             };
 
             addEffectToRestofKrvDivs(restOfKrvDivs);
 
             // Add animation (changed) class
-            krv.classList.remove('krv-changed-back');
-            krv.classList.toggle('krv-changed');
-
-        
+            krv.classList.add('krv-changed');
+            title.classList.add('title-observed')
+     
         } else {
             // Remove animation (changed) class
             krv.classList.remove('krv-changed');
-            krv.classList.add('krv-changed-back');
+            title.classList.remove('title-observed')
+
 
             krv.innerHTML = krvInnerHTML;
         }
@@ -250,12 +330,6 @@ const titleBorderBottomObs = new IntersectionObserver(entries => {
         console.log(entry);
         titleBorder.classList.toggle("line-show", entry.isIntersecting);
         
-        // if(entry.isIntersecting) {
-        //     krv.classList.remove("krv-changed-again");
-        // } else {
-        //     krv.classList.add("krv-changed-again");
-            
-        // }
     })
 }, titleBorderBottomObsOptions);
 
