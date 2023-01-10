@@ -169,7 +169,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 }
             }
             // Call above function after Xs 
-            setTimeout(() => {addDotts(newKrvDivs)}, 1400);
+            setTimeout(() => {addDotts(newKrvDivs)}, 1600);
 
 
             // Grab rest of divs
@@ -258,7 +258,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 });  
                 
 
-                // Pick 3 random elements from array and make them align right
+                // Pick random elements from array and style them right
 
                 function pickRandomElements(array, amount) {
                     let randomElementsArray = [];
@@ -273,7 +273,10 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     return randomElementsArray;
                 }
 
-                let pickedElementsToGoRight = pickRandomElements(restOfKrvDivs, 7);
+                let half = restOfKrvDivs.length / 2;
+                console.log(half);
+
+                let pickedElementsToGoRight = pickRandomElements(restOfKrvDivs, half);
 
                 console.log(pickedElementsToGoRight);
 
@@ -285,7 +288,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
                 pickedElementsToGoRight.forEach((div, i) => {
                     div.style.right="0px";
-                    div.style.animationDuration=".5s";
+                    div.style.animationDuration=".4s";
                     div.style.top=`${moveYElements[i]}px`
                 });
 

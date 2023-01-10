@@ -116,7 +116,7 @@ body {
 }
 
 .name1-char1 {
-    animation: name1-char1-up 1.1s ease-out;
+    animation: name1-char1-up 1s ease-out;
 }
 
 @keyframes name1-char1-up {
@@ -155,7 +155,7 @@ body {
     transform: rotate(0deg);
 
     animation-name: restof-krv-divs-up;
-    animation-duration: .7s;
+    animation-duration: .8s;
     animation-timing-function: ease-out;
     /* animation: restof-krv-divs-up 5s ease-out forwards ; */
     /* transform-origin: center; */
@@ -267,14 +267,28 @@ body {
 section {
     display: grid; 
     position: relative;
-    text-align: center;
+    text-align: left;
     width: 100%;
     height: calc(100dvh - 80px);
     scroll-snap-align: end;
     color: black;
     /* border-bottom: 1px solid rgb(255, 255, 255); */
     /* grid-template-rows: 100dvh; */
-    place-items: center;
+    /* justify-content: left; */
+    align-items: center;
+    /* background-color: bisque;
+    border: 1px saddlebrown solid; */
+}
+
+.sec1 div:nth-child(odd) {
+    background-color: cornflowerblue;
+}
+
+.skills {
+    /* justify-self: flex-start; */
+    
+    font-size: 6rem;
+    background-color: aqua;
 }
 
 
