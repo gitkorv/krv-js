@@ -226,7 +226,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 // Add styles to each div
 
                 divs.forEach((div, i) => {
-                    console.log("random " + randomAnimDuration);
+                    console.log(`.${randomAnimDuration}`);
                     // Generate 50-50 chance if rotation gets a -(minus) or not in front of rotation number
                     let plusOrMinus = Math.random() < 0.5;
                     if(plusOrMinus){
@@ -236,32 +236,34 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     }
                     div.style.right=`${randomStyleRightNumbers[i]}px`;
                     div.style.fontSize=`${randomFontSizes[i]}rem`;
+                    div.style.animationDuration=`.${randomAnimDuration[i]}s`;
+
                     
 
                     // console.log(div.style.fontSize);
                     switch (div.style.fontSize) {
                         case "14rem":
-                            div.style.top="-60px";
+                            div.style.top="-80px";
                             break;
                         case "13rem":
                         case "12rem":
-                            div.style.top="-40px";
+                            div.style.top="-60px";
                             break;
                         case "11rem":
                         case "10rem":
-                            div.style.top="-30px";
+                            div.style.top="-50px";
                             break;
                         case "9rem":
                         case "8rem":
-                            div.style.top="-25px";
+                            div.style.top="-40px";
                             break;
                         case "7rem":
                         case "6rem":
-                            div.style.top="-20px";
+                            div.style.top="-30px";
                             break;
                         case "5rem":
                         case "4rem":
-                            div.style.top="-15px";
+                            div.style.top="-20px";
                             break;
                         case "3rem":
                             div.style.top="-10px";
@@ -303,7 +305,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 pickedElementsToGoRight.forEach((div, i) => {
                     div.style.right="0px";
                     div.style.top=`${moveYElements[i]}px`;
-                    div.style.animationDuration=`.3s`;
+                    // div.style.animationDuration=`.3s`;
                 });
 
                 
@@ -360,10 +362,11 @@ const titleBorderBottomObs = new IntersectionObserver(entries => {
             titleBorder.classList.add("title-border-show");
             // Get new titleSpan width
             let titleSpanStuckWidth = null;
+            // Wait .5 secs so transition font size is done
             setTimeout(() => {titleSpanStuckWidth = window.getComputedStyle(titleSpan).width}, 500);
             
             console.log(titleSpanStuckWidth);
-            // Add new title span width to title border
+            // Add new title span width to title border, again wait .5 secs
             setTimeout(() => {titleBorder.style.width = titleSpanStuckWidth}, 500);          
             // titleBorder.style.width = titleSpanStuckWidth;
         } else {
