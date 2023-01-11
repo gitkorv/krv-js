@@ -82,9 +82,7 @@ let krvTotalLength = krvArray.length;
     // console.log(firstWordArray);
 
 
-    // Grab Title Text
-    const titleText = document.querySelector(".title-text")
-console.log(titleText);
+
 // intersection observer for ${title} hitting 50% of viewport
 
 const titleOptions = { 
@@ -98,8 +96,6 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
     entries.forEach(entry => {
 
         // title.classList.toggle("title-observed", entry.isIntersecting);
-
-        titleText.classList.toggle("title-text-mod", entry.isIntersecting);
 
         titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
 
@@ -292,11 +288,11 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 }
 
                 let half = restOfKrvDivs.length / 2;
-                console.log(half);
+                // console.log(half);
 
                 let pickedElementsToGoRight = pickRandomElements(restOfKrvDivs, half);
 
-                console.log(pickedElementsToGoRight);
+                // console.log(pickedElementsToGoRight);
 
                 let moveYElements = makeRandomNumber(0,200, half);
                 console.log(moveYElements);
@@ -310,6 +306,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     div.style.animationDuration=`.3s`;
                 });
 
+                
                 
                 
             };
@@ -333,16 +330,17 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
 titleObserver.observe(title);
 
-const newKrvDivs = document.querySelectorAll('.new-krv-divs');
 
-console.log(newKrvDivs);
-// Second try to make a border bottom when sticky element is stuck
 
-const titleBorder = document.querySelector(".line");
+// Make a border bottom when sticky element is stuck
+
+const titleBorder = document.querySelector(".title-border");
 console.log(titleBorder);
 
 const titleSpan = document.querySelector(".title-span");
-console.log(titleSpan);
+let titleSpanWidth = titleSpan.offsetWidth;
+
+
 
 const titleBorderBottomObsOptions = {
     root: null,
@@ -352,10 +350,39 @@ const titleBorderBottomObsOptions = {
 
 const titleBorderBottomObs = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-        console.log(entry);
-        titleBorder.classList.toggle("line-show", entry.isIntersecting);
-        // title.classList.toggle('title-observed', entry.isIntersecting);
+        console.log("title2 " + entry.isIntersecting);
+
+        // Add class to title element
         titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
+
+        if (entry.isIntersecting) {
+            // Add class to title border
+            titleBorder.classList.add("title-border-show");
+            // Get new titleSpan width
+            let titleSpanStuckWidth = null;
+            setTimeout(() => {titleSpanStuckWidth = window.getComputedStyle(titleSpan).width}, 500);
+            
+            console.log(titleSpanStuckWidth);
+            // Add new title span width to title border
+            setTimeout(() => {titleBorder.style.width = titleSpanStuckWidth}, 500);          
+            // titleBorder.style.width = titleSpanStuckWidth;
+        } else {
+            titleBorder.style.width = "0"
+
+        }
+
+        
+        
+
+
+        
+
+        
+        
+        
+
+        
+
         
     })
 }, titleBorderBottomObsOptions);

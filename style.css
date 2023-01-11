@@ -23,34 +23,6 @@ body {
     pointer-events: none;
 }
 
-.line-wrapper {
-    position: absolute;
-    top: 0;
-    height: 80px;
-    width: 100%;
-    /* background-color: blueviolet; */
-    display: flex;
-    align-items: flex-end;
-    justify-content: start;
-    z-index: 100;
-    padding-left: 20px;
-    /* pointer-events: none; */
-}
-
-.line {
-    position: absolute;
-    width: 0%;
-    height: 1px;
-    background-color: black;
-    transition: width .75s ease-out;
-    display: none;
-
-}
-
-.line-show {
-    width: calc(100% - 40px);
-}
-
 .krv {
     position: absolute;
     top: 0;
@@ -173,6 +145,34 @@ body {
     }
 }
 
+.title-border-wrapper {
+    position: absolute;
+    top: 0;
+    height: 80px;
+    width: 100%;
+    /* background-color: blueviolet; */
+    display: flex;
+    align-items: flex-end;
+    justify-content: start;
+    z-index: 100;
+    padding-left: 20px;
+    /* pointer-events: none; */
+}
+
+.title-border {
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    background-color: black;
+    transition: width .75s ease-out;
+    /* display: none; */
+
+}
+
+.title-border-show {
+    height: 8px;
+}
+
 
 
 .main-wrapper {
@@ -195,15 +195,7 @@ body {
     /* background-color: darkcyan; */
 }
 
-/* .my-name {
-    display: none;
-    margin-top: 10px;
-    letter-spacing: .1rem;
-    transition: all 0.5s ease-out;
-    z-index: 10;
-    background-color: aquamarine;
-    text-align: center;
-} */
+
 
 .title {
     display: flex;
@@ -221,7 +213,7 @@ body {
     position: -ms-sticky;
     position: sticky;
     
-    padding: 30px 20px 14px 20px;
+    padding: 30px 20px 12px 20px;
     top: 0px;
     z-index: 10;
     opacity: 1;
@@ -230,64 +222,23 @@ body {
 .title-span {
     font-family: 'Red Hat Mono', monospace;
     position: absolute;
+    white-space: nowrap;
+
     font-size: 1.5rem;
     left: 50%;
     transform: translate(-50%, 0);
-    /* width: 400px; */
-    /* height: fit-content; */
-    white-space: nowrap;
-    text-align: center;
+    transition: transform .1s, left .1s, font-size .5s ease-out;
+    
     /* background-color: aqua; */
-    transition: all .1s ease-in;
-    /* display: flex; */
-    /* height: 2rem; */
-    /* letter-spacing: auto; */
 }
 
 .title-span-stuck {
     left: 20px;
     font-size: .6rem;
-    width: auto;
-    /* letter-spacing: 2px; */
-    /* text-align: justify;
-    text-justify: inter-character; */
     transform: translate(0, 0);
-    transition: all .6s ease-out .1s;
-    /* display: none; */
-    text-align: left;
-
-}
-/* Second title animation try, disabled for now */
-.title-text {
-    font-family: 'Red Hat Mono', monospace;
-    font-size: 1.5rem;
-    text-align: center;
-    letter-spacing: 20px;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 0);
-
-    background-color: coral;
-    z-index: 50;
-
-    pointer-events: none;
-    transition: all 1s ease-out;
-    opacity: 0;
-    display: none;
+    transition: transform 1.25s, left 2s, font-size .5s ease-out;
 }
 
-.title-text-mod {
-    font-size: .6rem;
-    letter-spacing: normal;
-    opacity: 1;
-    top: 56px;
-    left: 20px;
-    transform: translate(0, 0);
-
-    /* justify-content: flex-start; */
-}
 
 
 
