@@ -31,8 +31,9 @@ body {
     /* background-color: blueviolet; */
     display: flex;
     align-items: flex-end;
-    justify-content: center;
+    justify-content: start;
     z-index: 100;
+    padding-left: 20px;
     /* pointer-events: none; */
 }
 
@@ -41,7 +42,8 @@ body {
     width: 0%;
     height: 1px;
     background-color: black;
-    transition: width .5s ease-out;
+    transition: width .75s ease-out;
+    display: none;
 
 }
 
@@ -175,20 +177,22 @@ body {
 
 .main-wrapper {
     display: block;
-
+    position: static;
     width: 100%;
     height: 100dvh;
     overflow-y: scroll;
     overflow-x: hidden;
-    scroll-snap-type: y proximity;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 80px;
 }
 
 .home {
-    display: block;
+    display: flex;
     position: relative;
     height: 70dvh;
     scroll-snap-align: end;
     scroll-snap-stop: always;
+    /* background-color: darkcyan; */
 }
 
 /* .my-name {
@@ -203,13 +207,13 @@ body {
 
 .title {
     display: flex;
-    justify-content: center;
+    /* justify-content: stretch; */
+    align-items: flex-end;
     width: 100%;
     height: 80px;
-    font-size: 2rem;
 
-    scroll-snap-align: start;
-    /* background-color: rgb(171, 164, 164); */
+    /* scroll-snap-align: start; */
+    background-color: rgb(255, 255, 255);
     
     position: -webkit-sticky;
     position: -moz-sticky;
@@ -217,49 +221,72 @@ body {
     position: -ms-sticky;
     position: sticky;
     
-    padding: 20px 0px;
+    padding: 30px 20px 14px 20px;
     top: 0px;
     z-index: 10;
     opacity: 1;
-    transition: all .2s linear;
 }
 
-.title-observed {
-    font-size: 4rem;
-    color: white;
-    transition: all .2s linear;
-
-}
-
-
-
-.border-wrapper {
+.title-span {
+    font-family: 'Red Hat Mono', monospace;
     position: absolute;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    background-color: aqua;
-    z-index: 50;
+    font-size: 1.5rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    /* width: 400px; */
+    /* height: fit-content; */
+    white-space: nowrap;
+    text-align: center;
+    /* background-color: aqua; */
+    transition: all .1s ease-in;
+    /* display: flex; */
+    /* height: 2rem; */
+    /* letter-spacing: auto; */
 }
 
-.border-hidden {
-    width: 100%;
-    height: 80px;
-    background-color: rgb(52, 52, 52);
-    z-index: 50;
-    transition: width .5s ease-out;
+.title-span-stuck {
+    left: 20px;
+    font-size: .6rem;
+    width: auto;
+    /* letter-spacing: 2px; */
+    /* text-align: justify;
+    text-justify: inter-character; */
+    transform: translate(0, 0);
+    transition: all .6s ease-out .1s;
+    /* display: none; */
+    text-align: left;
 
 }
+/* Second title animation try, disabled for now */
+.title-text {
+    font-family: 'Red Hat Mono', monospace;
+    font-size: 1.5rem;
+    text-align: center;
+    letter-spacing: 20px;
 
-.border-show {
-    width: calc(100% - 40px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    background-color: coral;
     z-index: 50;
 
+    pointer-events: none;
+    transition: all 1s ease-out;
+    opacity: 0;
+    display: none;
+}
+
+.title-text-mod {
+    font-size: .6rem;
+    letter-spacing: normal;
+    opacity: 1;
+    top: 56px;
+    left: 20px;
+    transform: translate(0, 0);
+
+    /* justify-content: flex-start; */
 }
 
 
@@ -267,10 +294,11 @@ body {
 section {
     display: grid; 
     position: relative;
-    text-align: left;
+    text-align: center;
     width: 100%;
     height: calc(100dvh - 80px);
-    scroll-snap-align: end;
+    scroll-snap-align: start;
+
     color: black;
     /* border-bottom: 1px solid rgb(255, 255, 255); */
     /* grid-template-rows: 100dvh; */
@@ -280,15 +308,21 @@ section {
     border: 1px saddlebrown solid; */
 }
 
-.sec1 div:nth-child(odd) {
-    background-color: cornflowerblue;
+.sec1 {
+    text-align: left;
+    scroll-snap-stop: always;
+
 }
+
+/* .sec1 div:nth-child(odd) {
+    background-color: cornflowerblue;
+} */
 
 .skills {
     /* justify-self: flex-start; */
     
     font-size: 6rem;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 
 

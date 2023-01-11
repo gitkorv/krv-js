@@ -7,13 +7,13 @@
 // This below removed a class on load, no longer needed
 
     // window.onload = function() {
-    //     titleBorder.classList.remove('title-border');
+    //     titleText.classList.remove('title-text-mod');
     // };
 
     // titleBorder.classList.add('title-border')
 
     // document.onload = function () {
-    //     krv.classList.remove('krv-unobserved');
+    //     titleText.classList.remove('title-text-mod');
     // };
 
 
@@ -59,10 +59,10 @@ let krvTotalLength = krvArray.length;
 
 // First find out what each words first letter is
     const getFirstLetters = function(array) {
-    const firstLetters = array.map(word => word[0]);
+        const firstLetters = array.map(word => word[0]);
   
     return firstLetters;
-  }
+    }
   
     // console.log(getFirstLetters(krvWords));
 
@@ -81,6 +81,10 @@ let krvTotalLength = krvArray.length;
     let firstWordArray = [...krvWords[0]];
     // console.log(firstWordArray);
 
+
+    // Grab Title Text
+    const titleText = document.querySelector(".title-text")
+console.log(titleText);
 // intersection observer for ${title} hitting 50% of viewport
 
 const titleOptions = { 
@@ -95,8 +99,11 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
         // title.classList.toggle("title-observed", entry.isIntersecting);
 
+        titleText.classList.toggle("title-text-mod", entry.isIntersecting);
 
-        // console.log(entry.target, entry.isIntersecting);
+        titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
+
+        console.log(entry.target, entry.isIntersecting);
         if (entry.isIntersecting) {
             // Set krv innerHTML string to blank 
             krv.innerHTML = " ";
@@ -164,8 +171,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
             // Function for adding dots to two first letters
             function addDotts(what) {
                 for (let i = 0; i < what.length -1; i++) {
-                    what[i].innerHTML = what[i].innerHTML+".";
-                    
+                    what[i].innerHTML = what[i].innerHTML+".";                   
                 }
             }
             // Call above function after Xs 
@@ -214,15 +220,18 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     return randomNumberArray;
                 };
 
-                let randomFontSizes = makeRandomNumber(1,14,restOfKrvDivs.length);
+                let randomFontSizes = makeRandomNumber(2,14,restOfKrvDivs.length);
 
-                console.log("fontSizes" + randomFontSizes);
+                // console.log("fontSizes" + randomFontSizes);
+
+                let randomAnimDuration = makeRandomNumber(3,9,restOfKrvDivs.length);
+                // console.log("rando "+randomAnimDuration);
 
                 // Add styles to each div
 
                 divs.forEach((div, i) => {
-                    console.log(div.innerHTML);
-                    // 50-50 if rotation gets a -(minus) or not infront of rotation number
+                    console.log("random " + randomAnimDuration);
+                    // Generate 50-50 chance if rotation gets a -(minus) or not in front of rotation number
                     let plusOrMinus = Math.random() < 0.5;
                     if(plusOrMinus){
                         div.style.transform=`rotate(${randomRotateNumber[i]}deg)`;
@@ -231,26 +240,35 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     }
                     div.style.right=`${randomStyleRightNumbers[i]}px`;
                     div.style.fontSize=`${randomFontSizes[i]}rem`;
+                    
 
-                    console.log(div.style.fontSize);
+                    // console.log(div.style.fontSize);
                     switch (div.style.fontSize) {
+                        case "14rem":
+                            div.style.top="-60px";
+                            break;
+                        case "13rem":
+                        case "12rem":
+                            div.style.top="-40px";
+                            break;
+                        case "11rem":
                         case "10rem":
-                            div.style.top="-50px";
+                            div.style.top="-30px";
                             break;
                         case "9rem":
                         case "8rem":
-                            div.style.top="-40px";
+                            div.style.top="-25px";
                             break;
                         case "7rem":
                         case "6rem":
-                            div.style.top="-30px";
+                            div.style.top="-20px";
                             break;
                         case "5rem":
                         case "4rem":
-                            div.style.top="-20px";
+                            div.style.top="-15px";
                             break;
                         case "3rem":
-                            div.style.top="-15px";
+                            div.style.top="-10px";
                             break;
                         default:
                             break;
@@ -280,7 +298,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
                 console.log(pickedElementsToGoRight);
 
-                let moveYElements = makeRandomNumber(0,200, 3);
+                let moveYElements = makeRandomNumber(0,200, half);
                 console.log(moveYElements);
 
                 let windowHeight = window.innerHeight;
@@ -288,10 +306,11 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
                 pickedElementsToGoRight.forEach((div, i) => {
                     div.style.right="0px";
-                    div.style.animationDuration=".4s";
-                    div.style.top=`${moveYElements[i]}px`
+                    div.style.top=`${moveYElements[i]}px`;
+                    div.style.animationDuration=`.3s`;
                 });
 
+                
                 
             };
 
@@ -299,12 +318,12 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
             // Add animation (changed) class
             krv.classList.add('krv-changed');
-            title.classList.add('title-observed')
+            // title.classList.add('title-observed')
      
         } else {
             // Remove animation (changed) class
             krv.classList.remove('krv-changed');
-            title.classList.remove('title-observed')
+            // title.classList.remove('title-observed')
 
 
             krv.innerHTML = krvInnerHTML;
@@ -322,6 +341,9 @@ console.log(newKrvDivs);
 const titleBorder = document.querySelector(".line");
 console.log(titleBorder);
 
+const titleSpan = document.querySelector(".title-span");
+console.log(titleSpan);
+
 const titleBorderBottomObsOptions = {
     root: null,
     threshold: 0,
@@ -332,6 +354,8 @@ const titleBorderBottomObs = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         console.log(entry);
         titleBorder.classList.toggle("line-show", entry.isIntersecting);
+        // title.classList.toggle('title-observed', entry.isIntersecting);
+        titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
         
     })
 }, titleBorderBottomObsOptions);
