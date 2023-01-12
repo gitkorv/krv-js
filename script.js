@@ -171,7 +171,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 }
             }
             // Call above function after Xs 
-            setTimeout(() => {addDotts(newKrvDivs)}, 1600);
+            setTimeout(() => {addDotts(newKrvDivs)}, 0);
 
 
             // Grab rest of divs
@@ -182,7 +182,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
             // Add unique effect to each of restofKrvDivs
             function addEffectToRestofKrvDivs(divs) {
             let windowWidth = window.innerWidth;
-            console.log(windowWidth);
+            // console.log(windowWidth);
 
                 // Unique random number function
                 function makeUniqueRandomNumbersArray(min, max, length) {
@@ -198,13 +198,13 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     return uniqueRandomNumberArray;
                 }
 
-                let randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.5, restOfKrvDivs.length);
+                let randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.55, restOfKrvDivs.length);
                 
-                console.log("right " + randomStyleRightNumbers);
+                // console.log("right " + randomStyleRightNumbers);
 
                 let randomRotateNumber = makeUniqueRandomNumbersArray(0, 360, restOfKrvDivs.length)
 
-                console.log("rotate " + randomRotateNumber);
+                // console.log("rotate " + randomRotateNumber);
 
                 // Non Unique random number function
                 function makeRandomNumber(min, max, length) {
@@ -226,7 +226,8 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 // Add styles to each div
 
                 divs.forEach((div, i) => {
-                    console.log(`.${randomAnimDuration}`);
+                    // console.log(`.${randomAnimDuration}`);
+
                     // Generate 50-50 chance if rotation gets a -(minus) or not in front of rotation number
                     let plusOrMinus = Math.random() < 0.5;
                     if(plusOrMinus){
@@ -247,26 +248,26 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                             break;
                         case "13rem":
                         case "12rem":
-                            div.style.top="-60px";
+                            div.style.top="-70px";
                             break;
                         case "11rem":
                         case "10rem":
-                            div.style.top="-50px";
+                            div.style.top="-60px";
                             break;
                         case "9rem":
                         case "8rem":
-                            div.style.top="-40px";
+                            div.style.top="-50px";
                             break;
                         case "7rem":
                         case "6rem":
-                            div.style.top="-30px";
+                            div.style.top="-40px";
                             break;
                         case "5rem":
                         case "4rem":
-                            div.style.top="-20px";
+                            div.style.top="-25px";
                             break;
                         case "3rem":
-                            div.style.top="-10px";
+                            div.style.top="-20px";
                             break;
                         default:
                             break;
@@ -290,23 +291,46 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 }
 
                 let half = restOfKrvDivs.length / 2;
-                // console.log(half);
+                // console.log(Math.floor(half));
 
                 let pickedElementsToGoRight = pickRandomElements(restOfKrvDivs, half);
 
                 // console.log(pickedElementsToGoRight);
 
-                let moveYElements = makeRandomNumber(0,200, half);
-                console.log(moveYElements);
-
                 let windowHeight = window.innerHeight;
-                console.log(windowHeight);
+                // console.log(windowHeight);
+
+                let moveYElements = makeRandomNumber(0,(windowHeight/3), half);
+                // console.log(moveYElements);
+
+                
 
                 pickedElementsToGoRight.forEach((div, i) => {
-                    div.style.right="0px";
-                    div.style.top=`${moveYElements[i]}px`;
-                    // div.style.animationDuration=`.3s`;
+                    // console.log(i);
+                    
+                        if (i == 0) {
+                            // console.log(div);
+                            div.style.transform="rotate(240deg)";
+                            div.style.right="10px";
+                            div.style.top="-120px";
+                            div.style.fontSize="20rem";
+                            div.style.animationDuration="1.2s";
+                            
+                        } else {
+                            div.style.right="0px";
+                            div.style.top=`${moveYElements[i]}px`;
+                            // div.style.animationDuration=`.3s`;
+                        }
+                        
+                    
+                        
+                    
+                    
                 });
+
+                // let oneBigRightCornerLetter = pickRandomElements(pickedElementsToGoRight, 1);
+                // console.log(oneBigRightCornerLetter);
+
 
                 
                 
@@ -337,22 +361,22 @@ titleObserver.observe(title);
 // Make a border bottom when sticky element is stuck
 
 const titleBorder = document.querySelector(".title-border");
-console.log(titleBorder);
+// console.log(titleBorder);
 
 const titleSpan = document.querySelector(".title-span");
 let titleSpanWidth = titleSpan.offsetWidth;
 
 
 
-const titleBorderBottomObsOptions = {
+const titleBorderBottomObserverOptions = {
     root: null,
     threshold: 0,
     rootMargin: `0px 0px -95% 0px` 
 }
 
-const titleBorderBottomObs = new IntersectionObserver(entries => {
+const titleBorderBottomObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-        console.log("title2 " + entry.isIntersecting);
+        // console.log("title2 " + entry.isIntersecting);
 
         // Add class to title element
         titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
@@ -363,114 +387,44 @@ const titleBorderBottomObs = new IntersectionObserver(entries => {
             // Get new titleSpan width
             let titleSpanStuckWidth = null;
             // Wait .5 secs so transition font size is done
-            setTimeout(() => {titleSpanStuckWidth = window.getComputedStyle(titleSpan).width}, 500);
+            setTimeout(() => {
+                titleSpanStuckWidth = window.getComputedStyle(titleSpan).width;
+                console.log(titleSpanStuckWidth);
+                // Add new title span width to title border, again wait .5 secs
+                titleBorder.style.width = titleSpanStuckWidth;
+            }, 500);
             
-            console.log(titleSpanStuckWidth);
-            // Add new title span width to title border, again wait .5 secs
-            setTimeout(() => {titleBorder.style.width = titleSpanStuckWidth}, 500);          
-            // titleBorder.style.width = titleSpanStuckWidth;
         } else {
             titleBorder.style.width = "0"
-
         }
+    
+    })
+}, titleBorderBottomObserverOptions);
 
-        
-        
+titleBorderBottomObserver.observe(title)
 
+// Observe the skills sections
 
-        
+const skills = document.querySelectorAll(".skills")
+// console.log(skills);
 
-        
-        
-        
+const skillsObserverOptions = {
+    root: null,
+    threshold: 1,
+    rootMargin: `40px 0px -25% 0px` 
+}
 
-        
+const skillsObserver = new IntersectionObserver(entries => {
 
+    entries.forEach(entry => {
+        console.log(entry.target, entry.isIntersecting);
+        entry.target.classList.toggle("skills--show", entry.isIntersecting);
+        
         
     })
-}, titleBorderBottomObsOptions);
-
-titleBorderBottomObs.observe(title)
+},skillsObserverOptions);
 
 
-
-
-
-
-
-
-// Observe section 1, and when in view, underline sticky title element
-
-    // Grab all sections
-    // const allSections = document.querySelectorAll('.section');
-    // console.log(allSections);
-
-    // const sectionsObserverOptions = { 
-    // root: null,
-    // threshold: .5,
-    // rootMargin: "20px" 
-    // };
-
-    // const sectionsObserver = new IntersectionObserver(function(entries, secOneObserver) {
-
-    //     entries.forEach(entry => {
-    //         console.log(entry.target, entry.isIntersecting);
-    //         if (entry.isIntersecting) {
-    //             title.style.borderBottom= "1px solid black";
-    //         } else {
-    //             title.style.borderBottom="none"
-    //         }
-    //     })
-
-        
-
-    // }, sectionsObserverOptions);
-
-    // allSections.forEach(section => {
-    //     sectionsObserver.observe(section);
-    // })
-
-    
-
-
-
-
-
-
-// Old stuff below
-
-// OBSERVER FOR SECTIONS AND STICKY HEADER BORDER BOTTOM CLASS
-
-// const sections = document.querySelectorAll('section');
-
-// console.log(sections);
-
-// const sectionOptions = { 
-//     root: null,
-//     threshold: 0,
-//     rootMargin: "0px 0px -90% 0px" 
-// };
-
-// const sectionObserver = new IntersectionObserver(function(entries, sectionObserver) {
-//     console.log(entries, entries.isIntersecting);
-
-//         if(entry[0].isIntersecting || entry[1].isIntersecting || entry[2].isIntersecting) {
-//             title.classList.add('title-underline');
-            
-//         } else {
-//             title.classList.remove('title-underline');
-            
-
-//         }
-
-
-// }, sectionOptions);
-
-// sections.forEach(section => {
-//     sectionObserver.observe(section);
-// });
-
-
-// let titleRect = title.getBoundingClientRect().top;
-
-// console.log(titleRect);
+skills.forEach(skill => {
+    skillsObserver.observe(skill)
+})
