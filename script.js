@@ -100,6 +100,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
         titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
 
         console.log(entry.target, entry.isIntersecting);
+
         if (entry.isIntersecting) {
             // Set krv innerHTML string to blank 
             krv.innerHTML = " ";
@@ -408,23 +409,21 @@ titleBorderBottomObserver.observe(title)
 const skills = document.querySelectorAll(".skills")
 // console.log(skills);
 
-const skillsObserverOptions = {
-    root: null,
-    threshold: 1,
-    rootMargin: `40px 0px -25% 0px` 
-}
+// const skillsObserverOptions = {
+//     root: null,
+//     threshold: 1,
+//     rootMargin: `40px 0px -25% 0px` 
+// }
 
-const skillsObserver = new IntersectionObserver(entries => {
+// const skillsObserver = new IntersectionObserver(entries => {
+//     entries.forEach(entry => {
+//         console.log(entry.target, entry.isIntersecting);
+//         entry.target.classList.toggle("skills--show", entry.isIntersecting);
+//     })
 
-    entries.forEach(entry => {
-        console.log(entry.target, entry.isIntersecting);
-        entry.target.classList.toggle("skills--show", entry.isIntersecting);
-        
-        
-    })
-},skillsObserverOptions);
+// },skillsObserverOptions);
 
 
-skills.forEach(skill => {
-    skillsObserver.observe(skill)
-})
+// skills.forEach(skill => {
+//     skillsObserver.observe(skill)
+// })
