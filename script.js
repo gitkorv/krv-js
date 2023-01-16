@@ -111,6 +111,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 // console.log(krvWords[0]);
                 let lowerCaseChar = character.toLowerCase();
 
+                //  GOT A STRANGE + SIGN HERE BELOW??? AFTER: i >=
                 if(i >= + krvTotalLength - krvWords[2].length) {
                     let nameClass = "lastName";
                     krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
@@ -168,7 +169,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
             // Function for adding dots to two first letters
             function addDotts(what) {
                 for (let i = 0; i < what.length -1; i++) {
-                    what[i].innerHTML = what[i].innerHTML+".";                   
+                    what[i].innerHTML = what[i].innerHTML+`<div class="krv__dotts krv__dott${i+1}">.</div>`;                   
                 }
             }
             // Call above function after Xs 

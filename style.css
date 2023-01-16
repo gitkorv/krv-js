@@ -74,9 +74,10 @@ body {
 
     /* background-color: aqua; */
 
-    animation: krv-divs-up 1.4s ease-out forwards ;
+    /* animation: krv-divs-up 1.4s ease-out forwards ; */
     /* border: 1px solid red; */
     transform-origin: center;
+    display: flex;
 
 }
 
@@ -114,6 +115,42 @@ body {
         left: 50%;
         transform: rotate(-180deg) translate3d(150px, -200px, 0);
         transform-origin: center;
+    }
+}
+
+.name3-char1 {
+    margin-left: -2px;
+
+    animation: name3-char1-up 1.2s ease-out;
+}
+
+@keyframes name3-char1-up {
+    from {
+        font-size: 10rem;
+        top: 50%;
+        left: 40%;
+        transform: rotate(360deg) translate3d(-80px, 50px, 0);
+    }
+}
+
+.krv__dott1 {
+    margin-left: -2px;
+}
+
+.krv__dott2 {
+    margin-left: -4px;
+    /* position: relative; */
+    animation: krv__dott1-up 1.5s ease-out;
+    /* background-color: aqua; */
+}
+
+@keyframes krv__dott1-up {
+    from {
+        font-size: 10rem;
+        top: -300%;
+        left: 50%;
+        /* transform: rotate(0deg) translate3d(-200, 200, 0); */
+        
     }
 }
 
@@ -224,19 +261,22 @@ body {
     position: absolute;
     white-space: nowrap;
 
-    font-size: 1.5rem;
+    font-size: .6rem;
     left: 50%;
-    transform: translate(-50%, 0);
-    transition: transform .1s, left .5s, font-size .5s ease-in-out;
+    transform: translate(-50%, 0) scale(300%);
+    transition: transform .6s, left .6s ease-out;
+    transform-origin: center;
     
     /* background-color: aqua; */
 }
 
 .title-span-stuck {
     left: 20px;
-    font-size: .6rem;
-    transform: translate(0, 0);
-    transition: transform 1s, left 1.6s, font-size .5s ease-in;
+    /* font-size: 1.5rem; */
+    transform: translate(0, 0) scale(100%);
+    transition: transform 1.2s, left 1.6s, font-size .5s ease-in;
+    /* background-color: aqua; */
+
 }
 
 
