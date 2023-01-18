@@ -119,7 +119,7 @@ body {
 }
 
 .name3-char1 {
-    margin-left: -2px;
+    margin-left: -.15rem;
 
     animation: name3-char1-up 1.2s ease-out;
 }
@@ -134,11 +134,11 @@ body {
 }
 
 .krv__dott1 {
-    margin-left: -2px;
+    margin-left: -.1rem;
 }
 
 .krv__dott2 {
-    margin-left: -4px;
+    margin-left: -.15rem;
     /* position: relative; */
     animation: krv__dott1-up 1.5s ease-out;
     /* background-color: aqua; */
@@ -326,7 +326,7 @@ section:nth-child(odd) {
     align-items: stretch;
     justify-content: center;
     /* background-color: coral; */
-    text-align: left;
+    text-align: center;
     padding: 0px 20px;
 }
 
@@ -338,6 +338,10 @@ section:nth-child(odd) {
 .skills--show--2 {
     transition-delay: 1s;
 } */
+
+.skills .website {
+    margin-left: 26px;
+}
 
 
 .skills span {

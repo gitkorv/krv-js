@@ -85,7 +85,7 @@ let krvTotalLength = krvArray.length;
 
 // intersection observer for ${title} hitting 50% of viewport
 
-const titleOptions = { 
+const titleObserverOptions = { 
     root: null,
     threshold: 0,
     rootMargin: "0px 0px -50% 0px" 
@@ -111,8 +111,8 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 // console.log(krvWords[0]);
                 let lowerCaseChar = character.toLowerCase();
 
-                //  GOT A STRANGE + SIGN HERE BELOW??? AFTER: i >=
-                if(i >= + krvTotalLength - krvWords[2].length) {
+                //  GOT A STRANGE + SIGN HERE BELOW??? AFTER: i >= (taken out)
+                if(i >= krvTotalLength - krvWords[2].length) {
                     let nameClass = "lastName";
                     krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
                 }
@@ -183,8 +183,8 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
             // Add unique effect to each of restofKrvDivs
             function addEffectToRestofKrvDivs(divs) {
-            let windowWidth = window.innerWidth;
-            // console.log(windowWidth);
+                let windowWidth = window.innerWidth;
+                // console.log(windowWidth);
 
                 // Unique random number function
                 function makeUniqueRandomNumbersArray(min, max, length) {
@@ -200,8 +200,25 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     return uniqueRandomNumberArray;
                 }
 
-                let randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.55, restOfKrvDivs.length);
+                // Set different spread of top letters depending on window width
+
+                let randomStyleRightNumbers = [];
+
+                if (windowWidth < 400) {
+                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.4, restOfKrvDivs.length);
+                }   else if (windowWidth < 500) {
+                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.55, restOfKrvDivs.length);
+                }   else if (windowWidth < 750) {
+                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.65, restOfKrvDivs.length);
+                }   else {
+                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.75, restOfKrvDivs.length);
+
+                }
                 
+                
+                
+                
+                console.log(windowWidth);
                 // console.log("right " + randomStyleRightNumbers);
 
                 let randomRotateNumber = makeUniqueRandomNumbersArray(0, 360, restOfKrvDivs.length)
@@ -354,7 +371,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
             krv.innerHTML = krvInnerHTML;
         }
     });
-}, titleOptions);
+}, titleObserverOptions);
 
 titleObserver.observe(title);
 
@@ -391,7 +408,7 @@ const titleBorderBottomObserver = new IntersectionObserver(entries => {
             // Wait .5 secs so transition font size is done
             setTimeout(() => {
                 titleSpanStuckWidth = window.getComputedStyle(titleSpan).width;
-                console.log(titleSpanStuckWidth);
+                // console.log(titleSpanStuckWidth);
                 // Add new title span width to title border, again wait .5 secs
                 titleBorder.style.width = titleSpanStuckWidth;
             }, 500);
