@@ -380,7 +380,7 @@ const rect = canvas.getBoundingClientRect();
 
 // ctx.fillStyle = "rgba(50, 100, 0, .8)";
 ctx.fillStyle = "black";
-ctx.strokeStyle = "orange";
+ctx.strokeStyle = "white";
 ctx.lineWidth = 10;
 
 
