@@ -237,7 +237,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 function makeRandomAnimDuration(length) {
                     let randomAnimDurationArray2 = [];
                     for (let i = 0; i < length; i++) {
-                        let animDur = Math.floor(Math.random() * 20) /10;
+                        let animDur = Math.floor(Math.random() * 20) / 10;
                         randomAnimDurationArray2.push(animDur);
                     }
                     return randomAnimDurationArray2;
@@ -380,8 +380,8 @@ const rect = canvas.getBoundingClientRect();
 
 // ctx.fillStyle = "rgba(50, 100, 0, .8)";
 ctx.fillStyle = "black";
-ctx.strokeStyle = "black";
-ctx.lineWidth = 20;
+ctx.strokeStyle = "orange";
+ctx.lineWidth = 10;
 
 
 class Ball {
