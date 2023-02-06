@@ -183,7 +183,7 @@ body {
 
 .contrast {
     filter: contrast(40);
-    background-color: rgb(0, 255, 225);
+    background-color: rgb(0, 255, 255);
 }
 
 canvas {
@@ -230,7 +230,7 @@ canvas {
     position: -ms-sticky;
     position: sticky;
     
-    padding: 30px 20px 8px 20px;
+    padding: 0px 20px 8px 20px;
     top: 0px;
     z-index: 10;
     opacity: 1;
@@ -246,7 +246,7 @@ canvas {
     transform: translate(-50%, 0) scale(300%);
     transition: transform .6s, left .6s ease-out;
     transform-origin: center;
-    color: green;
+    color: white;
     
     /* background-color: aqua; */
 }
@@ -286,13 +286,13 @@ section {
     display: flex;
     position: absolute;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     /* background-color: coral; */
     color: white;
     text-align: center;
-    padding: 0px 80px;
-    /* mix-blend-mode: difference; */
+    padding: 0px 20px;
+    mix-blend-mode: difference;
     /* filter: hue-rotate(180deg); */
 }
 
@@ -302,14 +302,14 @@ section {
     font-family: 'Red Hat Mono', monospace;
     font-size: 1rem;
     line-height: 1.5rem;
-    /* margin-bottom: -10px; */
+    margin-bottom: -5px;
 }
 
 .under-const span {
     display: block;
     position: relative;
     font-size: 3rem;
-    margin-bottom: -14px;
+    margin-bottom: -10px;
 }
 
 

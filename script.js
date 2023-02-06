@@ -199,7 +199,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     return uniqueRandomNumberArray;
                 }
 
-                // Set different spread of top letters depending on window width
+                // Set different values depending on window width
 
                 let randomStyleRightNumbers = [];
 
@@ -211,11 +211,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.65, restOfKrvDivs.length);
                 }   else {
                     randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.75, restOfKrvDivs.length);
-
                 }
-                
-                
-                
                 
                 console.log(windowWidth);
                 // console.log("right " + randomStyleRightNumbers);
@@ -238,11 +234,20 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
                 console.log("fontSizes " + randomFontSizes);
 
+                function makeRandomAnimDuration(length) {
+                    let randomAnimDurationArray2 = [];
+                    for (let i = 0; i < length; i++) {
+                        let animDur = Math.floor(Math.random() * 20) /10;
+                        randomAnimDurationArray2.push(animDur);
+                    }
+                    return randomAnimDurationArray2;
+                }
+
+                console.log("this " +makeRandomAnimDuration(restOfKrvDivs.length));
 
 
-
-                let randomAnimDuration = makeRandomNumber(0.7,1.2,restOfKrvDivs.length);
-                console.log(randomAnimDuration);
+                let randomAnimDuration = makeRandomAnimDuration(restOfKrvDivs.length);
+                // console.log(randomAnimDuration);
 
                 // Add styles to each div
 
@@ -316,7 +321,6 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 // console.log(Math.floor(half));
 
                 let pickedElementsToGoRight = pickRandomElements(restOfKrvDivs, half);
-
                 // console.log(pickedElementsToGoRight);
 
                 let windowHeight = window.innerHeight;
@@ -324,8 +328,6 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
                 let moveYElements = makeRandomNumber(0,(windowHeight/3), half);
                 // console.log(moveYElements);
-
-                
 
                 pickedElementsToGoRight.forEach((div, i) => {
                     // console.log(i);
@@ -336,28 +338,15 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                             div.style.right="10px";
                             div.style.top="-120px";
                             div.style.fontSize="20rem";
-                            div.style.animationDuration="1.2s";
+                            div.style.animationDuration=".4s";
                             
                         } else {
                             div.style.right="0px";
                             div.style.top=`${moveYElements[i]}px`;
                             // div.style.animationDuration=`.3s`;
-                        }
-                        
-                    
-                        
-                    
-                    
+                        }                       
                 });
-
-                // let oneBigRightCornerLetter = pickRandomElements(pickedElementsToGoRight, 1);
-                // console.log(oneBigRightCornerLetter);
-
-
-                
-
-                
-                
+  
             };
 
             addEffectToRestofKrvDivs(restOfKrvDivs);
@@ -513,28 +502,5 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
 
 krvBorderBottomObserver.observe(title)
 
-// Observe the skills sections
-
-const skills = document.querySelectorAll(".skills")
-// console.log(skills);
-
-// const skillsObserverOptions = {
-//     root: null,
-//     threshold: 1,
-//     rootMargin: `40px 0px -25% 0px` 
-// }
-
-// const skillsObserver = new IntersectionObserver(entries => {
-//     entries.forEach(entry => {
-//         console.log(entry.target, entry.isIntersecting);
-//         entry.target.classList.toggle("skills--show", entry.isIntersecting);
-//     })
-
-// },skillsObserverOptions);
-
-
-// skills.forEach(skill => {
-//     skillsObserver.observe(skill)
-// })
 
 
