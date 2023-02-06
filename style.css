@@ -188,7 +188,7 @@ body {
 
 canvas {
     display: block;
-    filter: blur(10px) ;
+    filter: blur(20px) ;
     z-index: -20;
 }
 
