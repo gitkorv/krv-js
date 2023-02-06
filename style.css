@@ -11,6 +11,7 @@ body.preload * {
 
 body {
     scroll-behavior: smooth;
+    background-color: black;
 }
 
 .logo-wrapper {
@@ -21,6 +22,7 @@ body {
     width: 100%;
     height: 100dvh;
     pointer-events: none;
+    /* background-color: black; */
 }
 
 .krv {
@@ -33,7 +35,6 @@ body {
 
     width: 100%;
     height: 70dvh;
-    /* background-color: aqua; */
     font-size: 6rem;
     line-height: 5rem;
     text-align: center;
@@ -41,44 +42,29 @@ body {
     padding-bottom: 0;
     z-index: 20;    
     transition: all .2s ease-out ;
-
-    /* pointer-events: none; */
-    /* transform: scale(50%); */
+    color: white;
+    mix-blend-mode: difference;
 }
 
 
 .krv-changed {
-    /* background-color: brown; */
     display: flex;
     justify-content: left;
     align-items: start;
     text-align: left;
     padding-bottom: 70dvh;
     font-size: 1rem;
-    /* line-height: 1rem; */
-    /* width: auto; */
 }
 
 .new-krv-divs {
     font-size: 2rem;
     line-height: normal;
-    /* height: 80px; */
     top: 20px;
     left: 20px;
-    /* width: 100%; */
-    /* height: 160px; */
     position: relative;
-    /* display: flex; */
-
     transform: rotate(0deg) translate3d(0, 0, 0);
-
-    /* background-color: aqua; */
-
-    /* animation: krv-divs-up 1.4s ease-out forwards ; */
-    /* border: 1px solid red; */
     transform-origin: center;
     display: flex;
-
 }
 
 @keyframes krv-divs-up {
@@ -139,9 +125,7 @@ body {
 
 .krv__dott2 {
     margin-left: -.15rem;
-    /* position: relative; */
     animation: krv__dott1-up 1.5s ease-out;
-    /* background-color: aqua; */
 }
 
 @keyframes krv__dott1-up {
@@ -149,12 +133,9 @@ body {
         font-size: 10rem;
         top: -300%;
         left: 50%;
-        /* transform: rotate(0deg) translate3d(-200, 200, 0); */
-        
     }
 }
 
-    
 .restof-krv-divs {
     font-size: 2rem;
     line-height: normal;
@@ -168,9 +149,6 @@ body {
     animation-name: restof-krv-divs-up;
     animation-duration: .8s;
     animation-timing-function: ease-out;
-    /* animation: restof-krv-divs-up 5s ease-out forwards ; */
-    /* transform-origin: center; */
-
 }
 
 @keyframes restof-krv-divs-up {
@@ -182,35 +160,37 @@ body {
     }
 }
 
-.title-border-wrapper {
+.krv-border-wrapper {
     position: absolute;
     top: 0;
     height: 80px;
     width: 100%;
-    /* background-color: blueviolet; */
     display: flex;
     align-items: flex-end;
     justify-content: start;
     z-index: 100;
     padding-left: 20px;
-    /* pointer-events: none; */
+    mix-blend-mode: difference;
 }
 
-.title-border {
+.krv-border {
     position: absolute;
     width: 0%;
     height: 1px;
-    background-color: black;
+    background-color: white;
     transition: width .75s ease-out;
-    /* display: none; */
-
 }
 
-/* .title-border-show {
-    height: 1px;
-} */
+.contrast {
+    filter: contrast(40);
+    background-color: rgb(0, 255, 225);
+}
 
-
+canvas {
+    display: block;
+    filter: blur(20px) ;
+    z-index: -20;
+}
 
 .main-wrapper {
     display: block;
@@ -220,7 +200,7 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     scroll-snap-type: y mandatory;
-    scroll-padding-top: 80px;
+    /* scroll-padding-top: 80px; */
 }
 
 .home {
@@ -242,7 +222,7 @@ body {
     height: 80px;
 
     /* scroll-snap-align: start; */
-    background-color: rgb(255, 255, 255);
+    /* background-color: rgb(255, 255, 255); */
     
     position: -webkit-sticky;
     position: -moz-sticky;
@@ -266,6 +246,7 @@ body {
     transform: translate(-50%, 0) scale(300%);
     transition: transform .6s, left .6s ease-out;
     transform-origin: center;
+    color: green;
     
     /* background-color: aqua; */
 }
@@ -289,15 +270,8 @@ section {
     justify-content: center; 
     position: relative;
     width: 100%;
-    height: calc(100dvh - 80px);
+    height: 100%;
     scroll-snap-align: start;
-
-    color: black;
-    /* border-bottom: 1px solid rgb(255, 255, 255); */
-    /* grid-template-rows: 100dvh; */
-    /* justify-content: left; */
-    /* background-color: bisque;
-    border: 1px saddlebrown solid; */
 }
 
 .sec1 {
@@ -305,111 +279,42 @@ section {
 
 }
 
-/* .sec1 div:nth-child(odd) {
-    background-color: cornflowerblue;
-} */
 
-/* section:nth-child(even){
-    background-color: rgb(215, 215, 215);
-}
-
-section:nth-child(odd) {
-    background-color: rgb(96, 96, 96);
-} */
-
-.skills {
+.under-const {
     height: auto;
     width: 100%;
     display: flex;
-    position: relative;
+    position: absolute;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     justify-content: center;
     /* background-color: coral; */
+    color: white;
     text-align: center;
-    padding: 0px 20px;
+    padding: 0px 80px;
+    /* mix-blend-mode: difference; */
+    /* filter: hue-rotate(180deg); */
 }
 
-/* .skills--show {
-    opacity: 1;
-    width: 100%;
-}
-
-.skills--show--2 {
-    transition-delay: 1s;
-} */
-
-
-
-
-.skills span {
+.under-const p {
     display: block;
     position: relative;
-    font-size: 5rem;
-    margin-bottom: -18px;
-    /* text-align: center; */
-    /* background-color: cornflowerblue; */
-    /* mix-blend-mode: multiply; */
-}
-
-.skills p {
-    display: block;
-    position: relative;
-    /* align-items: flex-end; */
     font-family: 'Red Hat Mono', monospace;
-    /* background-color: rgb(130, 128, 128); */
-    /* mix-blend-mode: screen; */
-    font-size: 1.5rem;
+    font-size: 1rem;
     line-height: 1.5rem;
-    margin-bottom: -30px;
+    /* margin-bottom: -10px; */
 }
 
-.skills .underconst {
+.under-const span {
+    display: block;
+    position: relative;
     font-size: 3rem;
-    line-height: 2.5rem;
-
+    margin-bottom: -14px;
 }
 
-.skills .website {
-    /* margin-left: 26px; */
-    margin-bottom: 0;
-    line-height: 2rem;
 
-}
 
-.skills .skills__designer {
-    text-align: right;
-    right: 110px;
-}
 
-.skills .skills__a {
-    text-align: right;
-    right: 275px;
-}
-
-.skills .skills__turned {
-    text-align: right;
-    right: 70px;
-}
-
-.skills .skills__developer {
-    text-align: right;
-}
-
-.skills .skills__andor {
-    left: 92px;
-}
-
-.skills .skills__gone {
-    left: 170px;
-}
-
-.skills .skills__coder {
-    left: 140px;
-}
-
-.skills .skills__dad {
-left: 200px;}
 
 
 

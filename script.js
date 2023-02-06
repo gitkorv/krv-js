@@ -10,7 +10,7 @@
     //     titleText.classList.remove('title-text-mod');
     // };
 
-    // titleBorder.classList.add('title-border')
+    // titleBorder.classList.add('krv-border')
 
     // document.onload = function () {
     //     titleText.classList.remove('title-text-mod');
@@ -47,7 +47,6 @@ let krvTotalLength = krvArray.length;
 
 // Grab more elements from page
     const title = document.querySelector('.title');
-    const myName = document.querySelector('.my-name');
     const sec1 = document.querySelector('.sec1');
 
 // Find out how many letters each word is
@@ -99,7 +98,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
         titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
 
-        console.log(entry.target, entry.isIntersecting);
+        // console.log(entry.target, entry.isIntersecting);
 
         if (entry.isIntersecting) {
             // Set krv innerHTML string to blank 
@@ -112,7 +111,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 let lowerCaseChar = character.toLowerCase();
 
                 //  GOT A STRANGE + SIGN HERE BELOW??? AFTER: i >= (taken out)
-                if(i >= krvTotalLength - krvWords[2].length) {
+                if(i > krvTotalLength - krvWords[2].length) {
                     let nameClass = "lastName";
                     krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
                 }
@@ -221,7 +220,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 console.log(windowWidth);
                 // console.log("right " + randomStyleRightNumbers);
 
-                let randomRotateNumber = makeUniqueRandomNumbersArray(0, 360, restOfKrvDivs.length)
+                let randomRotateNumber = makeUniqueRandomNumbersArray(0, 540, restOfKrvDivs.length)
 
                 // console.log("rotate " + randomRotateNumber);
 
@@ -237,16 +236,20 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
                 let randomFontSizes = makeRandomNumber(2,14,restOfKrvDivs.length);
 
-                // console.log("fontSizes" + randomFontSizes);
+                console.log("fontSizes " + randomFontSizes);
 
-                let randomAnimDuration = makeRandomNumber(3,9,restOfKrvDivs.length);
-                // console.log("rando "+randomAnimDuration);
+
+
+
+                let randomAnimDuration = makeRandomNumber(0.7,1.2,restOfKrvDivs.length);
+                console.log(randomAnimDuration);
 
                 // Add styles to each div
 
                 divs.forEach((div, i) => {
-                    // console.log(`.${randomAnimDuration}`);
 
+                    // console.log(`.${randomAnimDuration}`);
+                    // console.log(randomAnimDuration2);
                     // Generate 50-50 chance if rotation gets a -(minus) or not in front of rotation number
                     let plusOrMinus = Math.random() < 0.5;
                     if(plusOrMinus){
@@ -256,7 +259,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     }
                     div.style.right=`${randomStyleRightNumbers[i]}px`;
                     div.style.fontSize=`${randomFontSizes[i]}rem`;
-                    div.style.animationDuration=`.${randomAnimDuration[i]}s`;
+                    div.style.animationDuration=`${randomAnimDuration[i]}s`;
 
                     
 
@@ -352,6 +355,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
 
                 
+
                 
                 
             };
@@ -376,10 +380,96 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 titleObserver.observe(title);
 
 
+// meta balls start here
+
+const canvas = document.getElementById("canvas1");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+const rect = canvas.getBoundingClientRect();
+// let grd = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
+
+// ctx.fillStyle = "rgba(50, 100, 0, .8)";
+ctx.fillStyle = "black";
+ctx.strokeStyle = "black";
+ctx.lineWidth = 20;
+
+
+class Ball {
+    constructor(effect) {
+        this.effect = effect;
+        this.x = this.effect.width * 0.5;
+        this.y = this.effect.height * 0.57;
+        this.radius = Math.random() * 80 + 20;
+        this.speedX = Math.random() - 0.5;
+        this.speedY = Math.random() - 0.5;
+    }
+    update(){
+        if (this.x < this.radius || this.x > this.effect.width - this.radius) this.speedX *= -1;
+        if (this.y < this.radius || this.y > this.effect.height - this.radius) this.speedY *= -1;
+        this.x += this.speedX;
+        this.y += this.speedY;
+    }
+    draw(context){
+        context.beginPath();
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        context.fill();
+        context.stroke();
+    }
+    reset(){
+        this.x = this.effect.width * 0.5;
+        this.y = this.effect.height * 0.5;
+    }
+}
+
+class MetaballsEffect {
+    constructor(width, height){
+        this.width = width;
+        this.height = height;
+        this.metaballsArray = [];
+    }
+    init(numberOfBalls){
+        for (let i = 0; i < numberOfBalls; i++) {
+            this.metaballsArray.push(new Ball(this));   
+        }
+    }
+    update(){
+        this.metaballsArray.forEach(metaball => metaball.update());
+    }
+    draw(context){
+        this.metaballsArray.forEach(metaball => metaball.draw(context));
+    }
+    reset(newWidth, newHeight){
+        this.width = newWidth;
+        this.height = newHeight;
+        this.metaballsArray.forEach(metaball => metaball.reset());
+    }
+}
+
+const effect = new MetaballsEffect(canvas.width, canvas.height);
+effect.init(20);
+
+function animateMetaballs(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    effect.update();
+    effect.draw(ctx);
+    requestAnimationFrame(animateMetaballs);
+}
+animateMetaballs();
+
+
+
+window.addEventListener('resize', function() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.fillStyle = 'black';
+    effect.reset(canvas.width, canvas.height);
+} )
+
 
 // Make a border bottom when sticky element is stuck
 
-const titleBorder = document.querySelector(".title-border");
+const krvBorder = document.querySelector(".krv-border");
 // console.log(titleBorder);
 
 const titleSpan = document.querySelector(".title-span");
@@ -387,13 +477,13 @@ let titleSpanWidth = titleSpan.offsetWidth;
 
 
 
-const titleBorderBottomObserverOptions = {
+const krvBorderBottomObserverOptions = {
     root: null,
     threshold: 0,
     rootMargin: `0px 0px -95% 0px` 
 }
 
-const titleBorderBottomObserver = new IntersectionObserver(entries => {
+const krvBorderBottomObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         // console.log("title2 " + entry.isIntersecting);
 
@@ -402,7 +492,7 @@ const titleBorderBottomObserver = new IntersectionObserver(entries => {
 
         if (entry.isIntersecting) {
             // Add class to title border
-            titleBorder.classList.add("title-border-show");
+            krvBorder.classList.add("krv-border-show");
             // Get new titleSpan width
             let titleSpanStuckWidth = null;
             // Wait .5 secs so transition font size is done
@@ -410,17 +500,18 @@ const titleBorderBottomObserver = new IntersectionObserver(entries => {
                 titleSpanStuckWidth = window.getComputedStyle(titleSpan).width;
                 // console.log(titleSpanStuckWidth);
                 // Add new title span width to title border, again wait .5 secs
-                titleBorder.style.width = titleSpanStuckWidth;
+                krvBorder.style.width = titleSpanStuckWidth;
             }, 500);
             
         } else {
-            titleBorder.style.width = "0"
+            
+            krvBorder.style.width = "0"
         }
     
     })
-}, titleBorderBottomObserverOptions);
+}, krvBorderBottomObserverOptions);
 
-titleBorderBottomObserver.observe(title)
+krvBorderBottomObserver.observe(title)
 
 // Observe the skills sections
 
@@ -445,3 +536,5 @@ const skills = document.querySelectorAll(".skills")
 // skills.forEach(skill => {
 //     skillsObserver.observe(skill)
 // })
+
+
