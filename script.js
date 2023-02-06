@@ -379,7 +379,7 @@ const rect = canvas.getBoundingClientRect();
 // let grd = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
 
 // ctx.fillStyle = "rgba(50, 100, 0, .8)";
-ctx.fillStyle = "red";
+ctx.fillStyle = "orange";
 ctx.strokeStyle = "white";
 ctx.lineWidth = 10;
 
