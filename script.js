@@ -216,7 +216,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 console.log(windowWidth);
                 // console.log("right " + randomStyleRightNumbers);
 
-                let randomRotateNumber = makeUniqueRandomNumbersArray(0, 540, restOfKrvDivs.length)
+                let randomRotateNumber = makeUniqueRandomNumbersArray(0, 360, restOfKrvDivs.length)
 
                 // console.log("rotate " + randomRotateNumber);
 
@@ -338,7 +338,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                             div.style.right="10px";
                             div.style.top="-120px";
                             div.style.fontSize="20rem";
-                            div.style.animationDuration=".4s";
+                            div.style.animationDuration="1.4s";
                             
                         } else {
                             div.style.right="0px";

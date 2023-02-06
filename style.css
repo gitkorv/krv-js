@@ -249,8 +249,6 @@ canvas {
     transition: transform .6s, left .6s ease-out;
     transform-origin: center;
     color: rgb(255, 255, 0);
-    
-    /* background-color: aqua; */
 }
 
 .title-span-stuck {
@@ -293,21 +291,36 @@ section {
     /* filter: hue-rotate(180deg); */
 }
 
-.under-const p {
+.website {
     display: block;
     position: relative;
     font-family: 'Red Hat Mono', monospace;
     font-size: 1rem;
     line-height: 1.5rem;
     margin-bottom: -5px;
+
 }
 
-.under-const span {
+.always {
+    color: rgb(255, 255, 0);
+    animation: flash 5s ease-in infinite alternate;
+}
+
+.underconst {
     display: block;
     position: relative;
     font-size: 3rem;
     margin-bottom: -10px;
 }
+
+@keyframes flash {
+    from {
+        filter: hue-rotate(360deg);
+    }
+    
+}
+
+
 
 
 
