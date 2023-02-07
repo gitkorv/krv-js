@@ -182,13 +182,22 @@ body {
 
 .contrast {
     filter: contrast(30);
-    background-color: rgb(0, 255, 255);
+    background-color: rgb(110, 180, 50);
+    /* animation: grow 5s linear; */
+
 }
 
 canvas {
     display: block;
     filter: blur(10px);
     z-index: -20;
+}
+
+@keyframes grow {
+    from {
+        scale: 10%;
+    }
+
 }
 
 .main-wrapper {

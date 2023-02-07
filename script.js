@@ -388,16 +388,43 @@ class Ball {
     constructor(effect) {
         this.effect = effect;
         this.x = this.effect.width * 0.5;
-        this.y = this.effect.height * 0.57;
+        this.y = this.effect.height * 0.6;
+        // this.x = Math.random() * this.effect.width;
+        // this.y = Math.random() * this.effect.height;
         this.radius = Math.random() * 80 + 20;
+        console.log(this.radius);
         this.speedX = Math.random() - 0.5;
         this.speedY = Math.random() - 0.5;
+        // this.flex = Math.random()- 0.5 ; 
+        // this.flex = .5;
+        // this.index = 0;
+        // console.log(this.flex * 0.5);
     }
     update(){
         if (this.x < this.radius || this.x > this.effect.width - this.radius) this.speedX *= -1;
         if (this.y < this.radius || this.y > this.effect.height - this.radius) this.speedY *= -1;
         this.x += this.speedX;
         this.y += this.speedY;
+        // this.index++
+        // console.log(this.index);
+
+        // for (let i = 0; i < 200; i++) {
+        //     this.radius += this.flex * 0.5;
+        //     // console.log(i);
+        // }
+
+
+        // One in x generator
+        // this.lottoRadius = Math.random() * 500;
+
+        // if (this.index <= 200) {
+        //     this.radius = this.radius;
+        // } else {
+        //     this.radius += this.flex;
+        // }
+            
+
+        
     }
     draw(context){
         context.beginPath();
