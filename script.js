@@ -199,27 +199,6 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     return uniqueRandomNumberArray;
                 }
 
-                // Set different values depending on window width
-
-                let randomStyleRightNumbers = [];
-
-                if (windowWidth < 400) {
-                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.4, restOfKrvDivs.length);
-                }   else if (windowWidth < 500) {
-                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.55, restOfKrvDivs.length);
-                }   else if (windowWidth < 750) {
-                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.65, restOfKrvDivs.length);
-                }   else {
-                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.75, restOfKrvDivs.length);
-                }
-                
-                console.log(windowWidth);
-                // console.log("right " + randomStyleRightNumbers);
-
-                let randomRotateNumber = makeUniqueRandomNumbersArray(0, 360, restOfKrvDivs.length)
-
-                // console.log("rotate " + randomRotateNumber);
-
                 // Non Unique random number function
                 function makeRandomNumber(min, max, length) {
                     let randomNumberArray = [];
@@ -230,24 +209,68 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     return randomNumberArray;
                 };
 
-                let randomFontSizes = makeRandomNumber(2,14,restOfKrvDivs.length);
+                // Set different values depending on window width
 
+                let randomStyleRightNumbers = [];
+                // let randomFontSizes = makeRandomNumber(2,14,restOfKrvDivs.length);
+                let randomFontSizes = [];
+                let topRightLetter = "";
+                let topRightLetterTop = "";
+
+                if (windowWidth < 400) {
+                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.45, restOfKrvDivs.length);
+                    randomFontSizes = makeRandomNumber(2,12,restOfKrvDivs.length); 
+                    topRightLetter = "16rem";
+                    topRightLetterTop = "-80px";
+                }   else if (windowWidth < 600) {
+                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.55, restOfKrvDivs.length);
+                    randomFontSizes = makeRandomNumber(2,13,restOfKrvDivs.length);
+                    topRightLetter = "17rem";
+                    topRightLetterTop = "-100px";
+                }   else if (windowWidth < 800) {
+                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.65, restOfKrvDivs.length);
+                    randomFontSizes = makeRandomNumber(2,14,restOfKrvDivs.length);
+                    topRightLetter = "18rem";
+                    topRightLetterTop = "-110px";
+                }   else if (windowWidth < 1200) {
+                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.75, restOfKrvDivs.length);
+                    randomFontSizes = makeRandomNumber(2,18,restOfKrvDivs.length);
+                    topRightLetter = "22rem";
+                    topRightLetterTop = "-120px";
+                }   else {
+                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.8, restOfKrvDivs.length);
+                    randomFontSizes = makeRandomNumber(4,24,restOfKrvDivs.length);
+                    topRightLetter = "28rem";
+                    topRightLetterTop = "-140px";
+                }
+                
+                console.log(topRightLetter);
+                // console.log("right " + randomStyleRightNumbers);
+
+                let randomRotateNumber = makeUniqueRandomNumbersArray(0, 360, restOfKrvDivs.length)
+
+                // console.log("rotate " + randomRotateNumber);
+                
+                
+                
+                console.log(window.innerWidth);
                 console.log("fontSizes " + randomFontSizes);
+
 
                 function makeRandomAnimDuration(length) {
                     let randomAnimDurationArray2 = [];
                     for (let i = 0; i < length; i++) {
-                        let animDur = Math.floor(Math.random() * 20) / 10;
+                        let animDur = Math.ceil(Math.random() * 10) / 10 + 0.5;
                         randomAnimDurationArray2.push(animDur);
                     }
                     return randomAnimDurationArray2;
                 }
 
-                console.log("this " +makeRandomAnimDuration(restOfKrvDivs.length));
+                // console.log("this " +makeRandomAnimDuration(restOfKrvDivs.length));
 
 
                 let randomAnimDuration = makeRandomAnimDuration(restOfKrvDivs.length);
-                // console.log(randomAnimDuration);
+                console.log(randomAnimDuration);
 
                 // Add styles to each div
 
@@ -262,6 +285,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     } else {
                         div.style.transform=`rotate(-${randomRotateNumber[i]}deg)`;
                     }
+
                     div.style.right=`${randomStyleRightNumbers[i]}px`;
                     div.style.fontSize=`${randomFontSizes[i]}rem`;
                     div.style.animationDuration=`${randomAnimDuration[i]}s`;
@@ -270,13 +294,27 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
                     // console.log(div.style.fontSize);
                     switch (div.style.fontSize) {
+                        case "24rem":
+                        case "23rem":
+                        case "22rem":
+                            div.style.top="-140px";
+                            break;
+                        case "21rem":
+                        case "20rem":
+                        case "19rem":
+                            div.style.top="-120px";
+                            break;
+                        case "18rem":
+                        case "17rem":
+                        case "16rem":
+                            div.style.top="-100px";
+                            break;
+                        case "15rem":
                         case "14rem":
+                        case "13rem":
                             div.style.top="-80px";
                             break;
-                        case "13rem":
                         case "12rem":
-                            div.style.top="-70px";
-                            break;
                         case "11rem":
                         case "10rem":
                             div.style.top="-60px";
@@ -291,17 +329,19 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                             break;
                         case "5rem":
                         case "4rem":
-                            div.style.top="-25px";
+                            div.style.top="-30px";
                             break;
                         case "3rem":
-                            div.style.top="-20px";
+                            div.style.top="-25px";
                             break;
                         default:
                             break;
                     }
                 });  
                 
+                
 
+                // console.log(randomFontSizes);
                 // Pick random elements from array and style them right
 
                 function pickRandomElements(array, amount) {
@@ -336,8 +376,8 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                             // console.log(div);
                             div.style.transform="rotate(240deg)";
                             div.style.right="10px";
-                            div.style.top="-120px";
-                            div.style.fontSize="20rem";
+                            div.style.top= topRightLetterTop;
+                            div.style.fontSize= topRightLetter;
                             div.style.animationDuration="1.4s";
                             
                         } else {
@@ -388,11 +428,24 @@ class Ball {
     constructor(effect) {
         this.effect = effect;
         this.x = this.effect.width * 0.5;
-        this.y = this.effect.height * 0.6;
+        this.y = this.effect.height * 0.5;
         // this.x = Math.random() * this.effect.width;
         // this.y = Math.random() * this.effect.height;
-        this.radius = Math.random() * 80 + 20;
-        console.log(this.radius);
+        // Make different sized balls depending on window width
+        if (this.effect.width < 400 || this.effect.height < 200) {
+            this.radius = Math.random() * 60 + 5;
+        } else if (this.effect.width < 600  || this.effect.height < 300) {
+            this.radius = Math.random() * 80 + 10;
+        } else if (this.effect.width < 800  || this.effect.height < 400) {
+            this.radius = Math.random() * 100 + 20;
+        } else if (this.effect.width < 1200  || this.effect.height < 500) {
+            this.radius = Math.random() * 140 + 20;
+        }  else {
+            this.radius = Math.random() * 140 + 40;
+        }
+
+        // this.radius = Math.random() * 80 + 20;
+        // console.log(this.radius);
         this.speedX = Math.random() - 0.5;
         this.speedY = Math.random() - 0.5;
         // this.flex = Math.random()- 0.5 ; 
@@ -445,6 +498,7 @@ class MetaballsEffect {
         this.metaballsArray = [];
     }
     init(numberOfBalls){
+        // if (this.width > 1200) numberOfBalls * 1.5;
         for (let i = 0; i < numberOfBalls; i++) {
             this.metaballsArray.push(new Ball(this));   
         }
@@ -521,7 +575,7 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
             
         } else {
             
-            krvBorder.style.width = "0"
+            krvBorder.style.width = "0";
         }
     
     })
