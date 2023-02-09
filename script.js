@@ -433,9 +433,9 @@ class Ball {
         // this.y = Math.random() * this.effect.height;
         // Make different sized balls depending on window width
         if (this.effect.width < 400 || this.effect.height < 200) {
-            this.radius = Math.random() * 60 + 5;
+            this.radius = Math.random() * 60 + 10;
         } else if (this.effect.width < 600  || this.effect.height < 300) {
-            this.radius = Math.random() * 80 + 10;
+            this.radius = Math.random() * 80 + 15;
         } else if (this.effect.width < 800  || this.effect.height < 400) {
             this.radius = Math.random() * 100 + 20;
         } else if (this.effect.width < 1200  || this.effect.height < 500) {
