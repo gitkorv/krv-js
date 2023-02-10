@@ -11,7 +11,6 @@ body.preload * {
 
 body {
     scroll-behavior: smooth;
-    background-color: rgba(85, 163, 162, 1);
     /* backdrop-filter: blur(20px); */
 }
 
@@ -24,6 +23,7 @@ body {
     height: 100dvh;
     pointer-events: none;
     filter: saturate(75%);
+    background-color: rgba(85, 163, 162, 1);
 
 }
 
@@ -82,17 +82,17 @@ body {
     display: flex;
 }
 
-@keyframes krv-divs-up {
+/* @keyframes krv-divs-up {
     from {
         font-size: 10rem;
         top: 50%;
         left: 40%;
         transform: rotate(360deg) translate3d(-80px, 50px, 0);
     }
-}
+} */
 
 .name1-char1 {
-    animation: name1-char1-up 1s ease-out;
+    animation: name1-char1-up 1.4s ease-out;
 }
 
 @keyframes name1-char1-up {
@@ -101,12 +101,11 @@ body {
         top: 50%;
         left: 50%;
         transform: rotate(120deg) translate3d(200%, -50px, 0);
-        
     }
 }
 
 .name2-char1 {
-    animation: name2-char1-up 1.2s ease-out;
+    animation: name2-char1-up 1.6s ease-out;
 }
 
 @keyframes name2-char1-up {
@@ -122,12 +121,12 @@ body {
 .name3-char1 {
     margin-left: -.15rem;
 
-    animation: name3-char1-up 1.2s ease-out;
+    animation: name3-char1-up 2.2s ease-out;
 }
 
 @keyframes name3-char1-up {
     from {
-        font-size: 10rem;
+        font-size: 12rem;
         top: 50%;
         left: 40%;
         transform: rotate(360deg) translate3d(-80px, 50px, 0);
@@ -140,7 +139,7 @@ body {
 
 .krv__dott2 {
     margin-left: -.15rem;
-    animation: krv__dott1-up 1.5s ease-out;
+    animation: krv__dott1-up 2s ease-out;
 }
 
 @keyframes krv__dott1-up {
@@ -198,7 +197,7 @@ body {
 
 .contrast {
     transform: scale(1);
-    filter: contrast(60);
+    filter: contrast(50);
     background-color: rgba(85, 163, 162, 1);
     /* animation: grow 5s linear; */
     transition: transform 2s linear forwards;
@@ -209,7 +208,7 @@ canvas {
     z-index: -20;
     scale: 1;
     transition: scale 1s linear;
-    filter: blur(20px);
+    filter: blur(15px);
 
     
 }
@@ -290,7 +289,7 @@ canvas {
     left: 20px;
     /* font-size: 1.5rem; */
     transform: translate(0, 0) scale(100%);
-    transition: transform 1.2s, left 2s, font-size .5s ease-out;
+    transition: transform 1.2s, left 2s, font-size 1.2s ease-out;
     /* background-color: aqua; */
 }
 

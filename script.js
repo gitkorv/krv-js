@@ -87,7 +87,7 @@ let krvTotalLength = krvArray.length;
 const titleObserverOptions = { 
     root: null,
     threshold: 0,
-    rootMargin: "0px 0px -50% 0px" 
+    rootMargin: "0px 0px -45% 0px" 
 };
 
 const titleObserver = new IntersectionObserver(function(entries, titleObserver) {
@@ -260,7 +260,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 function makeRandomAnimDuration(length) {
                     let randomAnimDurationArray2 = [];
                     for (let i = 0; i < length; i++) {
-                        let animDur = Math.ceil(Math.random() * 10) / 10 + 0.5;
+                        let animDur = Math.ceil(Math.random() * 5) / 10 + 0.5;
                         randomAnimDurationArray2.push(animDur);
                     }
                     return randomAnimDurationArray2;
@@ -419,9 +419,9 @@ const rect = canvas.getBoundingClientRect();
 // let grd = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
 
 // ctx.fillStyle = "rgba(50, 100, 0, .8)";
-ctx.fillStyle = "black";
-// ctx.strokeStyle = "black";
-// ctx.lineWidth = 5;
+ctx.fillStyle = "rgba(0, 0, 0, 1)";
+ctx.strokeStyle = "pink";
+ctx.lineWidth = 10;
 
 
 class Ball {
@@ -448,42 +448,19 @@ class Ball {
         // console.log(this.radius);
         this.speedX = Math.random() - 0.5;
         this.speedY = Math.random() - 0.5;
-        // this.flex = Math.random()- 0.5 ; 
-        // this.flex = .5;
-        // this.index = 0;
-        // console.log(this.flex * 0.5);
+ 
     }
     update(){
         if (this.x < this.radius || this.x > this.effect.width - this.radius) this.speedX *= -1;
         if (this.y < this.radius || this.y > this.effect.height - this.radius) this.speedY *= -1;
         this.x += this.speedX;
         this.y += this.speedY;
-        // this.index++
-        // console.log(this.index);
-
-        // for (let i = 0; i < 200; i++) {
-        //     this.radius += this.flex * 0.5;
-        //     // console.log(i);
-        // }
-
-
-        // One in x generator
-        // this.lottoRadius = Math.random() * 500;
-
-        // if (this.index <= 200) {
-        //     this.radius = this.radius;
-        // } else {
-        //     this.radius += this.flex;
-        // }
-            
-
-        
     }
     draw(context){
         context.beginPath();
         context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         context.fill();
-        // context.stroke();
+        context.stroke();
     }
     reset(){
         this.x = this.effect.width * 0.5;
