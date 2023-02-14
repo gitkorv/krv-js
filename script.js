@@ -429,7 +429,7 @@ class Ball {
         // }
 
         if (this.radius < this.orgRadius) {
-            this.radius *= 1.002;
+            this.radius *= 1.004;
         }
         
         
@@ -461,6 +461,8 @@ class Ball {
         // context.stroke();
     }
     reset(){
+        // this.x = this.effect.width * 0.5;
+        // this.y = Math.random() * this.effect.height * 0.6 + this.effect.height * 0.2;
         this.x = this.effect.width * 0.5;
         this.y = this.effect.height * 0.5;
     }
