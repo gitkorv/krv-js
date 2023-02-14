@@ -399,20 +399,20 @@ class Ball {
         // this.y = Math.random() * this.effect.height;
         // Make different sized balls depending on window width
         if (this.effect.width < 400 || this.effect.height < 200) {
-            this.radius = Math.random() * 60 + 10;
+            this.radius = Math.random() * 60 + 15;
         } else if (this.effect.width < 600  || this.effect.height < 300) {
             this.radius = Math.random() * 80 + 15;
         } else if (this.effect.width < 800  || this.effect.height < 400) {
-            this.radius = Math.random() * 100 + 20;
-        } else if (this.effect.width < 1200  || this.effect.height < 500) {
-            this.radius = Math.random() * 140 + 20;
+            this.radius = Math.random() * 100 + 15;
+        } else if (this.effect.width < 1000  || this.effect.height < 500) {
+            this.radius = Math.random() * 140 + 15;
         }  else {
-            this.radius = Math.random() * 140 + 40;
+            this.radius = Math.random() * 140 + 15;
         }
         this.growSpeed = 1.000002;
         this.index = 1;
         this.orgRadius = this.radius;
-        this.newRadius = this.radius * 0.1;
+        this.newRadius = this.radius * 0.2;
         this.radius = this.newRadius;
 
         // this.radius = Math.random() * 80 + 20;
@@ -429,7 +429,7 @@ class Ball {
         // }
 
         if (this.radius < this.orgRadius) {
-            this.radius *= 1.004;
+            this.radius *= 1.005;
         }
         
         
