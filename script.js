@@ -161,10 +161,6 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
             addClassToFirstLetter(newKrvDivs, "name");
 
-            // console.log(firstNameFirstChar, middleNameFirstChar, lastNameFirstChar);
-
-        
-
             // Function for adding dots to two first letters
             function addDotts(what) {
                 for (let i = 0; i < what.length -1; i++) {
@@ -181,7 +177,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
             // console.log(restOfKrvDivs);
 
             // Add unique effect to each of restofKrvDivs
-            function addEffectToRestofKrvDivs(divs) {
+            function addEffectToRestOfKrvDivs(divs) {
                 let windowWidth = window.innerWidth;
                 // console.log(windowWidth);
 
@@ -243,20 +239,11 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     topRightLetter = "28rem";
                     topRightLetterTop = "-140px";
                 }
-                
-                console.log(topRightLetter);
-                // console.log("right " + randomStyleRightNumbers);
 
+                // Make random rotate numbers
                 let randomRotateNumber = makeUniqueRandomNumbersArray(0, 360, restOfKrvDivs.length)
 
-                // console.log("rotate " + randomRotateNumber);
-                
-                
-                
-                console.log(window.innerWidth);
-                console.log("fontSizes " + randomFontSizes);
-
-
+                // Make random anim duration numbers
                 function makeRandomAnimDuration(length) {
                     let randomAnimDurationArray2 = [];
                     for (let i = 0; i < length; i++) {
@@ -266,18 +253,12 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     return randomAnimDurationArray2;
                 }
 
-                // console.log("this " +makeRandomAnimDuration(restOfKrvDivs.length));
-
-
                 let randomAnimDuration = makeRandomAnimDuration(restOfKrvDivs.length);
                 console.log(randomAnimDuration);
 
                 // Add styles to each div
-
                 divs.forEach((div, i) => {
 
-                    // console.log(`.${randomAnimDuration}`);
-                    // console.log(randomAnimDuration2);
                     // Generate 50-50 chance if rotation gets a -(minus) or not in front of rotation number
                     let plusOrMinus = Math.random() < 0.5;
                     if(plusOrMinus){
@@ -290,9 +271,6 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     div.style.fontSize=`${randomFontSizes[i]}rem`;
                     div.style.animationDuration=`${randomAnimDuration[i]}s`;
 
-                    
-
-                    // console.log(div.style.fontSize);
                     switch (div.style.fontSize) {
                         case "24rem":
                         case "23rem":
@@ -339,15 +317,11 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     }
                 });  
                 
-                
-
-                // console.log(randomFontSizes);
-                // Pick random elements from array and style them right
-
+                // Pick random elements from array and style them to go right
                 function pickRandomElements(array, amount) {
                     let randomElementsArray = [];
                     for (let i = 0; i < amount; i++) {
-                       let randomElement = array[Math.floor(Math.random()*array.length)];
+                       let randomElement = array[Math.floor(Math.random() * array.length)];
                         if (!randomElementsArray.includes(randomElement)) {
                             randomElementsArray.push(randomElement);
                         } else if (randomElementsArray.includes(randomElement)) {
@@ -357,17 +331,9 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                     return randomElementsArray;
                 }
 
-                let half = restOfKrvDivs.length / 2;
-                // console.log(Math.floor(half));
-
-                let pickedElementsToGoRight = pickRandomElements(restOfKrvDivs, half);
-                // console.log(pickedElementsToGoRight);
-
-                let windowHeight = window.innerHeight;
-                // console.log(windowHeight);
-
-                let moveYElements = makeRandomNumber(0,(windowHeight/3), half);
-                // console.log(moveYElements);
+                let halfOfRestOfKrvDivs = restOfKrvDivs.length / 2;
+                let pickedElementsToGoRight = pickRandomElements(restOfKrvDivs, halfOfRestOfKrvDivs);
+                let moveYElements = makeRandomNumber(0,(window.innerHeight / 3), halfOfRestOfKrvDivs);
 
                 pickedElementsToGoRight.forEach((div, i) => {
                     // console.log(i);
@@ -383,13 +349,11 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                         } else {
                             div.style.right="0px";
                             div.style.top=`${moveYElements[i]}px`;
-                            // div.style.animationDuration=`.3s`;
                         }                       
                 });
-  
             };
 
-            addEffectToRestofKrvDivs(restOfKrvDivs);
+            addEffectToRestOfKrvDivs(restOfKrvDivs);
 
             // Add animation (changed) class
             krv.classList.add('krv-changed');
@@ -420,15 +384,17 @@ const rect = canvas.getBoundingClientRect();
 
 // ctx.fillStyle = "rgba(50, 100, 0, .8)";
 ctx.fillStyle = "rgba(0, 0, 0, 1)";
-ctx.strokeStyle = "pink";
-ctx.lineWidth = 10;
+// ctx.strokeStyle = "pink";
+// ctx.lineWidth = 10;
 
 
 class Ball {
     constructor(effect) {
         this.effect = effect;
         this.x = this.effect.width * 0.5;
-        this.y = this.effect.height * 0.5;
+        this.y = Math.random() * this.effect.height * 0.6 + this.effect.height * 0.2;
+        // this.y = this.effect.height * 0.5;
+
         // this.x = Math.random() * this.effect.width;
         // this.y = Math.random() * this.effect.height;
         // Make different sized balls depending on window width
@@ -443,24 +409,56 @@ class Ball {
         }  else {
             this.radius = Math.random() * 140 + 40;
         }
+        this.growSpeed = 1.000002;
+        this.index = 1;
+        this.orgRadius = this.radius;
+        this.newRadius = this.radius * 0.1;
+        this.radius = this.newRadius;
 
         // this.radius = Math.random() * 80 + 20;
-        // console.log(this.radius);
+        console.log(this.effect.width);
+        console.log(this.orgRadius.toFixed(3), this.newRadius.toFixed(3));
         this.speedX = Math.random() - 0.5;
-        this.speedY = Math.random() - 0.5;
- 
+        this.speedY = Math.random() - 0.5; 
     }
     update(){
+        // for (let i = this.index; i < 100; i++) {
+        //     this.radius = this.radius + .001;
+        //     // console.log(this.radius, this.orgRadius);
+            
+        // }
+
+        if (this.radius < this.orgRadius) {
+            this.radius *= 1.002;
+        }
+        
+        
+        // if (this.index < 200) {
+        //     this.radius = this.radius + 0.25;
+        // } 
+
+        // this.index++;
+        
+
+
         if (this.x < this.radius || this.x > this.effect.width - this.radius) this.speedX *= -1;
         if (this.y < this.radius || this.y > this.effect.height - this.radius) this.speedY *= -1;
         this.x += this.speedX;
         this.y += this.speedY;
+        
+
+        // this.radius = this.radius * 0.002;
+
+
+        // console.log(this.index);
+
+        
     }
     draw(context){
         context.beginPath();
         context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         context.fill();
-        context.stroke();
+        // context.stroke();
     }
     reset(){
         this.x = this.effect.width * 0.5;
