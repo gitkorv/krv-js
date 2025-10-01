@@ -416,8 +416,8 @@ class Ball {
         this.radius = this.newRadius;
 
         // this.radius = Math.random() * 80 + 20;
-        console.log(this.effect.width);
-        console.log(this.orgRadius.toFixed(3), this.newRadius.toFixed(3));
+        // console.log(this.effect.width);
+        // console.log(this.orgRadius.toFixed(3), this.newRadius.toFixed(3));
         this.speedX = Math.random() - 0.5;
         this.speedY = Math.random() - 0.5; 
     }
