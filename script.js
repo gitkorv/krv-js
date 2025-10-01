@@ -1,96 +1,115 @@
 // Removes preload class to body after 1/2 secs
 
-    setTimeout(function(){
-        document.body.className="";
-    },500);
+setTimeout(function () {
+    document.body.className = "";
+}, 500);
 
 // This below removed a class on load, no longer needed
 
-    // window.onload = function() {
-    //     titleText.classList.remove('title-text-mod');
-    // };
+// window.onload = function() {
+//     titleText.classList.remove('title-text-mod');
+// };
 
-    // titleBorder.classList.add('krv-border')
+// titleBorder.classList.add('krv-border')
 
-    // document.onload = function () {
-    //     titleText.classList.remove('title-text-mod');
-    // };
+// document.onload = function () {
+//     titleText.classList.remove('title-text-mod');
+// };
 
 
 // 1. Get variables
 
-    const krv = document.querySelector('.krv');
-    // console.log(krv);
+const krv = document.querySelector('.krv');
+console.log(krv);
 
-    const krvInnerHTML = krv.innerHTML;
-    // console.log(krvInnerHTML);
+// 2025 remix ---------------------- //
+const krvSpans = [...krv.querySelectorAll("span")];
+console.log(krvSpans);
+const krvTextOfEachSpanArr = Array.from(krvSpans).map(span => span.textContent);
+console.log(krvTextOfEachSpanArr);
+const krvTextEachWordsLength = krvTextOfEachSpanArr.map(w => w.length);
+console.log(krvTextEachWordsLength);
+const krvTextOneLongWord = krvTextOfEachSpanArr.join('')
+console.log(krvTextOneLongWord);
+const krvTextCharArr = [...krvTextOneLongWord]
+console.log(krvTextCharArr);
+const krvTextTotalLength = krvTextCharArr.length;
+console.log(krvTextTotalLength);
 
-    const krvOuterHTML = krv.outerHTML;
-    // console.log(krvOuterHTML);
+// 2025 GET FIRST LETTER OF EACH WORD
+const krvTextFirstLetters = krvTextOfEachSpanArr.map(span => span[0])
+console.log(krvTextFirstLetters);
 
-    const krvWords = krvInnerHTML.split("<br>");
-    // console.log(krvWords);
 
-    const krvString = krvWords.join(" ");
-    // console.log(krvString);
+const krvInnerHTML = krv.innerHTML;
+// console.log(krvInnerHTML);
 
-    const krvAllCharNoSpaces = krvWords.join("");
-    // console.log(krvAllCharNoSpaces);
+const krvOuterHTML = krv.outerHTML;
+// console.log(krvOuterHTML);
+
+const krvWords = krvInnerHTML.split("<br>");
+// console.log(krvWords);
+
+const krvString = krvWords.join(" ");
+// console.log(krvString);
+
+const krvAllCharNoSpaces = krvWords.join("");
+// console.log(krvAllCharNoSpaces);
 
 // Make array of krvInnerHTML
-    let krvArray = [...krvAllCharNoSpaces];
-    // console.log(krvArray);
+let krvArray = [...krvAllCharNoSpaces];
+// console.log(krvArray);
 
 // Get krv total length
 let krvTotalLength = krvArray.length;
-    // console.log("krv total lenght is " + krvTotalLength);
+// console.log("krv total lenght is " + krvTotalLength);
 
 // Grab more elements from page
-    const title = document.querySelector('.title');
-    const sec1 = document.querySelector('.sec1');
+const title = document.querySelector('.title');
+const sec1 = document.querySelector('.sec1');
 
 // Find out how many letters each word is
-    const krvEachWordLength = krv.innerHTML.split("<br>").map(w => w.length);
-    // console.log(krvEachWordLength);
+const krvEachWordLength = krv.innerHTML.split("<br>").map(w => w.length);
+console.log(krvEachWordLength);
 
 
 // console.log("Below here I try to figure out how to grab specific letters");
 
 // First find out what each words first letter is
-    const getFirstLetters = function(array) {
-        const firstLetters = array.map(word => word[0]);
-  
+const getFirstLetters = function (array) {
+    const firstLetters = array.map(word => word[0]);
+
     return firstLetters;
-    }
-  
-    // console.log(getFirstLetters(krvWords));
+}
+
+// console.log(getFirstLetters(krvWords));
 
 // Get index of each words first letter in krvAllCharNoSpaces
 
-    const firstWordIndexes = [];
+const firstWordIndexes = [];
 
-    for (let i = 0; i < krvAllCharNoSpaces.length; i++) {
+for (let i = 0; i < krvAllCharNoSpaces.length; i++) {
     if (krvAllCharNoSpaces[i] === getFirstLetters(krvWords)[0] || krvAllCharNoSpaces[i] === getFirstLetters(krvWords)[1] || krvAllCharNoSpaces[i] === getFirstLetters(krvWords)[2]) {
         firstWordIndexes.push(i);
     }
-    }
-    // console.log(firstWordIndexes); 
+}
+// console.log(firstWordIndexes); 
 
 // Make arrays of each word
-    let firstWordArray = [...krvWords[0]];
-    // console.log(firstWordArray);
+let firstWordArray = [...krvWords[0]];
+// console.log(firstWordArray);
 
 
 
 // intersection observer for ${title} hitting 50% of viewport
 
-const titleObserverOptions = { 
+const titleObserverOptions = {
     root: null,
     threshold: 0,
-    rootMargin: "0px 0px -45% 0px" 
+    rootMargin: "0px 0px -45% 0px"
 };
 
-const titleObserver = new IntersectionObserver(function(entries, titleObserver) {
+const titleObserver = new IntersectionObserver(function (entries, titleObserver) {
 
     entries.forEach(entry => {
 
@@ -103,24 +122,33 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
         if (entry.isIntersecting) {
             // Set krv innerHTML string to blank 
             krv.innerHTML = " ";
-           
+
             // Make a div with specific classes for each character
-            krvArray.forEach((character, i) => {
-                // console.log(character,i);
-                // console.log(krvWords[0]);
+            krvTextCharArr.forEach((character, i) => {
                 let lowerCaseChar = character.toLowerCase();
 
-                //  GOT A STRANGE + SIGN HERE BELOW??? AFTER: i >= (taken out)
-                if(i > krvTotalLength - krvWords[2].length) {
-                    let nameClass = "lastName";
+                // first word = index 0
+                let firstWordLength = krvTextOfEachSpanArr[0].length;
+
+                // last word = always last element, no matter if 2 or 3 words
+                let lastWordLength = krvTextOfEachSpanArr[krvTextOfEachSpanArr.length - 1].length;
+
+                // middle word = only exists if there are 3 words
+                let middleWordLength = krvTextOfEachSpanArr.length === 3 ? krvTextOfEachSpanArr[1].length : 0;
+
+                if (i >= krvTextTotalLength - lastWordLength) {
+                    // last name
+                    let nameClass = "lastRow";
                     krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
                 }
-                else if (i < krvTotalLength - (krvWords[1].length + krvWords[2].length)) {
-                    let nameClass = "firstName";
+                else if (i < firstWordLength) {
+                    // first name
+                    let nameClass = "firstRow";
                     krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
                 }
                 else {
-                    let nameClass = "middleName";
+                    // middle name (only applies if there’s a middle word)
+                    let nameClass = "middleRow";
                     krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
                 }
             });
@@ -130,25 +158,39 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
             // });
 
 
-        
+
             // Get KRV elements
             const krvDivs = document.querySelectorAll(".krv div");
-            // console.log(krvDivs);
+            console.log(krvDivs);
+
 
             // Add one class to first letters of names, and another to the rest
-            for (let i = 0; i < krvTotalLength; i++) {
-                // console.log(krvDivs[i]);
-                // console.log(firstWordIndexes[i]);
-                if (krvDivs[i] === krvDivs[firstWordIndexes[0]] || krvDivs[i] === krvDivs[firstWordIndexes[1]] || krvDivs[i] === krvDivs[firstWordIndexes[2]]) {
-                    krvDivs[i].innerHTML = krvDivs[i].innerHTML.toLowerCase();
-                    krvDivs[i] = krvDivs[i].classList.add('new-krv-divs');
+            let currentWordIndex = 0; // track which word we are on
+            let firstLetterOfWord = true; // flag for first letter
+
+            krvTextCharArr.forEach((char, i) => {
+                let className;
+
+                if (firstLetterOfWord) {
+                    className = "firstLetter-krv-word"; // special class for first letter
+                    firstLetterOfWord = false; // next letters are normal
                 } else {
-                    krvDivs[i] = krvDivs[i].classList.add('restof-krv-divs');
+                    className = "restLetter-krv-word";  // normal letters
                 }
-            }
-        
+
+                krvDivs[i].classList.add(className)
+
+                // check if this is the last letter of the current word
+                if (char === krvTextOfEachSpanArr[currentWordIndex][krvTextOfEachSpanArr[currentWordIndex].length - 1]) {
+                    currentWordIndex++;       // move to next word
+                    firstLetterOfWord = true; // next letter will be first of new word
+                }
+            });
+
+
+
             // Grab newly formed top left KRV
-            const newKrvDivs = document.querySelectorAll('.new-krv-divs');
+            const newKrvDivs = document.querySelectorAll('.firstLetter-krv-word');
             // console.log(newTopKrv);
 
             // Add unique class name to each names first character
@@ -156,23 +198,23 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 divs.forEach((div, i) => {
                     i++;
                     div.classList.add(`${extra}${i}-char1`);
-                });            
+                });
             };
 
             addClassToFirstLetter(newKrvDivs, "name");
 
             // Function for adding dots to two first letters
             function addDotts(what) {
-                for (let i = 0; i < what.length -1; i++) {
-                    what[i].innerHTML = what[i].innerHTML+`<div class="krv__dotts krv__dott${i+1}">.</div>`;                   
+                for (let i = 0; i < what.length - 1; i++) {
+                    what[i].innerHTML = what[i].innerHTML + `<div class="krv__dotts krv__dott${i + 1}">.</div>`;
                 }
             }
             // Call above function after Xs 
-            setTimeout(() => {addDotts(newKrvDivs)}, 0);
+            setTimeout(() => { addDotts(newKrvDivs) }, 0);
 
 
             // Grab rest of divs
-            const restOfKrvDivs = document.querySelectorAll(".restof-krv-divs");
+            const restOfKrvDivs = document.querySelectorAll(".restLetter-krv-word");
 
             // console.log(restOfKrvDivs);
 
@@ -199,7 +241,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
                 function makeRandomNumber(min, max, length) {
                     let randomNumberArray = [];
                     for (let i = 0; i < length; i++) {
-                        let randomNumber = Math.floor(Math.random() * (max - min + 1) ) + min;
+                        let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
                         randomNumberArray.push(randomNumber);
                     }
                     return randomNumberArray;
@@ -215,27 +257,27 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
                 if (windowWidth < 400) {
                     randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.45, restOfKrvDivs.length);
-                    randomFontSizes = makeRandomNumber(2,12,restOfKrvDivs.length); 
+                    randomFontSizes = makeRandomNumber(2, 12, restOfKrvDivs.length);
                     topRightLetter = "16rem";
                     topRightLetterTop = "-80px";
-                }   else if (windowWidth < 600) {
+                } else if (windowWidth < 600) {
                     randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.55, restOfKrvDivs.length);
-                    randomFontSizes = makeRandomNumber(2,13,restOfKrvDivs.length);
+                    randomFontSizes = makeRandomNumber(2, 13, restOfKrvDivs.length);
                     topRightLetter = "17rem";
                     topRightLetterTop = "-100px";
-                }   else if (windowWidth < 800) {
+                } else if (windowWidth < 800) {
                     randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.65, restOfKrvDivs.length);
-                    randomFontSizes = makeRandomNumber(2,14,restOfKrvDivs.length);
+                    randomFontSizes = makeRandomNumber(2, 14, restOfKrvDivs.length);
                     topRightLetter = "18rem";
                     topRightLetterTop = "-110px";
-                }   else if (windowWidth < 1200) {
+                } else if (windowWidth < 1200) {
                     randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.75, restOfKrvDivs.length);
-                    randomFontSizes = makeRandomNumber(2,18,restOfKrvDivs.length);
+                    randomFontSizes = makeRandomNumber(2, 18, restOfKrvDivs.length);
                     topRightLetter = "22rem";
                     topRightLetterTop = "-120px";
-                }   else {
+                } else {
                     randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.8, restOfKrvDivs.length);
-                    randomFontSizes = makeRandomNumber(4,24,restOfKrvDivs.length);
+                    randomFontSizes = makeRandomNumber(4, 24, restOfKrvDivs.length);
                     topRightLetter = "28rem";
                     topRightLetterTop = "-140px";
                 }
@@ -261,67 +303,67 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
                     // Generate 50-50 chance if rotation gets a -(minus) or not in front of rotation number
                     let plusOrMinus = Math.random() < 0.5;
-                    if(plusOrMinus){
-                        div.style.transform=`rotate(${randomRotateNumber[i]}deg)`;
+                    if (plusOrMinus) {
+                        div.style.transform = `rotate(${randomRotateNumber[i]}deg)`;
                     } else {
-                        div.style.transform=`rotate(-${randomRotateNumber[i]}deg)`;
+                        div.style.transform = `rotate(-${randomRotateNumber[i]}deg)`;
                     }
 
-                    div.style.right=`${randomStyleRightNumbers[i]}px`;
-                    div.style.fontSize=`${randomFontSizes[i]}rem`;
-                    div.style.animationDuration=`${randomAnimDuration[i]}s`;
+                    div.style.right = `${randomStyleRightNumbers[i]}px`;
+                    div.style.fontSize = `${randomFontSizes[i]}rem`;
+                    div.style.animationDuration = `${randomAnimDuration[i]}s`;
 
                     switch (div.style.fontSize) {
                         case "24rem":
                         case "23rem":
                         case "22rem":
-                            div.style.top="-140px";
+                            div.style.top = "-140px";
                             break;
                         case "21rem":
                         case "20rem":
                         case "19rem":
-                            div.style.top="-120px";
+                            div.style.top = "-120px";
                             break;
                         case "18rem":
                         case "17rem":
                         case "16rem":
-                            div.style.top="-100px";
+                            div.style.top = "-100px";
                             break;
                         case "15rem":
                         case "14rem":
                         case "13rem":
-                            div.style.top="-80px";
+                            div.style.top = "-80px";
                             break;
                         case "12rem":
                         case "11rem":
                         case "10rem":
-                            div.style.top="-60px";
+                            div.style.top = "-60px";
                             break;
                         case "9rem":
                         case "8rem":
-                            div.style.top="-50px";
+                            div.style.top = "-50px";
                             break;
                         case "7rem":
                         case "6rem":
-                            div.style.top="-40px";
+                            div.style.top = "-40px";
                             break;
                         case "5rem":
                         case "4rem":
-                            div.style.top="-30px";
+                            div.style.top = "-30px";
                             break;
                         case "3rem":
-                            div.style.top="-25px";
+                            div.style.top = "-25px";
                             break;
                         default:
                             break;
                     }
-                });  
-                
+                });
+
                 // Pick random elements from array and style them to go right
                 function pickRandomElements(array, amount) {
                     let randomElementsArray = [];
                     for (let i = 0; i < amount; i++) {
-                       let randomElement = array[Math.floor(Math.random() * array.length)];
+                        let randomElement = array[Math.floor(Math.random() * array.length)];
                         if (!randomElementsArray.includes(randomElement)) {
                             randomElementsArray.push(randomElement);
                         } else if (randomElementsArray.includes(randomElement)) {
@@ -333,23 +375,23 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
 
                 let halfOfRestOfKrvDivs = restOfKrvDivs.length / 2;
                 let pickedElementsToGoRight = pickRandomElements(restOfKrvDivs, halfOfRestOfKrvDivs);
-                let moveYElements = makeRandomNumber(0,(window.innerHeight / 3), halfOfRestOfKrvDivs);
+                let moveYElements = makeRandomNumber(0, (window.innerHeight / 3), halfOfRestOfKrvDivs);
 
                 pickedElementsToGoRight.forEach((div, i) => {
                     // console.log(i);
-                    
-                        if (i == 0) {
-                            // console.log(div);
-                            div.style.transform="rotate(240deg)";
-                            div.style.right="10px";
-                            div.style.top= topRightLetterTop;
-                            div.style.fontSize= topRightLetter;
-                            div.style.animationDuration="1.4s";
-                            
-                        } else {
-                            div.style.right="0px";
-                            div.style.top=`${moveYElements[i]}px`;
-                        }                       
+
+                    if (i == 0) {
+                        // console.log(div);
+                        div.style.transform = "rotate(240deg)";
+                        div.style.right = "10px";
+                        div.style.top = topRightLetterTop;
+                        div.style.fontSize = topRightLetter;
+                        div.style.animationDuration = "1.4s";
+
+                    } else {
+                        div.style.right = "0px";
+                        div.style.top = `${moveYElements[i]}px`;
+                    }
                 });
             };
 
@@ -358,7 +400,7 @@ const titleObserver = new IntersectionObserver(function(entries, titleObserver) 
             // Add animation (changed) class
             krv.classList.add('krv-changed');
             // title.classList.add('title-observed')
-     
+
         } else {
             // Remove animation (changed) class
             krv.classList.remove('krv-changed');
@@ -392,101 +434,109 @@ class Ball {
     constructor(effect) {
         this.effect = effect;
         this.x = this.effect.width * 0.5;
-        this.y = Math.random() * this.effect.height * 0.6 + this.effect.height * 0.2;
-        // this.y = this.effect.height * 0.5;
+        // this.x = this.effect.width * (0.48 + Math.random() * (0.52 - 0.48));
+        // this.x = Math.random() * this.effect.width - this.effect.width * 0.2;
+        // this.y = Math.random() * (this.effect.height - this.effect.height * 0.8) + 0.4;
+        // this.y = this.effect.height * (0.48 + Math.random() * (0.52 - 0.48));
+        // this.y = this.effect.height * (Math.random() * 0.01) + 4 ;
+        this.y = this.effect.height * 0.5;
 
         // this.x = Math.random() * this.effect.width;
         // this.y = Math.random() * this.effect.height;
         // Make different sized balls depending on window width
         if (this.effect.width < 400 || this.effect.height < 200) {
             this.radius = Math.random() * 60 + 15;
-        } else if (this.effect.width < 600  || this.effect.height < 300) {
+        } else if (this.effect.width < 600 || this.effect.height < 300) {
             this.radius = Math.random() * 80 + 15;
-        } else if (this.effect.width < 800  || this.effect.height < 400) {
+        } else if (this.effect.width < 800 || this.effect.height < 400) {
             this.radius = Math.random() * 100 + 15;
-        } else if (this.effect.width < 1000  || this.effect.height < 500) {
+        } else if (this.effect.width < 1000 || this.effect.height < 500) {
             this.radius = Math.random() * 140 + 15;
-        }  else {
+        } else {
             this.radius = Math.random() * 140 + 15;
         }
-        this.growSpeed = 1.000002;
+        this.radius = Math.random() * 200 + 10;
+
+        this.growSpeed = 1.06;
         this.index = 1;
         this.orgRadius = this.radius;
-        this.newRadius = this.radius * 0.2;
+        this.newRadius = this.radius * 0.1;
         this.radius = this.newRadius;
 
         // this.radius = Math.random() * 80 + 20;
         // console.log(this.effect.width);
         // console.log(this.orgRadius.toFixed(3), this.newRadius.toFixed(3));
         this.speedX = Math.random() - 0.5;
-        this.speedY = Math.random() - 0.5; 
+        this.speedY = Math.random() - 0.5;
     }
-    update(){
+    update() {
         // for (let i = this.index; i < 100; i++) {
         //     this.radius = this.radius + .001;
         //     // console.log(this.radius, this.orgRadius);
-            
+
         // }
 
         if (this.radius < this.orgRadius) {
-            this.radius *= 1.005;
+            this.radius *= this.growSpeed;
         }
-        
-        
+
+
         // if (this.index < 200) {
         //     this.radius = this.radius + 0.25;
         // } 
 
         // this.index++;
-        
+
 
 
         if (this.x < this.radius || this.x > this.effect.width - this.radius) this.speedX *= -1;
         if (this.y < this.radius || this.y > this.effect.height - this.radius) this.speedY *= -1;
         this.x += this.speedX;
         this.y += this.speedY;
-        
+
 
         // this.radius = this.radius * 0.002;
 
 
         // console.log(this.index);
 
-        
+
     }
-    draw(context){
+    draw(context) {
         context.beginPath();
         context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         context.fill();
         // context.stroke();
     }
-    reset(){
+    reset() {
         // this.x = this.effect.width * 0.5;
         // this.y = Math.random() * this.effect.height * 0.6 + this.effect.height * 0.2;
         this.x = this.effect.width * 0.5;
         this.y = this.effect.height * 0.5;
+        this.speedX = Math.random() - 0.5;
+        this.speedY = Math.random() - 0.5;
     }
 }
 
 class MetaballsEffect {
-    constructor(width, height){
+    constructor(width, height) {
         this.width = width;
         this.height = height;
         this.metaballsArray = [];
     }
-    init(numberOfBalls){
+    init(numberOfBalls) {
         // if (this.width > 1200) numberOfBalls * 1.5;
         for (let i = 0; i < numberOfBalls; i++) {
-            this.metaballsArray.push(new Ball(this));   
+            this.metaballsArray.push(new Ball(this));
         }
     }
-    update(){
+    update() {
         this.metaballsArray.forEach(metaball => metaball.update());
     }
-    draw(context){
+    draw(context) {
         this.metaballsArray.forEach(metaball => metaball.draw(context));
     }
-    reset(newWidth, newHeight){
+    reset(newWidth, newHeight) {
         this.width = newWidth;
         this.height = newHeight;
         this.metaballsArray.forEach(metaball => metaball.reset());
@@ -496,22 +546,27 @@ class MetaballsEffect {
 const effect = new MetaballsEffect(canvas.width, canvas.height);
 effect.init(20);
 
-function animateMetaballs(){
+function animateMetaballs() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     effect.update();
     effect.draw(ctx);
     requestAnimationFrame(animateMetaballs);
 }
-animateMetaballs();
+
+function clearMetaballs() {
+    // effect.reset(canvas.width, canvas.height);
+    cancelAnimationFrame(animateMetaballs)
+}
 
 
 
-window.addEventListener('resize', function() {
+
+window.addEventListener('resize', function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     ctx.fillStyle = 'black';
     effect.reset(canvas.width, canvas.height);
-} )
+})
 
 
 // Make a border bottom when sticky element is stuck
@@ -527,7 +582,7 @@ let titleSpanWidth = titleSpan.offsetWidth;
 const krvBorderBottomObserverOptions = {
     root: null,
     threshold: 0,
-    rootMargin: `0px 0px -95% 0px` 
+    rootMargin: `0px 0px -95% 0px`
 }
 
 const krvBorderBottomObserver = new IntersectionObserver(entries => {
@@ -549,12 +604,15 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
                 // Add new title span width to title border, again wait .5 secs
                 krvBorder.style.width = titleSpanStuckWidth;
             }, 500);
-            
+
+            animateMetaballs();
+
         } else {
-            
+            console.log("CLEAR");
+            // clearMetaballs()
             krvBorder.style.width = "0";
         }
-    
+
     })
 }, krvBorderBottomObserverOptions);
 

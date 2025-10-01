@@ -12,40 +12,54 @@ body.preload * {
 body {
     scroll-behavior: smooth;
     /* backdrop-filter: blur(20px); */
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    /* background-color: orange; */
+    /* overflow-y: scroll; */
 }
 
 .logo-wrapper {
-    position: absolute;
-    overflow-x: hidden;
-    top: 0px;
-    left: 0;
-    width: 100%;
-    height: 100dvh;
-    pointer-events: none;
-    filter: saturate(75%);
-    background-color: rgba(85, 163, 162, 1);
-
-}
-
-.krv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 0;
     left: 0;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-
+    overflow-x: hidden;
     width: 100%;
-    height: 70dvh;
+    height: 100%;
+
+    pointer-events: none;
+    filter: saturate(75%);
+    /* background-color: rgba(85, 163, 162, 1); */
+    /* text-align: right; */
+    z-index: 100;
+
+}
+
+.krv-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    /* background-color: orange; */
+}
+
+.krv {
+    display: flex;
+    flex-direction: column;
     font-size: 6rem;
     line-height: 5rem;
-    text-align: center;
-    
-    padding-bottom: 0;
+    text-align: left;
     z-index: 20;    
     transition: all .2s ease-out ;
     color: white;
     mix-blend-mode: difference;
+        pointer-events: auto;
+
+    /* pointer-events: text; */
+    /* background-color: bisque; */
 }
 
 @media (min-width: 800px) {
@@ -71,7 +85,7 @@ body {
     font-size: 1rem;
 }
 
-.new-krv-divs {
+.firstLetter-krv-word {
     font-size: 2rem;
     line-height: normal;
     top: 20px;
@@ -150,7 +164,7 @@ body {
     }
 }
 
-.restof-krv-divs {
+.restLetter-krv-word {
     font-size: 2rem;
     line-height: normal;
     top: -5px;
@@ -196,11 +210,15 @@ body {
 }
 
 .contrast {
+    position: fixed;
+    top: 0;
+    left: 0;
     transform: scale(1);
     filter: contrast(50);
     background-color: rgba(85, 163, 162, 1);
     /* animation: grow 5s linear; */
     transition: transform 2s linear forwards;
+    z-index: -100;
 }
 
 canvas {
@@ -222,13 +240,13 @@ canvas {
 
 .main-wrapper {
     display: block;
-    position: static;
     width: 100%;
-    height: 100dvh;
+    height: 150dvh;
     overflow-y: scroll;
     overflow-x: hidden;
     scroll-snap-type: y mandatory;
     mix-blend-mode: difference;
+    /* pointer-events: none; */
 
     /* scroll-padding-top: 80px; */
 }
@@ -396,7 +414,7 @@ svg {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: aqua;
+    /* background-color: aqua; */
     z-index: -100;
 }
 
