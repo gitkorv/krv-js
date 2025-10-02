@@ -1,6 +1,7 @@
 :root {
     --headerHeight: 100px;
     --headerLeft: 32px;
+    --headerTop: 32px;
 }
 
 * {
@@ -61,7 +62,7 @@ body {
     transition: all .2s ease-out ;
     color: white;
     mix-blend-mode: difference;
-        pointer-events: auto;
+        /* pointer-events: auto; */
 
     /* pointer-events: text; */
     /* background-color: bisque; */
@@ -105,7 +106,7 @@ body {
     transform: rotate(0deg) translate3d(0, 0, 0);
     transform-origin: center;
     display: flex;
-    padding-top: var(--headerLeft);
+    padding-top: var(--headerTop);
 }
 
 /* @keyframes krv-divs-up {
@@ -383,10 +384,9 @@ section.sec1 {
     
 }
 
-.underconst:hover {
+.underconst {
     color: yellow;
-    -webkit-filter: url(#noise) ;
-            filter: url(#noise);
+    
     animation: turb 1s linear infinite alternate-reverse;
     transform-origin: bottom left;
 }
@@ -402,6 +402,8 @@ section.sec1 {
     66% {
         left: 1rem;
         scale: 1.2;
+        -webkit-filter: url(#noise) ;
+            filter: url(#noise);
     }
     100% {
         left: 0rem;
@@ -444,3 +446,16 @@ svg {
 
 
 
+@media (max-width: 400px) {
+    :root {
+        --headerLeft: 16px;
+    }
+    .underconst {
+    display: block;
+    position: relative;
+    font-size: 3rem;
+    margin-bottom: 0px;
+    transform-origin: bottom;
+    
+}
+}
