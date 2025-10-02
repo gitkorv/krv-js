@@ -67,8 +67,8 @@ body {
 
     /* pointer-events: text; */
     /* background-color: bisque; */
-    -webkit-filter: url(#noise);
-    filter: url(#noise);
+    /* -webkit-filter: url(#noise);
+    filter: url(#noise); */
 }
 
 @media (min-width: 800px) {

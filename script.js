@@ -449,7 +449,7 @@ class Ball {
         // this.y = Math.random() * this.effect.height;
         // Make different sized balls depending on window width
         if (this.effect.width < 400 || this.effect.height < 200) {
-            this.radius = Math.random() * 60 + 15;
+            this.radius = Math.random() * 60 + 10;
         } else if (this.effect.width < 600 || this.effect.height < 300) {
             this.radius = Math.random() * 80 + 15;
         } else if (this.effect.width < 800 || this.effect.height < 400) {
@@ -457,11 +457,11 @@ class Ball {
         } else if (this.effect.width < 1000 || this.effect.height < 500) {
             this.radius = Math.random() * 140 + 15;
         } else {
-            this.radius = Math.random() * 140 + 15;
+            this.radius = Math.random() * 2000 + 25;
         }
-        this.radius = Math.random() * 200 + 10;
+        // this.radius = Math.random() * 200 + 10;
 
-        this.growSpeed = 1.002;
+        this.growSpeed = 1.02;
         this.index = 1;
         this.orgRadius = this.radius;
         this.newRadius = this.radius * 0.1;
@@ -548,7 +548,7 @@ class MetaballsEffect {
 }
 
 const effect = new MetaballsEffect(canvas.width, canvas.height);
-effect.init(20);
+effect.init(30);
 
 function animateMetaballs() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
