@@ -388,7 +388,8 @@ section.sec1 {
 .underconst {
     display: block;
     position: relative;
-    font-size: 5rem;
+    font-size: 3rem;
+    line-height: 4rem;
     margin-bottom: -10px;
     transform-origin: bottom;
 
@@ -475,12 +476,12 @@ svg {
         --headerLeft: 16px;
     }
 
-    .underconst {
+    /* .underconst {
         display: block;
         position: relative;
         font-size: 3rem;
         margin-bottom: 0px;
         transform-origin: bottom;
 
-    }
+    } */
 }
