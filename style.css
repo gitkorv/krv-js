@@ -470,7 +470,7 @@ svg {
 
 
 
-@media (max-width: 375px) {
+@media (max-width: 425px) {
     :root {
         --headerLeft: 16px;
     }
