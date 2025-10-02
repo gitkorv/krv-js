@@ -457,7 +457,7 @@ class Ball {
         } else if (this.effect.width < 1000 || this.effect.height < 500) {
             this.radius = Math.random() * 140 + 15;
         } else {
-            this.radius = Math.random() * 2000 + 25;
+            this.radius = Math.random() * 180 + 20;
         }
         // this.radius = Math.random() * 200 + 10;
 
