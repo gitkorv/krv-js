@@ -470,7 +470,7 @@ svg {
 
 
 
-@media (max-width: 400px) {
+@media (max-width: 375px) {
     :root {
         --headerLeft: 16px;
     }
@@ -478,7 +478,7 @@ svg {
     .underconst {
         display: block;
         position: relative;
-        font-size: 2rem;
+        font-size: 3rem;
         margin-bottom: 0px;
         transform-origin: bottom;
 
