@@ -36,6 +36,9 @@ console.log(krvTextCharArr);
 const krvTextTotalLength = krvTextCharArr.length;
 console.log(krvTextTotalLength);
 
+const krvWrapper = document.querySelector(".krv-wrapper")
+console.log(krvWrapper);
+
 // 2025 GET FIRST LETTER OF EACH WORD
 const krvTextFirstLetters = krvTextOfEachSpanArr.map(span => span[0])
 console.log(krvTextFirstLetters);
@@ -171,19 +174,20 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
             krvTextCharArr.forEach((char, i) => {
                 let className;
 
-                if (firstLetterOfWord) {
-                    className = "firstLetter-krv-word"; // special class for first letter
-                    firstLetterOfWord = false; // next letters are normal
+                // Only add special class if we're in the first 2 words
+                if (firstLetterOfWord && currentWordIndex < 2) {
+                    className = "firstLetter-krv-word";
+                    firstLetterOfWord = false;
                 } else {
-                    className = "restLetter-krv-word";  // normal letters
+                    className = "restLetter-krv-word";
                 }
 
-                krvDivs[i].classList.add(className)
+                krvDivs[i].classList.add(className);
 
                 // check if this is the last letter of the current word
                 if (char === krvTextOfEachSpanArr[currentWordIndex][krvTextOfEachSpanArr[currentWordIndex].length - 1]) {
-                    currentWordIndex++;       // move to next word
-                    firstLetterOfWord = true; // next letter will be first of new word
+                    currentWordIndex++;
+                    firstLetterOfWord = true;
                 }
             });
 
@@ -204,13 +208,13 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
             addClassToFirstLetter(newKrvDivs, "name");
 
             // Function for adding dots to two first letters
-            function addDotts(what) {
-                for (let i = 0; i < what.length - 1; i++) {
-                    what[i].innerHTML = what[i].innerHTML + `<div class="krv__dotts krv__dott${i + 1}">.</div>`;
-                }
-            }
-            // Call above function after Xs 
-            setTimeout(() => { addDotts(newKrvDivs) }, 0);
+            // function addDotts(divs) {
+            //     for (let i = 0; i < divs.length - 1; i++) {
+            //         divs[i].innerHTML = divs[i].innerHTML + `<div class="krv__dotts krv__dott${i + 1}">.</div>`;
+            //     }
+            // }
+            // // Call above function after Xs 
+            // setTimeout(() => { addDotts(newKrvDivs) }, 0);
 
 
             // Grab rest of divs
@@ -457,7 +461,7 @@ class Ball {
         }
         this.radius = Math.random() * 200 + 10;
 
-        this.growSpeed = 1.06;
+        this.growSpeed = 1.002;
         this.index = 1;
         this.orgRadius = this.radius;
         this.newRadius = this.radius * 0.1;
@@ -559,7 +563,7 @@ function clearMetaballs() {
 }
 
 
-
+animateMetaballs();
 
 window.addEventListener('resize', function () {
     canvas.width = window.innerWidth;
@@ -603,9 +607,9 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
                 // console.log(titleSpanStuckWidth);
                 // Add new title span width to title border, again wait .5 secs
                 krvBorder.style.width = titleSpanStuckWidth;
-            }, 500);
+            }, 1000);
 
-            animateMetaballs();
+            
 
         } else {
             console.log("CLEAR");
