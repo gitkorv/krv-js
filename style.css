@@ -246,8 +246,8 @@ canvas {
     scale: 1;
     transition: scale 1s linear;
     filter: blur(15px);
-    -webkit-filter: url(#noise);
-    filter: url(#noise) blur(15px);
+    /* -webkit-filter: url(#noise);
+    filter: url(#noise) blur(15px); */
 
 
 }
