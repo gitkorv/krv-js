@@ -39,34 +39,6 @@ console.log(krvTextTotalLength);
 const krvWrapper = document.querySelector(".krv-wrapper")
 console.log(krvWrapper);
 
-// 2025 GET FIRST LETTER OF EACH WORD
-const krvTextFirstLetters = krvTextOfEachSpanArr.map(span => span[0])
-console.log(krvTextFirstLetters);
-
-
-const krvInnerHTML = krv.innerHTML;
-// console.log(krvInnerHTML);
-
-const krvOuterHTML = krv.outerHTML;
-// console.log(krvOuterHTML);
-
-const krvWords = krvInnerHTML.split("<br>");
-// console.log(krvWords);
-
-const krvString = krvWords.join(" ");
-// console.log(krvString);
-
-const krvAllCharNoSpaces = krvWords.join("");
-// console.log(krvAllCharNoSpaces);
-
-// Make array of krvInnerHTML
-let krvArray = [...krvAllCharNoSpaces];
-// console.log(krvArray);
-
-// Get krv total length
-let krvTotalLength = krvArray.length;
-// console.log("krv total lenght is " + krvTotalLength);
-
 // Grab more elements from page
 const title = document.querySelector('.title');
 const sec1 = document.querySelector('.sec1');
@@ -75,34 +47,15 @@ const sec1 = document.querySelector('.sec1');
 const krvEachWordLength = krv.innerHTML.split("<br>").map(w => w.length);
 console.log(krvEachWordLength);
 
-
-// console.log("Below here I try to figure out how to grab specific letters");
-
-// First find out what each words first letter is
-const getFirstLetters = function (array) {
-    const firstLetters = array.map(word => word[0]);
-
-    return firstLetters;
+function switchWord(div, contentArray, interval = 2000) {
+    let index = 0;
+    return setInterval(() => {
+       div.innerHTML = contentArray[index];
+       index = (index + 1) % contentArray.length; 
+    }, interval);
 }
 
-// console.log(getFirstLetters(krvWords));
-
-// Get index of each words first letter in krvAllCharNoSpaces
-
-const firstWordIndexes = [];
-
-for (let i = 0; i < krvAllCharNoSpaces.length; i++) {
-    if (krvAllCharNoSpaces[i] === getFirstLetters(krvWords)[0] || krvAllCharNoSpaces[i] === getFirstLetters(krvWords)[1] || krvAllCharNoSpaces[i] === getFirstLetters(krvWords)[2]) {
-        firstWordIndexes.push(i);
-    }
-}
-// console.log(firstWordIndexes); 
-
-// Make arrays of each word
-let firstWordArray = [...krvWords[0]];
-// console.log(firstWordArray);
-
-
+switchWord(krvSpans[0], ["live", "love"])
 
 // intersection observer for ${title} hitting 50% of viewport
 
@@ -138,7 +91,7 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
 
                 // const totalLength = krvTextCharArr.length;
                 const startOfMiddleWord = firstWordLength;
-                const startOfLastWord = krvTotalLength - lastWordLength;
+                const startOfLastWord = krvTextTotalLength - lastWordLength;
 
                 let nameClass = "";
 
@@ -153,9 +106,6 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
                 krvWrapper.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
             });
 
-            // firstWordArray.forEach((char, i) => {
-            //     console.log(char, i);
-            // });
 
 
 
@@ -207,7 +157,7 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
             //     }
             // }
             // // Call above function after Xs 
-            // setTimeout(() => { addDotts(newKrvDivs) }, 0);
+            // setTimeout(() => { addDotts(newKrvDivs) }, 500);
 
 
             // Grab rest of divs
@@ -441,20 +391,21 @@ class Ball {
         // this.x = Math.random() * this.effect.width;
         // this.y = Math.random() * this.effect.height;
         // Make different sized balls depending on window width
+        console.log(this.effect.width);
         if (this.effect.width < 400 || this.effect.height < 200) {
-            this.radius = Math.random() * 60 + 10;
+            this.radius = Math.random() * 600 + 15;
         } else if (this.effect.width < 600 || this.effect.height < 300) {
-            this.radius = Math.random() * 80 + 15;
+            this.radius = Math.random() * 700 + 20;
         } else if (this.effect.width < 800 || this.effect.height < 400) {
-            this.radius = Math.random() * 100 + 15;
+            this.radius = Math.random() * 800 + 20;
         } else if (this.effect.width < 1000 || this.effect.height < 500) {
-            this.radius = Math.random() * 140 + 15;
+            this.radius = Math.random() * 140 + 30;
         } else {
-            this.radius = Math.random() * 180 + 20;
+            this.radius = Math.random() * 1500 + 40;
         }
         // this.radius = Math.random() * 200 + 10;
 
-        this.growSpeed = 1.02;
+        this.growSpeed = 1.00;
         this.index = 1;
         this.orgRadius = this.radius;
         this.newRadius = this.radius * 0.1;
@@ -614,9 +565,3 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
 }, krvBorderBottomObserverOptions);
 
 krvBorderBottomObserver.observe(title)
-
-
-
-// Add space for the three letters
-const krvTextFirstLettersDivs = document.querySelectorAll('.firstLetter-krv-word')
-console.log(krvTextFirstLettersDivs);

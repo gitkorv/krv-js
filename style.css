@@ -23,6 +23,11 @@ body {
     width: 100%;
     height: 100dvh;
     overflow: hidden;
+    color: pink;
+    font-family: "Inter Tight", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
     /* background-color: orange; */
     /* overflow-y: scroll; */
 }
@@ -55,7 +60,8 @@ body {
     align-items: center;
     justify-content: center;
     /* color: orange; */
-    background-color: orange;
+    /* background-color: orange; */
+    perspective: 500px;
 }
 
 .krv {
@@ -66,6 +72,11 @@ body {
     text-align: left;
     z-index: 20;
     transition: all .2s ease-out;
+}
+
+.krv span.glitch-word {
+        -webkit-filter: url(#noiceLove);
+        filter: url(#noiseLove);
 }
 
 @media (min-width: 800px) {
@@ -116,7 +127,7 @@ body {
         font-size: 10rem;
         top: 50%;
         left: 50%;
-        transform: rotate(120deg) translate3d(200%, -50px, 0);
+        transform: rotate(-360deg) translate3d(0px, -200px, 250px);
     }
 }
 
@@ -128,10 +139,11 @@ body {
 @keyframes name2-char1-up {
     from {
         font-size: 10rem;
-        width: auto;
+        /* width: auto; */
+        top: 50%;
         left: 50%;
-        transform: rotate(-180deg) translate3d(150px, -200px, 0);
-        transform-origin: center;
+        transform: rotate(180deg) translate3d(0px, 100px, 300px);
+        /* transform-origin: center; */
     }
 }
 
@@ -253,7 +265,7 @@ canvas {
     overflow-y: scroll;
     overflow-x: hidden;
     scroll-snap-type: y mandatory;
-    mix-blend-mode: hard-light;
+    /* mix-blend-mode: hard-light; */
     /* background-color: green; */
     /* pointer-events: none; */
 
@@ -302,7 +314,7 @@ canvas {
 } */
 
 .title-span {
-    font-family: 'Red Hat Mono', monospace;
+    /* font-family: 'Red Hat Mono', monospace; */
     position: absolute;
     white-space: nowrap;
 
@@ -311,8 +323,10 @@ canvas {
     transform: translate(-50%, 0) scale(200%);
     transition: transform .6s, left .6s ease-out;
     transform-origin: center;
-    color: rgb(255, 255, 0);
+    /* color: rgb(255, 255, 0); */
     /* background-color: aquamarine; */
+    /* color: black; */
+    z-index: 1000;
 }
 
 .title-span-stuck {
@@ -359,7 +373,7 @@ section.sec1 {
 .website {
     display: block;
     position: relative;
-    font-family: 'Red Hat Mono', monospace;
+    /* font-family: 'Red Hat Mono', monospace; */
     font-size: 1rem;
     line-height: 1.5rem;
     margin-bottom: -5px;
