@@ -123,37 +123,34 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
         // console.log(entry.target, entry.isIntersecting);
 
         if (entry.isIntersecting) {
-            // Set krv innerHTML string to blank 
-            krv.innerHTML = " ";
+
+            krv.parentNode.removeChild(krv)
 
             // Make a div with specific classes for each character
+            // Build the letters into .krv
             krvTextCharArr.forEach((character, i) => {
-                let lowerCaseChar = character.toLowerCase();
+                const lowerCaseChar = character.toLowerCase();
 
-                // first word = index 0
-                let firstWordLength = krvTextOfEachSpanArr[0].length;
+                // Calculate word lengths
+                const firstWordLength = krvTextOfEachSpanArr[0].length;
+                const lastWordLength = krvTextOfEachSpanArr[krvTextOfEachSpanArr.length - 1].length;
+                const middleWordLength = krvTextOfEachSpanArr.length === 3 ? krvTextOfEachSpanArr[1].length : 0;
 
-                // last word = always last element, no matter if 2 or 3 words
-                let lastWordLength = krvTextOfEachSpanArr[krvTextOfEachSpanArr.length - 1].length;
+                // const totalLength = krvTextCharArr.length;
+                const startOfMiddleWord = firstWordLength;
+                const startOfLastWord = krvTotalLength - lastWordLength;
 
-                // middle word = only exists if there are 3 words
-                let middleWordLength = krvTextOfEachSpanArr.length === 3 ? krvTextOfEachSpanArr[1].length : 0;
+                let nameClass = "";
 
-                if (i >= krvTextTotalLength - lastWordLength) {
-                    // last name
-                    let nameClass = "lastRow";
-                    krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
+                if (i < firstWordLength) {
+                    nameClass = "firstRow"; // first word
+                } else if (krvTextOfEachSpanArr.length === 3 && i >= startOfMiddleWord && i < startOfLastWord) {
+                    nameClass = "middleRow"; // middle word
+                } else if (i >= startOfLastWord) {
+                    nameClass = "lastRow"; // last word
                 }
-                else if (i < firstWordLength) {
-                    // first name
-                    let nameClass = "firstRow";
-                    krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
-                }
-                else {
-                    // middle name (only applies if there’s a middle word)
-                    let nameClass = "middleRow";
-                    krv.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
-                }
+
+                krvWrapper.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
             });
 
             // firstWordArray.forEach((char, i) => {
@@ -163,32 +160,28 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
 
 
             // Get KRV elements
-            const krvDivs = document.querySelectorAll(".krv div");
-            console.log(krvDivs);
+            const krvDivs = krvWrapper.querySelectorAll("div");
 
+            // Add classes for first letter vs rest of word using **index boundaries**
+            const firstWordLength = krvTextOfEachSpanArr[0].length;
+            const lastWordLength = krvTextOfEachSpanArr[krvTextOfEachSpanArr.length - 1].length;
+            const middleWordLength = krvTextOfEachSpanArr.length === 3 ? krvTextOfEachSpanArr[1].length : 0;
+            // const totalLength = krvTextCharArr.length;
 
-            // Add one class to first letters of names, and another to the rest
-            let currentWordIndex = 0; // track which word we are on
-            let firstLetterOfWord = true; // flag for first letter
+            const startOfMiddleWord = firstWordLength;
+            const startOfLastWord = krvTextTotalLength - lastWordLength;
 
             krvTextCharArr.forEach((char, i) => {
                 let className;
 
-                // Only add special class if we're in the first 2 words
-                if (firstLetterOfWord && currentWordIndex < 2) {
+                // ✅ If it's the very first letter of any word (based on index)
+                if (i === 0 || i === startOfMiddleWord || i === startOfLastWord) {
                     className = "firstLetter-krv-word";
-                    firstLetterOfWord = false;
                 } else {
                     className = "restLetter-krv-word";
                 }
 
                 krvDivs[i].classList.add(className);
-
-                // check if this is the last letter of the current word
-                if (char === krvTextOfEachSpanArr[currentWordIndex][krvTextOfEachSpanArr[currentWordIndex].length - 1]) {
-                    currentWordIndex++;
-                    firstLetterOfWord = true;
-                }
             });
 
 
@@ -402,16 +395,16 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
             addEffectToRestOfKrvDivs(restOfKrvDivs);
 
             // Add animation (changed) class
-            krv.classList.add('krv-changed');
+            // krv.classList.add('krv-changed');
             // title.classList.add('title-observed')
 
         } else {
             // Remove animation (changed) class
-            krv.classList.remove('krv-changed');
+            // krv.classList.remove('krv-changed');
             // title.classList.remove('title-observed')
+            krvWrapper.innerHTML = "";
 
-
-            krv.innerHTML = krvInnerHTML;
+            krvWrapper.appendChild(krv);
         }
     });
 }, titleObserverOptions);
@@ -609,7 +602,7 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
                 krvBorder.style.width = titleSpanStuckWidth;
             }, 1000);
 
-            
+
 
         } else {
             console.log("CLEAR");
@@ -624,3 +617,6 @@ krvBorderBottomObserver.observe(title)
 
 
 
+// Add space for the three letters
+const krvTextFirstLettersDivs = document.querySelectorAll('.firstLetter-krv-word')
+console.log(krvTextFirstLettersDivs);
