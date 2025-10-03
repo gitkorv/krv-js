@@ -372,9 +372,9 @@ const rect = canvas.getBoundingClientRect();
 // let grd = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
 
 // ctx.fillStyle = "rgba(50, 100, 0, .8)";
-ctx.fillStyle = "rgba(0, 0, 0, 1)";
-// ctx.strokeStyle = "pink";
-// ctx.lineWidth = 10;
+ctx.fillStyle = "rgba(255, 255, 255, 1)";
+ctx.strokeStyle = "black";
+ctx.lineWidth = 10;
 
 
 class Ball {
