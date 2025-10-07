@@ -24,10 +24,13 @@ body {
     height: 100dvh;
     overflow: hidden;
     color: rgb(205, 67, 157);
+    color: pink;
     font-family: "Inter Tight", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 900;
-  font-style: normal;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+    background-color: rgb(225, 126, 191);
+
   /* filter: hue-rotate(-175deg); */
     /* background-color: orange; */
     /* overflow-y: scroll; */
@@ -45,12 +48,12 @@ body {
     height: 100%;
 
     pointer-events: none;
-    filter: saturate(75%);
+    /* filter: saturate(75%); */
     /* background-color: rgba(85, 163, 162, 1); */
     /* text-align: right; */
     z-index: 100;
     /* mix-blend-mode: hard-light; */
-
+    mix-blend-mode: hard-light;
 }
 
 .krv-wrapper {
@@ -196,7 +199,7 @@ body {
     animation-name: restof-krv-divs-up;
     animation-duration: .8s;
     animation-timing-function: ease-out;
-    text-shadow: 3px 3px 0px black;
+    /* text-shadow: 3px 3px 0px black; */
 }
 
 @keyframes restof-krv-divs-up {
@@ -234,9 +237,11 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    transform: scale(1);
-    filter: contrast(50);
+    transform: scale(1.2);
+    filter: contrast(60);
     background-color: rgb(255, 255, 255);
+    background-color: rgb(154, 109, 173);
+    /* background-color: rgb(225, 126, 191); */
     /* animation: grow 5s linear; */
     transition: transform 2s linear forwards;
     z-index: -100;
@@ -247,7 +252,7 @@ canvas {
     z-index: -20;
     scale: 1;
     transition: scale 1s linear;
-    filter: blur(15px);
+    filter: blur(5px);
     /* -webkit-filter: url(#noise);
     filter: url(#noise) blur(15px); */
 
@@ -269,7 +274,15 @@ canvas {
     overflow-x: hidden;
     scroll-snap-type: y mandatory;
     /* mix-blend-mode: hard-light; */
-    /* background-color: green; */
+    background-color: rgb(0, 128, 55);
+    mix-blend-mode: screen;
+    mix-blend-mode: color-burn;
+    mix-blend-mode: color-dodge;
+    mix-blend-mode: difference;
+    mix-blend-mode: hard-light;
+    /* mix-blend-mode: overlay;
+    mix-blend-mode: soft-light;
+    mix-blend-mode: color; */
     /* pointer-events: none; */
 
     /* scroll-padding-top: 80px; */

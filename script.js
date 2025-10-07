@@ -373,35 +373,38 @@ const rect = canvas.getBoundingClientRect();
 
 // ctx.fillStyle = "rgba(50, 100, 0, .8)";
 ctx.fillStyle = "rgba(0, 0, 0, 1)";
-ctx.strokeStyle = "black";
+ctx.fillStyle = "rgba(126, 225, 205, 1)";
+// ctx.strokeStyle = "black";
 ctx.lineWidth = 10;
 
 
 class Ball {
     constructor(effect) {
         this.effect = effect;
-        this.x = this.effect.width * 0.5;
+        // this.x = this.effect.width * 0.5;
         // this.x = this.effect.width * (0.48 + Math.random() * (0.52 - 0.48));
         // this.x = Math.random() * this.effect.width - this.effect.width * 0.2;
+        this.x = Math.random() * this.effect.width;
         // this.y = Math.random() * (this.effect.height - this.effect.height * 0.8) + 0.4;
+        this.y = Math.random() * this.effect.height;
         // this.y = this.effect.height * (0.48 + Math.random() * (0.52 - 0.48));
         // this.y = this.effect.height * (Math.random() * 0.01) + 4 ;
-        this.y = this.effect.height * 0.5;
+        // this.y = this.effect.height * 0.5;
 
         // this.x = Math.random() * this.effect.width;
         // this.y = Math.random() * this.effect.height;
         // Make different sized balls depending on window width
         console.log(this.effect.width);
         if (this.effect.width < 400 || this.effect.height < 200) {
-            this.radius = Math.random() * 600 + 15;
-        } else if (this.effect.width < 600 || this.effect.height < 300) {
-            this.radius = Math.random() * 700 + 20;
-        } else if (this.effect.width < 800 || this.effect.height < 400) {
-            this.radius = Math.random() * 800 + 20;
-        } else if (this.effect.width < 1000 || this.effect.height < 500) {
-            this.radius = Math.random() * 140 + 30;
+            this.radius = Math.random() * 800 + 30;
+        } else if (this.effect.width < 900 || this.effect.height < 300) {
+            this.radius = Math.random() * 700 + 40;
+        } else if (this.effect.width < 1000 || this.effect.height < 400) {
+            this.radius = Math.random() * 800 + 40;
+        } else if (this.effect.width < 1200 || this.effect.height < 500) {
+            this.radius = Math.random() * 140 + 40;
         } else {
-            this.radius = Math.random() * 1500 + 40;
+            this.radius = Math.random() * 1500 + 50;
         }
         // this.radius = Math.random() * 200 + 10;
 
@@ -459,8 +462,12 @@ class Ball {
     reset() {
         // this.x = this.effect.width * 0.5;
         // this.y = Math.random() * this.effect.height * 0.6 + this.effect.height * 0.2;
-        this.x = this.effect.width * 0.5;
-        this.y = this.effect.height * 0.5;
+        // this.x = this.effect.width * 0.5;
+        // this.x = this.effect.width;
+        this.x = Math.random() * this.effect.width;
+        // this.y = this.effect.height * 0.5;
+        // this.y = this.effect.height;
+        this.y = Math.random() * this.effect.height;
         this.speedX = Math.random() - 0.5;
         this.speedY = Math.random() - 0.5;
     }
@@ -512,7 +519,7 @@ animateMetaballs();
 window.addEventListener('resize', function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = "rgba(126, 225, 205, 1)";
     effect.reset(canvas.width, canvas.height);
 })
 
