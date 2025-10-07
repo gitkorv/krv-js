@@ -206,7 +206,7 @@ body {
     filter: none;
 
     animation-name: restof-krv-divs-up;
-    animation-duration: .8s;
+    animation-duration: 2s;
     animation-timing-function: ease-out;
     /* text-shadow: 3px 3px 0px black; */
 }

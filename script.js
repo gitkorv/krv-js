@@ -342,7 +342,17 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
                 });
             };
 
-            addEffectToRestOfKrvDivs(restOfKrvDivs);
+            // addEffectToRestOfKrvDivs(restOfKrvDivs);
+
+            function restLetterEffect(divs) {
+                let windowWidth = window.innerWidth;
+                divs.forEach(div => {
+                    div.style.left = Math.random() * windowWidth + "px";
+                    div.style.top = Math.random() * windowWidth + "px";
+                })
+            }
+
+            restLetterEffect(restOfKrvDivs)
 
             // Add animation (changed) class
             // krv.classList.add('krv-changed');
