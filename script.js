@@ -19,136 +19,214 @@ setTimeout(function () {
 
 // 1. Get variables
 
-const krv = document.querySelector('.krv');
-console.log(krv);
+let windowWidth = "";
+
+const welcomeTextContainer = document.querySelector('.welcome-text__text-container');
+// console.log(welcomeTextContainer);
+
+const welcomeTextBorder = document.querySelector(".welcome-text__border");
+// console.log(titleBorder);
 
 // 2025 remix ---------------------- //
-const krvSpans = [...krv.querySelectorAll("span")];
-console.log(krvSpans);
-const krvTextOfEachSpanArr = Array.from(krvSpans).map(span => span.textContent);
-console.log(krvTextOfEachSpanArr);
-const krvTextEachWordsLength = krvTextOfEachSpanArr.map(w => w.length);
-console.log(krvTextEachWordsLength);
-const krvTextOneLongWord = krvTextOfEachSpanArr.join('')
-console.log(krvTextOneLongWord);
-const krvTextCharArr = [...krvTextOneLongWord]
-console.log(krvTextCharArr);
-const krvTextTotalLength = krvTextCharArr.length;
-console.log(krvTextTotalLength);
+let welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("div")];
+// console.log(welcomeTextSpans);
+const welcomeTextContentOfEachSpanArr = Array.from(welcomeTextWordContainers).map(span => span.textContent);
+// console.log(welcomeTextContentOfEachSpanArr);
+const welcomeTextEachWordsLength = welcomeTextContentOfEachSpanArr.map(w => w.length);
+// console.log(welcomeTextEachWordsLength);
+const welcomeTextOneLongWord = welcomeTextContentOfEachSpanArr.join('')
+// console.log(welcomeTextOneLongWord);
+const welcomeTextCharArr = [...welcomeTextOneLongWord]
+// console.log(welcomeTextCharArr);
+const welcomeTextTotalLength = welcomeTextCharArr.length;
+// console.log(welcomeTextTotalLength);
 
-const krvWrapper = document.querySelector(".krv-wrapper")
-console.log(krvWrapper);
+const welcomeTextWrapper = document.querySelector(".welcome-text-wrapper ")
+// console.log(welcomeTextWrapper);
 
 // Grab more elements from page
 const title = document.querySelector('.title');
 const sec1 = document.querySelector('.sec1');
 
+// Grab undersconst
+const underConstWrapper = document.querySelector(".underconst-wrapper")
+// console.log(underConstWrapper);
+
 // Find out how many letters each word is
-const krvEachWordLength = krv.innerHTML.split("<br>").map(w => w.length);
-console.log(krvEachWordLength);
+// const krvEachWordLength = welcomeTextSpans.map(w => w.getBoundingClientRect().width);
+// console.log(krvEachWordLength);
 
 function switchWord(div, contentArray, interval = 2000) {
     let index = 0;
     return setInterval(() => {
-       div.innerHTML = contentArray[index];
-       index = (index + 1) % contentArray.length; 
+        div.innerHTML = contentArray[index];
+        index = (index + 1) % contentArray.length;
     }, interval);
 }
 
-switchWord(krvSpans[0], ["live", "love"])
+
 
 // intersection observer for ${title} hitting 50% of viewport
 
-const titleObserverOptions = {
+const origWelcomeHtml = welcomeTextContainer.innerHTML;
+
+const viewportObserverOptions = {
     root: null,
     threshold: 0,
     rootMargin: "0px 0px -45% 0px"
 };
 
-const titleObserver = new IntersectionObserver(function (entries, titleObserver) {
+const viewportObserver = new IntersectionObserver(function (entries, observer) {
 
     entries.forEach(entry => {
-
+        windowWidth = window.innerWidth;
         // title.classList.toggle("title-observed", entry.isIntersecting);
 
         titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
 
         // console.log(entry.target, entry.isIntersecting);
 
+
+
         if (entry.isIntersecting) {
 
-            krv.parentNode.removeChild(krv)
+            // const welcomeTextContainer = document.getElementById('welcome-text__text-container');
+            const originalSpans = Array.from(welcomeTextContainer.querySelectorAll('div')); // static snapshot
+            console.log(originalSpans);
+
+            const spansBrokenUpArr = [];
+
+            // Step 1: Wrap letters
+            // Step 1: Wrap letters inside words
+            originalSpans.forEach(originalSpan => {
+                const text = originalSpan.textContent;
+
+                const wordContainer = document.createElement('div');
+                wordContainer.classList.add('word');
+
+                for (const char of text) {
+                    const letterSpan = document.createElement('span');
+                    letterSpan.textContent = char === ' ' ? '\u00A0' : char;
+                    letterSpan.classList.add('letter');
+                    wordContainer.appendChild(letterSpan);
+                }
+
+                spansBrokenUpArr.push(wordContainer);
+                console.log(spansBrokenUpArr);
+            });
+
+
+
+            welcomeTextContainer.innerHTML = "";
+            spansBrokenUpArr.forEach(word => {
+                welcomeTextContainer.appendChild(word)
+            })
+
+            const letterArr = welcomeTextContainer.querySelectorAll(".letter");
+            console.log(letterArr);
+            letterArr.forEach(letter => {
+
+                const letterTop = letter.getBoundingClientRect().top;
+                const letterLeft = letter.getBoundingClientRect().left;
+                const letterWidth = letter.getBoundingClientRect().width;
+
+                const windowWidth = window.innerWidth;
+
+                // Calculate maximum distances
+                const maxLeft = letterLeft; // distance to left edge
+                const maxRight = windowWidth - letterLeft - letterWidth; // distance to right edge
+
+                // Generate random value between -maxLeft and maxRight
+                const randomX = Math.random() * (maxRight + maxLeft) - maxLeft;
+
+                // Apply transform with transition
+                letter.style.transition = `transform 1s ease, opacity 1s ease`;
+
+
+
+                // trigger transition after layout
+                requestAnimationFrame(() => {
+                    letter.style.transform = `translateX(${randomX}px)`;
+                });
+            });
+
+
+
+
+
+
+
+            // welcomeTextContainer.parentNode.removeChild(welcomeTextContainer)
 
             // Make a div with specific classes for each character
             // Build the letters into .krv
-            krvTextCharArr.forEach((character, i) => {
-                const lowerCaseChar = character.toLowerCase();
+            // welcomeTextCharArr.forEach((character, i) => {
+            //     const lowerCaseChar = character.toLowerCase();
 
-                // Calculate word lengths
-                const firstWordLength = krvTextOfEachSpanArr[0].length;
-                const lastWordLength = krvTextOfEachSpanArr[krvTextOfEachSpanArr.length - 1].length;
-                const middleWordLength = krvTextOfEachSpanArr.length === 3 ? krvTextOfEachSpanArr[1].length : 0;
+            //     // Calculate word lengths
+            //     const firstWordLength = welcomeTextContentOfEachSpanArr[0].length;
+            //     const lastWordLength = welcomeTextContentOfEachSpanArr[welcomeTextContentOfEachSpanArr.length - 1].length;
+            //     const middleWordLength = welcomeTextContentOfEachSpanArr.length === 3 ? welcomeTextContentOfEachSpanArr[1].length : 0;
 
-                // const totalLength = krvTextCharArr.length;
-                const startOfMiddleWord = firstWordLength;
-                const startOfLastWord = krvTextTotalLength - lastWordLength;
+            //     // const totalLength = krvTextCharArr.length;
+            //     const startOfMiddleWord = firstWordLength;
+            //     const startOfLastWord = welcomeTextTotalLength - lastWordLength;
 
-                let nameClass = "";
+            //     let nameClass = "";
 
-                if (i < firstWordLength) {
-                    nameClass = "firstRow"; // first word
-                } else if (krvTextOfEachSpanArr.length === 3 && i >= startOfMiddleWord && i < startOfLastWord) {
-                    nameClass = "middleRow"; // middle word
-                } else if (i >= startOfLastWord) {
-                    nameClass = "lastRow"; // last word
-                }
+            //     if (i < firstWordLength) {
+            //         nameClass = "firstRow"; // first word
+            //     } else if (welcomeTextContentOfEachSpanArr.length === 3 && i >= startOfMiddleWord && i < startOfLastWord) {
+            //         nameClass = "middleRow"; // middle word
+            //     } else if (i >= startOfLastWord) {
+            //         nameClass = "lastRow"; // last word
+            //     }
 
-                krvWrapper.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
-            });
+            //     welcomeTextWrapper.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
+            // });
 
 
 
 
             // Get KRV elements
-            const krvDivs = krvWrapper.querySelectorAll("div");
+            // const krvDivs = welcomeTextWrapper.querySelectorAll("div");
 
             // Add classes for first letter vs rest of word using **index boundaries**
-            const firstWordLength = krvTextOfEachSpanArr[0].length;
-            const lastWordLength = krvTextOfEachSpanArr[krvTextOfEachSpanArr.length - 1].length;
-            const middleWordLength = krvTextOfEachSpanArr.length === 3 ? krvTextOfEachSpanArr[1].length : 0;
-            // const totalLength = krvTextCharArr.length;
+            // const firstWordLength = welcomeTextContentOfEachSpanArr[0].length;
+            // const lastWordLength = welcomeTextContentOfEachSpanArr[welcomeTextContentOfEachSpanArr.length - 1].length;
+            // const middleWordLength = welcomeTextContentOfEachSpanArr.length === 3 ? welcomeTextContentOfEachSpanArr[1].length : 0;
 
-            const startOfMiddleWord = firstWordLength;
-            const startOfLastWord = krvTextTotalLength - lastWordLength;
+            // const startOfMiddleWord = firstWordLength;
+            // const startOfLastWord = welcomeTextTotalLength - lastWordLength;
 
-            krvTextCharArr.forEach((char, i) => {
-                let className;
+            // welcomeTextCharArr.forEach((char, i) => {
+            //     let className;
 
-                // ✅ If it's the very first letter of any word (based on index)
-                if (i === 0 || i === startOfMiddleWord || i === startOfLastWord) {
-                    className = "firstLetter-krv-word";
-                } else {
-                    className = "restLetter-krv-word";
-                }
+            //     // ✅ If it's the very first letter of any word (based on index)
+            //     if (i === 0 || i === startOfMiddleWord || i === startOfLastWord) {
+            //         className = "firstLetter";
+            //     } else {
+            //         className = "restLetter";
+            //     }
 
-                krvDivs[i].classList.add(className);
-            });
+            //     krvDivs[i].classList.add(className);
+            // });
 
 
 
             // Grab newly formed top left KRV
-            const newKrvDivs = document.querySelectorAll('.firstLetter-krv-word');
+            // const newKrvDivs = document.querySelectorAll('.firstLetter');
             // console.log(newTopKrv);
 
             // Add unique class name to each names first character
-            function addClassToFirstLetter(divs, extra) {
-                divs.forEach((div, i) => {
-                    i++;
-                    div.classList.add(`${extra}${i}-char1`);
-                });
-            };
+            // function addClassToFirstLetter(divs, extra) {
+            //     divs.forEach((div, i) => {
+            //         i++;
+            //         div.classList.add(`${extra}${i}-char1`);
+            //     });
+            // };
 
-            addClassToFirstLetter(newKrvDivs, "name");
+            // addClassToFirstLetter(newKrvDivs, "name");
 
             // Function for adding dots to two first letters
             // function addDotts(divs) {
@@ -161,7 +239,7 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
 
 
             // Grab rest of divs
-            const restOfKrvDivs = document.querySelectorAll(".restLetter-krv-word");
+            const restOfKrvDivs = document.querySelectorAll(".restLetter");
 
             // console.log(restOfKrvDivs);
 
@@ -352,7 +430,7 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
                 })
             }
 
-            restLetterEffect(restOfKrvDivs)
+            // restLetterEffect(restOfKrvDivs)
 
             // Add animation (changed) class
             // krv.classList.add('krv-changed');
@@ -362,14 +440,20 @@ const titleObserver = new IntersectionObserver(function (entries, titleObserver)
             // Remove animation (changed) class
             // krv.classList.remove('krv-changed');
             // title.classList.remove('title-observed')
-            krvWrapper.innerHTML = "";
+            // welcomeTextWrapper.innerHTML = "";
 
-            krvWrapper.appendChild(krv);
+            // welcomeTextWrapper.appendChild(welcomeTextContainer);
+            welcomeTextContainer.innerHTML = origWelcomeHtml;
+            requestAnimationFrame(() => {
+                welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("div")];
+                switchWord(welcomeTextWordContainers[0], ["live", "love"])
+            })
+
         }
     });
-}, titleObserverOptions);
+}, viewportObserverOptions);
 
-titleObserver.observe(title);
+viewportObserver.observe(underConstWrapper);
 
 
 // meta balls start here
@@ -536,8 +620,7 @@ window.addEventListener('resize', function () {
 
 // Make a border bottom when sticky element is stuck
 
-const krvBorder = document.querySelector(".krv-border");
-// console.log(titleBorder);
+
 
 const titleSpan = document.querySelector(".title-span");
 let titleSpanWidth = titleSpan.offsetWidth;
@@ -559,7 +642,7 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
 
         if (entry.isIntersecting) {
             // Add class to title border
-            krvBorder.classList.add("krv-border-show");
+            welcomeTextBorder.classList.add("krv-border-show");
             // Get new titleSpan width
             let titleSpanStuckWidth = null;
             // Wait .5 secs so transition font size is done
@@ -567,7 +650,7 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
                 titleSpanStuckWidth = window.getComputedStyle(titleSpan).width;
                 // console.log(titleSpanStuckWidth);
                 // Add new title span width to title border, again wait .5 secs
-                krvBorder.style.width = titleSpanStuckWidth;
+                welcomeTextBorder.style.width = titleSpanStuckWidth;
             }, 1000);
 
 
@@ -575,7 +658,7 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
         } else {
             console.log("CLEAR");
             // clearMetaballs()
-            krvBorder.style.width = "0";
+            welcomeTextBorder.style.width = "0";
         }
 
     })
