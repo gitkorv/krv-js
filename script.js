@@ -73,6 +73,7 @@ function switchWord(div, contentArray, ownClass, interval = 8000) {
 
         // remove class after animation finishes
         setTimeout(() => div.classList.remove(ownClass), 2000);
+        void div.offsetWidth; 
         setTimeout(() => div.classList.add(ownClass), 7000);
     }, interval);
 }
