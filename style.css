@@ -36,6 +36,11 @@ body {
     /* overflow-y: scroll; */
 }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
 .color-overlay {
     position: fixed;
     width: 100%;
@@ -113,6 +118,7 @@ body {
     text-align: left;
     z-index: 20;
     transition: all .2s ease-out;
+    gap: 24px;
     /* height: 440px; */
     /* background-color: orange; */
 }
@@ -188,100 +194,6 @@ body {
 .letter.animate {
   transform: translateX(30px);
 }
-
-
-.name1-char1 {
-    animation: name1-char1-up 1.2s ease-out forwards;
-}
-
-@keyframes name1-char1-up {
-    from {
-        font-size: 10rem;
-        top: 50%;
-        left: 50%;
-        transform: rotate(-360deg) translate3d(0px, -200px, 250px);
-    }
-}
-
-.welcome-text__text-wrapper div.firstLetter.name2-char1 {
-    animation: name2-char1-up 1.6s ease-out;
-    left: calc(var(--headerLeft) + 12px);
-}
-
-@keyframes name2-char1-up {
-    from {
-        font-size: 10rem;
-        /* width: auto; */
-        top: 50%;
-        left: 50%;
-        transform: rotate(180deg) translate3d(0px, 100px, 300px);
-        /* transform-origin: center; */
-    }
-}
-
-.welcome-text__text-wrapper div.firstLetter.name3-char1 {
-    /* margin-left: -.15rem; */
-    left: calc(var(--headerLeft) + 24px);
-
-    animation: name3-char1-up 2.2s ease-out;
-}
-
-@keyframes name3-char1-up {
-    from {
-        font-size: 12rem;
-        top: 50%;
-        left: 40%;
-        transform: rotate(360deg) translate3d(-80px, 50px, 0);
-    }
-}
-
-/* FIX THESE CLASSES!!! */
-
-.krv__dott1 {
-    margin-left: -.1rem;
-}
-
-.krv__dott2 {
-    margin-left: -.15rem;
-    animation: krv__dott1-up 2s ease-out;
-}
-
-@keyframes krv__dott1-up {
-    from {
-        font-size: 10rem;
-        top: -300%;
-        left: 50%;
-    }
-}
-
-.restLetter {
-    font-size: 2rem;
-    line-height: normal;
-    top: -5px;
-    right: 0px;
-
-    position: absolute;
-
-    transform: rotate(0deg);
-    -webkit-filter: none;
-    filter: none;
-
-    animation-name: restLetter-up;
-    animation-duration: 2s;
-    animation-timing-function: ease-out;
-    /* text-shadow: 3px 3px 0px black; */
-}
-
-@keyframes restLetter-up {
-    from {
-        font-size: 10rem;
-        top: 50%;
-        right: 50%;
-        transform: rotate(0deg);
-        text-shadow: 0px 0px 0px black;
-    }
-}
-
 
 
 .contrast {
@@ -420,18 +332,17 @@ section.sec1 {
     /* align-items: flex-start; */
     justify-content: center;
     align-items: center;
-    color: white;
     text-align: center;
     transform: scale(0.2);
     transition: transform 0.25s cubic-bezier(.65,.27,.71,2.8);
     text-align: center;
-    color: rgb(39, 0, 39);
+    color: white;
     /* background-color: orange; */
 }
 
 .underconst-wrapper.underconst-wrapper--open {
     transform: scale(1);
-    text-shadow: 2px 2px 0px white;
+    text-shadow: 2px 2px 0px rgb(39, 0, 39);
 }
 
 .website {
@@ -444,16 +355,13 @@ section.sec1 {
 
 }
 
-.always {
-    color: rgb(255, 255, 0);
-    animation: flash 5s ease-in infinite alternate;
-}
+
 
 .underconst {
     display: block;
     position: relative;
     font-size: 5rem;
-    line-height: 4rem;
+    /* line-height: 4rem; */
     /* margin-bottom: -10px; */
     
     /* -webkit-filter: url(#noise);
@@ -491,6 +399,11 @@ section.sec1 {
     67% {
         scale: 1;
     }
+}
+
+.always {
+    color: rgb(255, 255, 0);
+    animation: flash 5s ease-in infinite alternate;
 }
 
 @keyframes flash {
