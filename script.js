@@ -22,6 +22,9 @@ setTimeout(function () {
 let windowWidth = "";
 
 const welcomeTextContainer = document.querySelector('.welcome-text__text-container');
+const welcomeTextContainerWidth = welcomeTextContainer.getBoundingClientRect().width;
+console.log(welcomeTextContainerWidth);
+welcomeTextContainer.style.width = welcomeTextContainerWidth + "px";
 // console.log(welcomeTextContainer);
 
 const welcomeTextBorder = document.querySelector(".welcome-text__border");
@@ -56,11 +59,21 @@ const underConstWrapper = document.querySelector(".underconst-wrapper")
 // const krvEachWordLength = welcomeTextSpans.map(w => w.getBoundingClientRect().width);
 // console.log(krvEachWordLength);
 
-function switchWord(div, contentArray, interval = 2000) {
+function switchWord(div, contentArray, ownClass, interval = 8000) {
     let index = 0;
     return setInterval(() => {
+        // change the word
         div.innerHTML = contentArray[index];
         index = (index + 1) % contentArray.length;
+
+        // trigger the glitch
+        div.classList.remove(ownClass); // reset previous glitch
+        void div.offsetWidth;               // force reflow so animation restarts
+        div.classList.add(ownClass);    // apply glitch
+
+        // remove class after animation finishes
+        setTimeout(() => div.classList.remove(ownClass), 2000);
+        setTimeout(() => div.classList.add(ownClass), 7000);
     }, interval);
 }
 
@@ -73,22 +86,27 @@ const origWelcomeHtml = welcomeTextContainer.innerHTML;
 const viewportObserverOptions = {
     root: null,
     threshold: 0,
-    rootMargin: "0px 0px -45% 0px"
+    rootMargin: "0px 0px -40% 0px"
 };
+
+let letterArr = [];
 
 const viewportObserver = new IntersectionObserver(function (entries, observer) {
 
     entries.forEach(entry => {
+
         windowWidth = window.innerWidth;
         // title.classList.toggle("title-observed", entry.isIntersecting);
 
         titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
 
         // console.log(entry.target, entry.isIntersecting);
+        const maxTransitionTime = 1000;
 
 
 
         if (entry.isIntersecting) {
+            console.log("ITS INTERSECTING!!!");
 
             // const welcomeTextContainer = document.getElementById('welcome-text__text-container');
             const originalSpans = Array.from(welcomeTextContainer.querySelectorAll('div')); // static snapshot
@@ -122,332 +140,66 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
                 welcomeTextContainer.appendChild(word)
             })
 
-            const letterArr = welcomeTextContainer.querySelectorAll(".letter");
+            letterArr = welcomeTextContainer.querySelectorAll(".letter");
             console.log(letterArr);
             letterArr.forEach(letter => {
 
                 const letterTop = letter.getBoundingClientRect().top;
                 const letterLeft = letter.getBoundingClientRect().left;
                 const letterWidth = letter.getBoundingClientRect().width;
+                const letterHeight = letter.getBoundingClientRect().height;
 
                 const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
 
                 // Calculate maximum distances
                 const maxLeft = letterLeft; // distance to left edge
                 const maxRight = windowWidth - letterLeft - letterWidth; // distance to right edge
+                const maxTop = letterTop;
+                const maxBottom = windowHeight - letterTop - letterHeight;
 
-                // Generate random value between -maxLeft and maxRight
+                // Generate random left value between -maxLeft and maxRight
                 const randomX = Math.random() * (maxRight + maxLeft) - maxLeft;
+                // Generate random top value
+                const randomY = Math.random() * (maxBottom + maxTop) - maxTop;
+                // Random duration
+                const randomDuration = Math.random() * (maxTransitionTime + 500);
+                // Random rotation
+                const rotateX = Math.random() * 720;
+                // console.log(rotateX);
+                // Random scale
+                const scale = Math.random() * 5;
 
                 // Apply transform with transition
-                letter.style.transition = `transform 1s ease, opacity 1s ease`;
-
-
+                letter.style.transition = `transform ${randomDuration}ms cubic-bezier(.09,1.3,.78,.98), opacity 1s ease-out`;
 
                 // trigger transition after layout
+                setTimeout(() => {
+                                        letter.style.transform = `translateX(${randomX}px) translateY(${randomY}px) rotate(${rotateX}deg) scale(${scale})`;
+
+                }, 250 * 0.8);
                 requestAnimationFrame(() => {
-                    letter.style.transform = `translateX(${randomX}px)`;
                 });
             });
-
-
-
-
-
-
-
-            // welcomeTextContainer.parentNode.removeChild(welcomeTextContainer)
-
-            // Make a div with specific classes for each character
-            // Build the letters into .krv
-            // welcomeTextCharArr.forEach((character, i) => {
-            //     const lowerCaseChar = character.toLowerCase();
-
-            //     // Calculate word lengths
-            //     const firstWordLength = welcomeTextContentOfEachSpanArr[0].length;
-            //     const lastWordLength = welcomeTextContentOfEachSpanArr[welcomeTextContentOfEachSpanArr.length - 1].length;
-            //     const middleWordLength = welcomeTextContentOfEachSpanArr.length === 3 ? welcomeTextContentOfEachSpanArr[1].length : 0;
-
-            //     // const totalLength = krvTextCharArr.length;
-            //     const startOfMiddleWord = firstWordLength;
-            //     const startOfLastWord = welcomeTextTotalLength - lastWordLength;
-
-            //     let nameClass = "";
-
-            //     if (i < firstWordLength) {
-            //         nameClass = "firstRow"; // first word
-            //     } else if (welcomeTextContentOfEachSpanArr.length === 3 && i >= startOfMiddleWord && i < startOfLastWord) {
-            //         nameClass = "middleRow"; // middle word
-            //     } else if (i >= startOfLastWord) {
-            //         nameClass = "lastRow"; // last word
-            //     }
-
-            //     welcomeTextWrapper.innerHTML += `<div class="krv_${i}_${lowerCaseChar} ${nameClass}">${character}</div>`;
-            // });
-
-
-
-
-            // Get KRV elements
-            // const krvDivs = welcomeTextWrapper.querySelectorAll("div");
-
-            // Add classes for first letter vs rest of word using **index boundaries**
-            // const firstWordLength = welcomeTextContentOfEachSpanArr[0].length;
-            // const lastWordLength = welcomeTextContentOfEachSpanArr[welcomeTextContentOfEachSpanArr.length - 1].length;
-            // const middleWordLength = welcomeTextContentOfEachSpanArr.length === 3 ? welcomeTextContentOfEachSpanArr[1].length : 0;
-
-            // const startOfMiddleWord = firstWordLength;
-            // const startOfLastWord = welcomeTextTotalLength - lastWordLength;
-
-            // welcomeTextCharArr.forEach((char, i) => {
-            //     let className;
-
-            //     // ✅ If it's the very first letter of any word (based on index)
-            //     if (i === 0 || i === startOfMiddleWord || i === startOfLastWord) {
-            //         className = "firstLetter";
-            //     } else {
-            //         className = "restLetter";
-            //     }
-
-            //     krvDivs[i].classList.add(className);
-            // });
-
-
-
-            // Grab newly formed top left KRV
-            // const newKrvDivs = document.querySelectorAll('.firstLetter');
-            // console.log(newTopKrv);
-
-            // Add unique class name to each names first character
-            // function addClassToFirstLetter(divs, extra) {
-            //     divs.forEach((div, i) => {
-            //         i++;
-            //         div.classList.add(`${extra}${i}-char1`);
-            //     });
-            // };
-
-            // addClassToFirstLetter(newKrvDivs, "name");
-
-            // Function for adding dots to two first letters
-            // function addDotts(divs) {
-            //     for (let i = 0; i < divs.length - 1; i++) {
-            //         divs[i].innerHTML = divs[i].innerHTML + `<div class="krv__dotts krv__dott${i + 1}">.</div>`;
-            //     }
-            // }
-            // // Call above function after Xs 
-            // setTimeout(() => { addDotts(newKrvDivs) }, 500);
-
-
-            // Grab rest of divs
-            const restOfKrvDivs = document.querySelectorAll(".restLetter");
-
-            // console.log(restOfKrvDivs);
-
-            // Add unique effect to each of restofKrvDivs
-            function addEffectToRestOfKrvDivs(divs) {
-                let windowWidth = window.innerWidth;
-                // console.log(windowWidth);
-
-                // Unique random number function
-                function makeUniqueRandomNumbersArray(min, max, length) {
-                    let uniqueRandomNumberArray = [];
-                    for (let i = 0; i < length; i++) {
-                        let uniqueRandomNumber = Math.round(Math.random() * (max - min));
-                        if (!uniqueRandomNumberArray.includes(uniqueRandomNumber)) {
-                            uniqueRandomNumberArray.push(uniqueRandomNumber);
-                        } else if (uniqueRandomNumberArray.includes(uniqueRandomNumber)) {
-                            i--;
-                        }
-                    }
-                    return uniqueRandomNumberArray;
-                }
-
-                // Non Unique random number function
-                function makeRandomNumber(min, max, length) {
-                    let randomNumberArray = [];
-                    for (let i = 0; i < length; i++) {
-                        let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-                        randomNumberArray.push(randomNumber);
-                    }
-                    return randomNumberArray;
-                };
-
-                // Set different values depending on window width
-
-                let randomStyleRightNumbers = [];
-                // let randomFontSizes = makeRandomNumber(2,14,restOfKrvDivs.length);
-                let randomFontSizes = [];
-                let topRightLetter = "";
-                let topRightLetterTop = "";
-
-                if (windowWidth < 400) {
-                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.45, restOfKrvDivs.length);
-                    randomFontSizes = makeRandomNumber(2, 12, restOfKrvDivs.length);
-                    topRightLetter = "16rem";
-                    topRightLetterTop = "-80px";
-                } else if (windowWidth < 600) {
-                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.55, restOfKrvDivs.length);
-                    randomFontSizes = makeRandomNumber(2, 13, restOfKrvDivs.length);
-                    topRightLetter = "17rem";
-                    topRightLetterTop = "-100px";
-                } else if (windowWidth < 800) {
-                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.65, restOfKrvDivs.length);
-                    randomFontSizes = makeRandomNumber(2, 14, restOfKrvDivs.length);
-                    topRightLetter = "18rem";
-                    topRightLetterTop = "-110px";
-                } else if (windowWidth < 1200) {
-                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.75, restOfKrvDivs.length);
-                    randomFontSizes = makeRandomNumber(2, 18, restOfKrvDivs.length);
-                    topRightLetter = "22rem";
-                    topRightLetterTop = "-120px";
-                } else {
-                    randomStyleRightNumbers = makeUniqueRandomNumbersArray(0, windowWidth * 0.8, restOfKrvDivs.length);
-                    randomFontSizes = makeRandomNumber(4, 24, restOfKrvDivs.length);
-                    topRightLetter = "28rem";
-                    topRightLetterTop = "-140px";
-                }
-
-                // Make random rotate numbers
-                let randomRotateNumber = makeUniqueRandomNumbersArray(0, 360, restOfKrvDivs.length)
-
-                // Make random anim duration numbers
-                function makeRandomAnimDuration(length) {
-                    let randomAnimDurationArray2 = [];
-                    for (let i = 0; i < length; i++) {
-                        let animDur = Math.ceil(Math.random() * 5) / 10 + 0.5;
-                        randomAnimDurationArray2.push(animDur);
-                    }
-                    return randomAnimDurationArray2;
-                }
-
-                let randomAnimDuration = makeRandomAnimDuration(restOfKrvDivs.length);
-                console.log(randomAnimDuration);
-
-                // Add styles to each div
-                divs.forEach((div, i) => {
-
-                    // Generate 50-50 chance if rotation gets a -(minus) or not in front of rotation number
-                    let plusOrMinus = Math.random() < 0.5;
-                    if (plusOrMinus) {
-                        div.style.transform = `rotate(${randomRotateNumber[i]}deg)`;
-                    } else {
-                        div.style.transform = `rotate(-${randomRotateNumber[i]}deg)`;
-                    }
-
-                    div.style.right = `${randomStyleRightNumbers[i]}px`;
-                    div.style.fontSize = `${randomFontSizes[i]}rem`;
-                    div.style.animationDuration = `${randomAnimDuration[i]}s`;
-
-                    switch (div.style.fontSize) {
-                        case "24rem":
-                        case "23rem":
-                        case "22rem":
-                            div.style.top = "-140px";
-                            break;
-                        case "21rem":
-                        case "20rem":
-                        case "19rem":
-                            div.style.top = "-120px";
-                            break;
-                        case "18rem":
-                        case "17rem":
-                        case "16rem":
-                            div.style.top = "-100px";
-                            break;
-                        case "15rem":
-                        case "14rem":
-                        case "13rem":
-                            div.style.top = "-80px";
-                            break;
-                        case "12rem":
-                        case "11rem":
-                        case "10rem":
-                            div.style.top = "-60px";
-                            break;
-                        case "9rem":
-                        case "8rem":
-                            div.style.top = "-50px";
-                            break;
-                        case "7rem":
-                        case "6rem":
-                            div.style.top = "-40px";
-                            break;
-                        case "5rem":
-                        case "4rem":
-                            div.style.top = "-30px";
-                            break;
-                        case "3rem":
-                            div.style.top = "-25px";
-                            break;
-                        default:
-                            break;
-                    }
-                });
-
-                // Pick random elements from array and style them to go right
-                function pickRandomElements(array, amount) {
-                    let randomElementsArray = [];
-                    for (let i = 0; i < amount; i++) {
-                        let randomElement = array[Math.floor(Math.random() * array.length)];
-                        if (!randomElementsArray.includes(randomElement)) {
-                            randomElementsArray.push(randomElement);
-                        } else if (randomElementsArray.includes(randomElement)) {
-                            i--;
-                        }
-                    }
-                    return randomElementsArray;
-                }
-
-                let halfOfRestOfKrvDivs = restOfKrvDivs.length / 2;
-                let pickedElementsToGoRight = pickRandomElements(restOfKrvDivs, halfOfRestOfKrvDivs);
-                let moveYElements = makeRandomNumber(0, (window.innerHeight / 3), halfOfRestOfKrvDivs);
-
-                pickedElementsToGoRight.forEach((div, i) => {
-                    // console.log(i);
-
-                    if (i == 0) {
-                        // console.log(div);
-                        div.style.transform = "rotate(240deg)";
-                        div.style.right = "10px";
-                        div.style.top = topRightLetterTop;
-                        div.style.fontSize = topRightLetter;
-                        div.style.animationDuration = "1.4s";
-
-                    } else {
-                        div.style.right = "0px";
-                        div.style.top = `${moveYElements[i]}px`;
-                    }
-                });
-            };
-
-            // addEffectToRestOfKrvDivs(restOfKrvDivs);
-
-            function restLetterEffect(divs) {
-                let windowWidth = window.innerWidth;
-                divs.forEach(div => {
-                    div.style.left = Math.random() * windowWidth + "px";
-                    div.style.top = Math.random() * windowWidth + "px";
-                })
-            }
-
-            // restLetterEffect(restOfKrvDivs)
-
-            // Add animation (changed) class
-            // krv.classList.add('krv-changed');
-            // title.classList.add('title-observed')
+            underConstWrapper.classList.add("underconst-wrapper--open")
 
         } else {
-            // Remove animation (changed) class
-            // krv.classList.remove('krv-changed');
-            // title.classList.remove('title-observed')
-            // welcomeTextWrapper.innerHTML = "";
-
-            // welcomeTextWrapper.appendChild(welcomeTextContainer);
-            welcomeTextContainer.innerHTML = origWelcomeHtml;
-            requestAnimationFrame(() => {
-                welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("div")];
-                switchWord(welcomeTextWordContainers[0], ["live", "love"])
+            console.log("NO INTERSECTION");
+            letterArr.forEach((letter, i) => {
+                letter.style.transform = `translateX(0px)`
+                // letter.style.color = "black";
             })
+            setTimeout(() => {
+                welcomeTextContainer.innerHTML = origWelcomeHtml;
+                requestAnimationFrame(() => {
+                    welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("div")];
+                    switchWord(welcomeTextWordContainers[0], ["create", "love"], "glitching")
+                    switchWord(welcomeTextWordContainers[2], ["live.", "create."], "glitching2")
+                })
+            }, maxTransitionTime);
+
+            underConstWrapper.classList.remove("underconst-wrapper--open")
+
 
         }
     });

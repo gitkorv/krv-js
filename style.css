@@ -113,11 +113,22 @@ body {
     text-align: left;
     z-index: 20;
     transition: all .2s ease-out;
+    /* height: 440px; */
+    /* background-color: orange; */
 }
 
 .welcome-text__text-container div.glitch-word {
+    filter: none;
+}
+
+.welcome-text__text-container div.glitch-word.glitching {
     -webkit-filter: url(#noiceLove);
     filter: url(#noiseLove);
+}
+
+.welcome-text__text-container div.glitch-word.glitching2 {
+    -webkit-filter: url(#noiceLove2);
+    filter: url(#noiseLove2);
 }
 
 @media (min-width: 800px) {
@@ -309,13 +320,15 @@ canvas {
 }
 
 .main-wrapper {
+    position: relative;
     display: block;
     width: 100%;
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
     scroll-snap-type: y mandatory;
-    mix-blend-mode: hard-light;
+    z-index: 100;
+    /* mix-blend-mode: hard-light; */
 }
 
 .home {
@@ -405,12 +418,19 @@ section.sec1 {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    /* align-items: flex-start; */
     justify-content: center;
+    align-items: center;
     color: white;
     text-align: center;
+    transform: scale(0.2);
+    transition: transform 0.25s cubic-bezier(.65,.27,.71,2.8);
+    text-align: center;
+    /* background-color: orange; */
+}
 
-    background-color: orange;
+.underconst-wrapper.underconst-wrapper--open {
+    transform: scale(1);
 }
 
 .website {
@@ -434,22 +454,18 @@ section.sec1 {
     font-size: 5rem;
     line-height: 4rem;
     margin-bottom: -10px;
-    transform-origin: bottom;
-
-}
-
-.underconst {
-    color: pink;
+    color: rgb(39, 0, 39);
     -webkit-filter: url(#noise);
     filter: url(#noise);
     animation: turb 1s linear infinite alternate-reverse;
     transform-origin: top left;
+    text-align: center;
 }
 
 .underconst:nth-of-type(2) {
     /* color: green; */
     animation: turb 2s linear infinite alternate-reverse 1s;
-    transform-origin: bottom right;
+    transform-origin: bottom center;
 
 }
 
@@ -472,7 +488,6 @@ section.sec1 {
     }
 
     67% {
-        left: 0rem;
         scale: 1;
     }
 }
