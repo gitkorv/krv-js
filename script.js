@@ -69,7 +69,7 @@ function switchWord(div, contentArray, ownClass, interval = 8000) {
         // trigger the glitch
         // div.classList.remove(ownClass); // reset previous glitch
         void div.offsetWidth;               // force reflow so animation restarts
-        div.classList.add(ownClass);    // apply glitch
+        // div.classList.add(ownClass);    // apply glitch
 
         // remove class after animation finishes
         setTimeout(() => div.classList.remove(ownClass), 2000);
