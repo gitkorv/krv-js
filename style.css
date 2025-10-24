@@ -118,17 +118,18 @@ body {
 }
 
 .welcome-text__text-container div.glitch-word {
-    filter: none;
+    -webkit-filter: url(#noise);
+    filter: url(#noise);
 }
 
 .welcome-text__text-container div.glitch-word.glitching {
-    -webkit-filter: url(#noiceLove);
-    filter: url(#noiseLove);
+    /* -webkit-filter: url(#noiceLove);
+    filter: url(#noiseLove); */
 }
 
 .welcome-text__text-container div.glitch-word.glitching2 {
-    -webkit-filter: url(#noiceLove2);
-    filter: url(#noiseLove2);
+    /* -webkit-filter: url(#noiceLove2);
+    filter: url(#noiseLove2); */
 }
 
 @media (min-width: 800px) {
