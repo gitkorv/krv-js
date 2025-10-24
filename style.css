@@ -361,6 +361,7 @@ canvas {
     top: 0px;
     z-index: 10;
     opacity: 1;
+    color: white;
     /* transform: translateY(-120%); */
     /* mix-blend-mode: difference; */
     /* background-color: orange; */
@@ -424,11 +425,13 @@ section.sec1 {
     transform: scale(0.2);
     transition: transform 0.25s cubic-bezier(.65,.27,.71,2.8);
     text-align: center;
+    color: rgb(39, 0, 39);
     /* background-color: orange; */
 }
 
 .underconst-wrapper.underconst-wrapper--open {
     transform: scale(1);
+    text-shadow: 2px 2px 0px white;
 }
 
 .website {
@@ -451,11 +454,11 @@ section.sec1 {
     position: relative;
     font-size: 5rem;
     line-height: 4rem;
-    margin-bottom: -10px;
-    color: rgb(39, 0, 39);
-    -webkit-filter: url(#noise);
-    filter: url(#noise);
-    animation: turb 1s linear infinite alternate-reverse;
+    /* margin-bottom: -10px; */
+    
+    /* -webkit-filter: url(#noise);
+    filter: url(#noise); */
+    /* animation: turb 1s linear infinite alternate-reverse; */
     transform-origin: top left;
     text-align: center;
 }
