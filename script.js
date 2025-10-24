@@ -67,7 +67,7 @@ function switchWord(div, contentArray, ownClass, interval = 8000) {
         index = (index + 1) % contentArray.length;
 
         // trigger the glitch
-        div.classList.remove(ownClass); // reset previous glitch
+        // div.classList.remove(ownClass); // reset previous glitch
         void div.offsetWidth;               // force reflow so animation restarts
         div.classList.add(ownClass);    // apply glitch
 
@@ -194,7 +194,7 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
                 requestAnimationFrame(() => {
                     welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("div")];
                     switchWord(welcomeTextWordContainers[0], ["create", "love"], "glitching")
-                    switchWord(welcomeTextWordContainers[2], ["live.", "create."], "glitching2")
+                    switchWord(welcomeTextWordContainers[2], ["live.", "create."], "glitching")
                 })
             }, maxTransitionTime);
 
