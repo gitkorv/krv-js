@@ -1,6 +1,6 @@
 :root {
     --headerHeight: 100px;
-    --headerLeft: 32px;
+    --headerLeft: 16px;
     --headerTop: 32px;
 }
 
@@ -360,7 +360,7 @@ section.sec1 {
 .underconst {
     display: block;
     position: relative;
-    font-size: 2rem;
+    font-size: 3rem;
     /* line-height: 4rem; */
     /* margin-bottom: -10px; */
     
@@ -436,21 +436,4 @@ svg {
     left: 0;
     /* background-color: aqua; */
     z-index: -100;
-}
-
-
-
-
-
-
-@media (max-width: 425px) {
-    :root {
-        --headerLeft: 16px;
-    }
-
-    .underconst {
-        display: block;
-        position: relative;
-        font-size: 32px;
-    }
 }
