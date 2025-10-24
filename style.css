@@ -118,8 +118,8 @@ body {
 }
 
 .welcome-text__text-container div.glitch-word {
-    -webkit-filter: none;
-    filter: none;
+    webkit-filter: url(#noiceLove);
+    filter: url(#noiseLove);
 }
 
 .welcome-text__text-container div.glitch-word.glitching {
