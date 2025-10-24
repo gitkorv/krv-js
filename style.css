@@ -76,7 +76,7 @@ a {
 .welcome-text__border-wrapper {
     position: absolute;
     top: 0;
-    height: calc(var(--headerHeight) - 15px);
+    height: 40px;
     width: 100%;
     display: flex;
     align-items: flex-end;
@@ -244,7 +244,7 @@ canvas {
 .home {
     display: flex;
     position: relative;
-    height: 70dvh;
+    height: 80vh;
     scroll-snap-align: end;
     /* scroll-snap-stop: always; */
     /* background-color: darkcyan; */
@@ -255,8 +255,8 @@ canvas {
 .title {
     display: flex;
     justify-content: center;
-    align-items: center;
-    align-items: flex-end;
+    /* align-items: center; */
+    /* align-items: flex-end; */
     width: 100%;
     height: calc(var(--headerHeight) + 15px);
 
@@ -269,11 +269,12 @@ canvas {
     position: -ms-sticky;
     position: sticky;
 
-    padding: 0px 20px 8px 20px;
+    padding: var(--headerLeft) 20px 8px 20px;
     top: 0px;
     z-index: 10;
     opacity: 1;
     color: white;
+    text-shadow: 2px 2px 0px rgb(39, 0, 39);
     /* transform: translateY(-120%); */
     /* mix-blend-mode: difference; */
     /* background-color: orange; */
