@@ -451,9 +451,6 @@ svg {
     .underconst {
         display: block;
         position: relative;
-        font-size: 3rem;
-        margin-bottom: 0px;
-        transform-origin: bottom;
-
+        font-size: 2.25rem;
     }
 }
