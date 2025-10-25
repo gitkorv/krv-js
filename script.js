@@ -220,9 +220,9 @@ const rect = canvas.getBoundingClientRect();
 
 // ctx.fillStyle = "rgba(50, 100, 0, .8)";
 ctx.fillStyle = "rgba(0, 0, 0, 1)";
-ctx.fillStyle = "rgba(126, 225, 205, 1)";
+ctx.fillStyle = "rgba(120, 202, 243, 1)";
 // ctx.strokeStyle = "black";
-ctx.lineWidth = 10;
+// ctx.lineWidth = 10;
 
 
 class Ball {
