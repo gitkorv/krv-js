@@ -15,14 +15,22 @@
         rel="stylesheet">
 
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
     <link rel="stylesheet" href="/style.css">
     <title>karlrickard.se</title>
 </head>
 
 <body class="preload">
-    <div class="color-overlay">
+
+    <div class="fullscreen-bg">
+        <div class="color-overlay"></div>
+        <div class="contrast">
+            <canvas id="canvas1"></canvas>
+        </div>
     </div>
+
+
     <div class="welcome-text-wrapper">
         <div class="welcome-text__border-wrapper">
             <div class="welcome-text__border"></div>
@@ -59,9 +67,7 @@
 
 
 
-    <div class="contrast">
-        <canvas id="canvas1"></canvas>
-    </div>
+
 
     <svg viewBox="0 0 180 100">
         <filter id="noise" x="0%" y="0%" width="100%" height="100%">
@@ -95,7 +101,7 @@
             </feDisplacementMap>
         </filter>
     </svg>
-    
+
     <svg>
         <filter id="noiseLove2">
             <!-- Fractal noise generator -->
