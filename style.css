@@ -279,7 +279,7 @@ canvas {
     overflow-y: scroll;
     overflow-x: hidden;
     scroll-snap-type: y mandatory;
-    /* z-index: 100; */
+    z-index: 100;
     mix-blend-mode: hard-light;
 }
 
@@ -411,7 +411,7 @@ section.sec1 {
     justify-content: center;
     align-items: center;
     text-align: center;
-    transform: scale(0.2);
+    transform: scale(0.1);
     transition: transform 0.25s cubic-bezier(.65,.27,.71,2.8);
     text-align: center;
     color: white;
