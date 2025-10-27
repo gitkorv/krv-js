@@ -52,15 +52,9 @@ const titleWrapper = document.querySelector('.title-wrapper');
 const titleSpanContainer = document.querySelector(".title-span-container")
 
 
-const sec1 = document.querySelector('.sec1');
-
 // Grab undersconst
-const underConstWrapper = document.querySelector(".underconst-wrapper")
+const sec2TextWrapper = document.querySelector(".sec2__text-wrapper")
 // console.log(underConstWrapper);
-
-// Find out how many letters each word is
-// const krvEachWordLength = welcomeTextSpans.map(w => w.getBoundingClientRect().width);
-// console.log(krvEachWordLength);
 
 function switchWord(div, contentArray, ownClass, interval = 8000) {
     let index = 0;
@@ -69,15 +63,8 @@ function switchWord(div, contentArray, ownClass, interval = 8000) {
         div.innerHTML = contentArray[index];
         index = (index + 1) % contentArray.length;
 
-        // trigger the glitch
-        // div.classList.remove(ownClass); // reset previous glitch
-        void div.offsetWidth;               // force reflow so animation restarts
-        // div.classList.add(ownClass);    // apply glitch
+        void div.offsetWidth; 
 
-        // remove class after animation finishes
-        // setTimeout(() => div.classList.remove(ownClass), 2000);
-        // void div.offsetWidth; 
-        // setTimeout(() => div.classList.add(ownClass), 7000);
     }, interval);
 }
 
@@ -111,8 +98,8 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
             origWelcomeHtml = welcomeTextContainer.innerHTML;
 
             // const welcomeTextContainer = document.getElementById('welcome-text__text-container');
-            const originalSpans = Array.from(welcomeTextContainer.querySelectorAll('div')); // static snapshot
-            console.log(originalSpans);
+            const originalSpans = Array.from(welcomeTextContainer.querySelectorAll('span')); // static snapshot
+            // console.log(originalSpans);
 
             const spansBrokenUpArr = [];
 
@@ -121,7 +108,7 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
             originalSpans.forEach(originalSpan => {
                 const text = originalSpan.textContent;
 
-                const wordContainer = document.createElement('div');
+                const wordContainer = document.createElement('span');
                 wordContainer.classList.add('word');
 
                 for (const char of text) {
@@ -132,7 +119,7 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
                 }
 
                 spansBrokenUpArr.push(wordContainer);
-                console.log(spansBrokenUpArr);
+                // console.log(spansBrokenUpArr);
             });
 
 
@@ -143,7 +130,7 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
             })
 
             letterArr = welcomeTextContainer.querySelectorAll(".letter");
-            console.log(letterArr);
+            // console.log(letterArr);
             letterArr.forEach(letter => {
 
                 const letterTop = letter.getBoundingClientRect().top;
@@ -175,12 +162,13 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
                 setTimeout(() => {
                     // letter.style.transform = `translate3d(${randomX}px, ${randomY}px, 100px) rotate(${rotateX}deg) scale(${scale})`;
                     letter.style.transform = `translate3d(${randomX}px, ${randomY}px, 500px) rotate(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+                    // letter.style.color = 'black';
 
                 }, 250 * 0.8);
                 requestAnimationFrame(() => {
                 });
             });
-            underConstWrapper.classList.add("underconst-wrapper--open")
+            sec2TextWrapper.classList.add("sec2__text-wrapper--open")
 
         } else {
             console.log("NO INTERSECTION");
@@ -191,20 +179,20 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
             setTimeout(() => {
                 welcomeTextContainer.innerHTML = origWelcomeHtml;
                 requestAnimationFrame(() => {
-                    welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("div")];
+                    welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
                     switchWord(welcomeTextWordContainers[0], ["create", "love"], "glitch-word")
                     switchWord(welcomeTextWordContainers[2], ["live.", "create."], "glitch-word2")
                 })
             }, maxTransitionTime);
 
-            underConstWrapper.classList.remove("underconst-wrapper--open")
+            sec2TextWrapper.classList.remove("sec2__text-wrapper--open")
 
 
         }
     });
 }, viewportObserverOptions);
 
-viewportObserver.observe(underConstWrapper);
+viewportObserver.observe(sec2TextWrapper);
 
 
 // meta balls start here
@@ -370,54 +358,3 @@ window.addEventListener('resize', function () {
     effect.reset(canvas.width, canvas.height);
 })
 
-
-// Make a border bottom when sticky element is stuck
-
-
-
-const titleSpan = document.querySelector(".title-span");
-const titleSpansArr = document.querySelectorAll(".title-span");
-console.log(titleSpansArr);
-let titleSpanWidth = titleSpan.offsetWidth;
-
-
-
-const krvBorderBottomObserverOptions = {
-    root: null,
-    threshold: 1,
-    rootMargin: `0px 0px -95% 0px`
-}
-
-const krvBorderBottomObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        // console.log("title2 " + entry.isIntersecting);
-
-        // Add class to title element
-        // titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
-
-        if (entry.isIntersecting) {
-            console.log("TITLE WRAPPER INTERSECTING");
-            // Add class to title border
-            // welcomeTextBorder.classList.add("krv-border-show");
-            // Get new titleSpan width
-            let titleSpanStuckWidth = null;
-            // Wait .5 secs so transition font size is done
-            setTimeout(() => {
-                titleSpanStuckWidth = window.getComputedStyle(titleSpan).width;
-                // console.log(titleSpanStuckWidth);
-                // Add new title span width to title border, again wait .5 secs
-                welcomeTextBorder.style.width = titleSpanStuckWidth;
-            }, 1000);
-
-
-
-        } else {
-            console.log("TITLE WRAPPER NOT INTERSECTING");
-            // clearMetaballs()
-            welcomeTextBorder.style.width = "0";
-        }
-
-    })
-}, krvBorderBottomObserverOptions);
-
-// krvBorderBottomObserver.observe(titleWrapper)
