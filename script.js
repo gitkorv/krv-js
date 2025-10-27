@@ -47,8 +47,11 @@ const welcomeTextTotalLength = welcomeTextCharArr.length;
 const welcomeTextWrapper = document.querySelector(".welcome-text-wrapper ")
 // console.log(welcomeTextWrapper);
 
-// Grab more elements from page
-const title = document.querySelector('.title');
+// Grab title elements from page
+const titleWrapper = document.querySelector('.title-wrapper');
+const titleSpanContainer = document.querySelector(".title-span-container")
+
+
 const sec1 = document.querySelector('.sec1');
 
 // Grab undersconst
@@ -82,7 +85,7 @@ function switchWord(div, contentArray, ownClass, interval = 8000) {
 
 // intersection observer for ${title} hitting 50% of viewport
 
-const origWelcomeHtml = welcomeTextContainer.innerHTML;
+let origWelcomeHtml = welcomeTextContainer.innerHTML;
 
 const viewportObserverOptions = {
     root: null,
@@ -99,15 +102,15 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
         windowWidth = window.innerWidth;
         // title.classList.toggle("title-observed", entry.isIntersecting);
 
-        titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
+        titleSpanContainer.classList.toggle("title-span-container--small", entry.isIntersecting);
 
         // console.log(entry.target, entry.isIntersecting);
         const maxTransitionTime = 1000;
 
 
-
         if (entry.isIntersecting) {
             console.log("ITS INTERSECTING!!!");
+            origWelcomeHtml = welcomeTextContainer.innerHTML;
 
             // const welcomeTextContainer = document.getElementById('welcome-text__text-container');
             const originalSpans = Array.from(welcomeTextContainer.querySelectorAll('div')); // static snapshot
@@ -161,22 +164,19 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
 
                 // Generate random left value between -maxLeft and maxRight
                 const randomX = Math.random() * (maxRight + maxLeft) - maxLeft;
-                // Generate random top value
                 const randomY = Math.random() * (maxBottom + maxTop) - maxTop;
-                // Random duration
-                const randomDuration = Math.random() * (maxTransitionTime + 500);
-                // Random rotation
+                const randomDuration = Math.random() * (maxTransitionTime + 1500);
                 const rotateX = Math.random() * 720;
-                // console.log(rotateX);
-                // Random scale
-                const scale = Math.random() * 5;
+                const scale = Math.random() * 3;
+                const rotateY = Math.random() * 360;
 
                 // Apply transform with transition
                 letter.style.transition = `transform ${randomDuration}ms cubic-bezier(.09,1.3,.78,.98), opacity 1s ease-out`;
 
                 // trigger transition after layout
                 setTimeout(() => {
-                                        letter.style.transform = `translateX(${randomX}px) translateY(${randomY}px) rotate(${rotateX}deg) scale(${scale})`;
+                    // letter.style.transform = `translate3d(${randomX}px, ${randomY}px, 100px) rotate(${rotateX}deg) scale(${scale})`;
+                    letter.style.transform = `translate3d(${randomX}px, ${randomY}px, 500px) rotate(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
 
                 }, 250 * 0.8);
                 requestAnimationFrame(() => {
@@ -187,7 +187,7 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
         } else {
             console.log("NO INTERSECTION");
             letterArr.forEach((letter, i) => {
-                letter.style.transform = `translateX(0px)`
+                letter.style.transform = `translate3d(0px, 0px, 0px) rotate(0deg) rotateY(0deg) scale(1)`
                 // letter.style.color = "black";
             })
             setTimeout(() => {
@@ -219,8 +219,10 @@ const rect = canvas.getBoundingClientRect();
 // let grd = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
 
 // ctx.fillStyle = "rgba(50, 100, 0, .8)";
-ctx.fillStyle = "rgba(0, 0, 0, 1)";
-ctx.fillStyle = "rgba(120, 202, 243, 1)";
+ctx.fillStyle = "rgba(52, 30, 30, 1)";
+ctx.fillStyle = "rgba(165, 147, 128, 1)";
+// ctx.fillStyle = "white";
+// ctx.fillStyle = "black";
 // ctx.strokeStyle = "black";
 // ctx.lineWidth = 10;
 
@@ -376,13 +378,15 @@ window.addEventListener('resize', function () {
 
 
 const titleSpan = document.querySelector(".title-span");
+const titleSpansArr = document.querySelectorAll(".title-span");
+console.log(titleSpansArr);
 let titleSpanWidth = titleSpan.offsetWidth;
 
 
 
 const krvBorderBottomObserverOptions = {
     root: null,
-    threshold: 0,
+    threshold: 1,
     rootMargin: `0px 0px -95% 0px`
 }
 
@@ -391,11 +395,12 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
         // console.log("title2 " + entry.isIntersecting);
 
         // Add class to title element
-        titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
+        // titleSpan.classList.toggle("title-span-stuck", entry.isIntersecting);
 
         if (entry.isIntersecting) {
+            console.log("TITLE WRAPPER INTERSECTING");
             // Add class to title border
-            welcomeTextBorder.classList.add("krv-border-show");
+            // welcomeTextBorder.classList.add("krv-border-show");
             // Get new titleSpan width
             let titleSpanStuckWidth = null;
             // Wait .5 secs so transition font size is done
@@ -409,7 +414,7 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
 
 
         } else {
-            console.log("CLEAR");
+            console.log("TITLE WRAPPER NOT INTERSECTING");
             // clearMetaballs()
             welcomeTextBorder.style.width = "0";
         }
@@ -417,4 +422,4 @@ const krvBorderBottomObserver = new IntersectionObserver(entries => {
     })
 }, krvBorderBottomObserverOptions);
 
-krvBorderBottomObserver.observe(title)
+// krvBorderBottomObserver.observe(titleWrapper)
