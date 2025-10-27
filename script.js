@@ -75,13 +75,11 @@ function switchWord(div, contentArray, ownClass, interval = 8000) {
         // div.classList.add(ownClass);    // apply glitch
 
         // remove class after animation finishes
-        setTimeout(() => div.classList.remove(ownClass), 2000);
-        void div.offsetWidth; 
-        setTimeout(() => div.classList.add(ownClass), 7000);
+        // setTimeout(() => div.classList.remove(ownClass), 2000);
+        // void div.offsetWidth; 
+        // setTimeout(() => div.classList.add(ownClass), 7000);
     }, interval);
 }
-
-
 
 // intersection observer for ${title} hitting 50% of viewport
 
@@ -194,8 +192,8 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
                 welcomeTextContainer.innerHTML = origWelcomeHtml;
                 requestAnimationFrame(() => {
                     welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("div")];
-                    switchWord(welcomeTextWordContainers[0], ["create", "love"], "glitching")
-                    switchWord(welcomeTextWordContainers[2], ["live.", "create."], "glitching")
+                    switchWord(welcomeTextWordContainers[0], ["create", "love"], "glitch-word")
+                    switchWord(welcomeTextWordContainers[2], ["live.", "create."], "glitch-word2")
                 })
             }, maxTransitionTime);
 
