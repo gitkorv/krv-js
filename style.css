@@ -27,7 +27,7 @@ body {
     /* backdrop-filter: blur(20px); */
     position: relative;
     width: 100%;
-    height: 100lvh;
+    height: 100dvh;
     overflow: hidden;
     color: rgb(205, 67, 157);
     color: pink;
