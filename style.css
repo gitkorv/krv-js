@@ -339,6 +339,11 @@ section {
     margin-top: calc(var(--sec2TextSize) * .5) ;
 }
 
+.sec2__text-span:nth-of-type(2) {
+    -webkit-filter: url(#noice);
+    filter: url(#noise);
+}
+
 svg {
     position: absolute;
     top: 0;

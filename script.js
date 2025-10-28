@@ -71,6 +71,7 @@ function switchWord(div, contentArray, ownClass, interval = 8000) {
 // intersection observer for ${title} hitting 50% of viewport
 
 let origWelcomeHtml = welcomeTextContainer.innerHTML;
+let moreThanOneObservation = false;
 
 const viewportObserverOptions = {
     root: null,
@@ -80,7 +81,7 @@ const viewportObserverOptions = {
 
 let letterArr = [];
 
-const viewportObserver = new IntersectionObserver(function (entries, observer) {
+const viewportObserver = new IntersectionObserver(function (entries, viewportObserver) {
 
     entries.forEach(entry => {
 
@@ -164,30 +165,36 @@ const viewportObserver = new IntersectionObserver(function (entries, observer) {
                     letter.style.transform = `translate3d(${randomX}px, ${randomY}px, 500px) rotate(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
                     // letter.style.color = 'black';
 
-                }, 250 * 0.8);
+                }, 350 * 0.8);
                 requestAnimationFrame(() => {
                 });
             });
             sec2TextWrapper.classList.add("sec2__text-wrapper--open")
-
+            moreThanOneObservation = true;
         } else {
             console.log("NO INTERSECTION");
+            // welcomeTextContainer.innerHTML = origWelcomeHtml;
+
+            // origWelcomeHtml = welcomeTextContainer.innerHTML;
+            
             letterArr.forEach((letter, i) => {
                 letter.style.transform = `translate3d(0px, 0px, 0px) rotate(0deg) rotateY(0deg) scale(1)`
                 // letter.style.color = "black";
             })
+            if (moreThanOneObservation) viewportObserver.unobserve(sec2TextWrapper)
             setTimeout(() => {
                 welcomeTextContainer.innerHTML = origWelcomeHtml;
+                if (moreThanOneObservation) viewportObserver.observe(sec2TextWrapper);
+                moreThanOneObservation = false;
                 requestAnimationFrame(() => {
+                    
+
                     welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
-                    switchWord(welcomeTextWordContainers[0], ["create", "love"], "glitch-word")
-                    switchWord(welcomeTextWordContainers[2], ["live.", "create."], "glitch-word2")
+                    switchWord(welcomeTextWordContainers[1], ["create", "love"], "glitch-word")
+                    switchWord(welcomeTextWordContainers[3], ["live.", "create."], "glitch-word2");
                 })
             }, maxTransitionTime);
-
             sec2TextWrapper.classList.remove("sec2__text-wrapper--open")
-
-
         }
     });
 }, viewportObserverOptions);
