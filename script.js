@@ -91,7 +91,9 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
         // titleSpanContainer.classList.toggle("title-span-container--small", entry.isIntersecting);
 
         // console.log(entry.target, entry.isIntersecting);
-        const maxTransitionTime = 3000;
+        const sec2textWrapperTransDur = parseFloat(getComputedStyle(sec2TextWrapper).transitionDuration) * 1000;
+        console.log(sec2textWrapperTransDur);
+        const maxTransitionTime = sec2textWrapperTransDur * 10;
 
 
         if (entry.isIntersecting) {
@@ -123,8 +125,7 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                 // console.log(spansBrokenUpArr);
             });
 
-            const sec2textWrapperTransDur = parseFloat(getComputedStyle(sec2TextWrapper).transitionDuration) * 1000;
-                console.log(sec2textWrapperTransDur);
+
 
             welcomeTextContainer.innerHTML = "";
             spansBrokenUpArr.forEach(word => {
@@ -156,9 +157,9 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                 // const randomDuration = 3000;
                 const rotateX = Math.random() * 720;
                 const scale = Math.random() * 3;
-                const rotateY = Math.random() * 360;
+                const rotateY = Math.random() * 740;
 
-                
+
 
                 // Apply transform with transition
                 letter.style.transition = [
@@ -181,7 +182,7 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                     case "i":
                         letter.style.margin = "0px 1px";
                         break;
-                
+
                     default:
                         break;
                 }
@@ -213,11 +214,8 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                     // letter.style.marginLeft = "20px";
                     // letter.style.color = "black";
                 })
-                if (moreThanOneObservation) viewportObserver.unobserve(sec2TextWrapper)
+                viewportObserver.unobserve(sec2TextWrapper);
                 setTimeout(() => {
-                    console.log("HEREEE");
-                    console.log(moreThanOneObservation);
-                    console.log(entries.isIntersecting);
                     welcomeTextContainer.innerHTML = origWelcomeHtml;
                     if (moreThanOneObservation) viewportObserver.observe(sec2TextWrapper);
                     moreThanOneObservation = false;
