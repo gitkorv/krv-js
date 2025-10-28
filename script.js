@@ -63,7 +63,7 @@ function switchWord(div, contentArray, ownClass, interval = 8000) {
         div.innerHTML = contentArray[index];
         index = (index + 1) % contentArray.length;
 
-        void div.offsetWidth; 
+        void div.offsetWidth;
 
     }, interval);
 }
@@ -76,7 +76,7 @@ let moreThanOneObservation = false;
 const viewportObserverOptions = {
     root: null,
     threshold: 0,
-    rootMargin: "0px 0px -40% 0px"
+    rootMargin: "0px 0px -20% 0px"
 };
 
 let letterArr = [];
@@ -88,10 +88,10 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
         windowWidth = window.innerWidth;
         // title.classList.toggle("title-observed", entry.isIntersecting);
 
-        titleSpanContainer.classList.toggle("title-span-container--small", entry.isIntersecting);
+        // titleSpanContainer.classList.toggle("title-span-container--small", entry.isIntersecting);
 
         // console.log(entry.target, entry.isIntersecting);
-        const maxTransitionTime = 1000;
+        const maxTransitionTime = 3000;
 
 
         if (entry.isIntersecting) {
@@ -123,7 +123,8 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                 // console.log(spansBrokenUpArr);
             });
 
-
+            const sec2textWrapperTransDur = parseFloat(getComputedStyle(sec2TextWrapper).transitionDuration) * 1000;
+                console.log(sec2textWrapperTransDur);
 
             welcomeTextContainer.innerHTML = "";
             spansBrokenUpArr.forEach(word => {
@@ -151,50 +152,86 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                 // Generate random left value between -maxLeft and maxRight
                 const randomX = Math.random() * (maxRight + maxLeft) - maxLeft;
                 const randomY = Math.random() * (maxBottom + maxTop) - maxTop;
-                const randomDuration = Math.random() * (maxTransitionTime + 1500);
+                const randomDuration = Math.random() * (maxTransitionTime);
+                // const randomDuration = 3000;
                 const rotateX = Math.random() * 720;
                 const scale = Math.random() * 3;
                 const rotateY = Math.random() * 360;
 
+                
+
                 // Apply transform with transition
-                letter.style.transition = `transform ${randomDuration}ms cubic-bezier(.09,1.3,.78,.98), opacity 1s ease-out`;
+                letter.style.transition = [
+                    `transform ${randomDuration}ms cubic-bezier(.09,1.3,.78,.98)`
+                ].join(", ");
+
+                switch (letter.textContent) {
+                    case "v":
+                        letter.style.margin = "0px -1px";
+                        break;
+                    case "r":
+                        letter.style.marginRight = "-2px";
+                        break;
+                    case "a":
+                        letter.style.marginRight = "-1px";
+                        break;
+                    case "c":
+                        letter.style.marginRight = ".4px";
+                        break;
+                    case "i":
+                        letter.style.margin = "0px 1px";
+                        break;
+                
+                    default:
+                        break;
+                }
 
                 // trigger transition after layout
                 setTimeout(() => {
                     // letter.style.transform = `translate3d(${randomX}px, ${randomY}px, 100px) rotate(${rotateX}deg) scale(${scale})`;
                     letter.style.transform = `translate3d(${randomX}px, ${randomY}px, 500px) rotate(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+                    // letter.style.textShadow = `5px 5px 5px rgba(0, 0, 0, 0.2)`;
                     // letter.style.color = 'black';
+                    letter.classList.add("rotate");
+                }, sec2textWrapperTransDur * 0.8);
 
-                }, 350 * 0.8);
-                requestAnimationFrame(() => {
-                });
             });
             sec2TextWrapper.classList.add("sec2__text-wrapper--open")
             moreThanOneObservation = true;
         } else {
-            console.log("NO INTERSECTION");
-            // welcomeTextContainer.innerHTML = origWelcomeHtml;
 
-            // origWelcomeHtml = welcomeTextContainer.innerHTML;
-            
-            letterArr.forEach((letter, i) => {
-                letter.style.transform = `translate3d(0px, 0px, 0px) rotate(0deg) rotateY(0deg) scale(1)`
-                // letter.style.color = "black";
-            })
-            if (moreThanOneObservation) viewportObserver.unobserve(sec2TextWrapper)
-            setTimeout(() => {
-                welcomeTextContainer.innerHTML = origWelcomeHtml;
-                if (moreThanOneObservation) viewportObserver.observe(sec2TextWrapper);
-                moreThanOneObservation = false;
-                requestAnimationFrame(() => {
-                    
+            if (moreThanOneObservation) {
+                console.log("NO INTERSECTION");
+                // welcomeTextContainer.innerHTML = origWelcomeHtml;
 
-                    welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
-                    switchWord(welcomeTextWordContainers[1], ["create", "love"], "glitch-word")
-                    switchWord(welcomeTextWordContainers[3], ["live.", "create."], "glitch-word2");
+                // origWelcomeHtml = welcomeTextContainer.innerHTML;
+
+                letterArr.forEach((letter, i) => {
+                    letter.classList.remove("rotate")
+                    letter.style.transform = `translate3d(-1px, 0px, 0px) rotate(0deg) rotateY(0deg) scale(1)`;
+                    // letter.style.textShadow = `0px 0px 0px black`;
+                    // letter.style.marginLeft = "20px";
+                    // letter.style.color = "black";
                 })
-            }, maxTransitionTime);
-            sec2TextWrapper.classList.remove("sec2__text-wrapper--open")
+                if (moreThanOneObservation) viewportObserver.unobserve(sec2TextWrapper)
+                setTimeout(() => {
+                    console.log("HEREEE");
+                    console.log(moreThanOneObservation);
+                    console.log(entries.isIntersecting);
+                    welcomeTextContainer.innerHTML = origWelcomeHtml;
+                    if (moreThanOneObservation) viewportObserver.observe(sec2TextWrapper);
+                    moreThanOneObservation = false;
+                    requestAnimationFrame(() => {
+
+
+                        welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
+                        switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"], "glitch-word")
+                        switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live.", "create."], "glitch-word2");
+                    })
+                }, maxTransitionTime);
+                sec2TextWrapper.classList.remove("sec2__text-wrapper--open")
+            }
+
         }
     });
 }, viewportObserverOptions);

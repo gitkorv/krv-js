@@ -5,6 +5,10 @@
     --org-padding: 16px;
     --blobBGColor: rgb(149, 0, 255);
     --sec2TextSize: 3rem;
+    --welcomeTextSize: 5.5rem;
+    --welcomeTextLineHeight: calc(var(--welcomeTextSize) * 0.8);
+    --titleFontSize: 1.5rem;
+    --titleLineHeight: calc(var(--titleFontSize) * 0.65)
 }
 
 * {
@@ -127,8 +131,8 @@ canvas {
 }
 
 .title-span {
-    font-size: 2.5rem;
-    height: 1.8rem;
+    font-size: var(--titleFontSize);
+    height: var(--titleLineHeight);
     text-align: center;
     color: pink;
     /* background-color: orange; */
@@ -218,9 +222,7 @@ canvas {
 .welcome-text__text-container {
     display: flex;
     flex-direction: column;
-    font-size: 5.8rem;
-    line-height: 5rem;
-    text-align: left;
+    
     z-index: 20;
     transition: all .2s ease-out;
     gap: 24px;
@@ -230,6 +232,13 @@ canvas {
     /* height: 440px; */
     /* background-color: orange; */
     /* overflow: hidden; */
+}
+
+.welcome-text__text-container span {
+    font-size: var(--welcomeTextSize);
+    line-height: var(--welcomeTextLineHeight);
+    text-align: left;
+    text-shadow: 5px 5px 5px rgba(0,0,0,0.2);
 }
 
 .welcome-text__text-container span.glitch-word {
@@ -242,32 +251,29 @@ canvas {
     filter: url(#noiseLove2);
 }
 
-.welcome-text__text-container span.no-glitch {
-    -webkit-filter: none;
-    filter: none;
-}
-
-
-@media (min-width: 800px) {
-    .welcome-text__text-container {
-        font-size: 8rem;
-        line-height: 6.5rem;
-    }
-}
-
-@media (min-width: 1200px) {
-    .welcome-text__text-container {
-        font-size: 10rem;
-        line-height: 8rem;
-    }
-}
 
 .word {
     display: flex;
+    padding-left: 0.8px;
+    /* font-kerning: -2px; */
+    /* gap: 10px; */
 }
 
 .letter {
-    display: flex;
+    display: inline;
+    width: fit-content;
+    margin-right: -.5px;
+    
+}
+
+.letter.rotate {
+    animation: slow-move 5s linear infinite;
+}
+
+@keyframes slow-move {
+    to {
+        rotate: 360deg;
+    }
 }
 
 
