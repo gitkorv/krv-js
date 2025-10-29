@@ -234,7 +234,7 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
     });
 }, viewportObserverOptions);
 
-viewportObserver.observe(sec2TextWrapper);
+// viewportObserver.observe(sec2TextWrapper);
 
 
 // meta balls start here
