@@ -1,46 +1,43 @@
+# netlify.toml
+
 [build]
   publish = "/"
-  command = ""  # no build step needed for plain HTML/CSS/JS
+  command = ""  # no build step needed
 
-# Dev branch
-[context.dev]
-  [[headers]]
-    for = "/*"
-    [headers.values]
-    Authorization = "Basic ${DEV_AUTH}"
-  [[headers]]
-    for = "/*"
-    [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
-
-# Staging branch
-[context.staging]
-  [[headers]]
-    for = "/*"
-    [headers.values]
-    Authorization = "Basic ${STAGING_AUTH}"
-  [[headers]]
-    for = "/*"
-    [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
-
-# All other branch deploys (feature branches)
+# -------------------------------------------------
+# All non-main branches (dev, staging, feature, etc.)
 [context.branch-deploy]
   [[headers]]
     for = "/*"
     [headers.values]
+    # Basic auth for all branch deploys
+    Authorization = "Basic ${DEV_AUTH}"
+
+  [[headers]]
+    for = "/*"
+    [headers.values]
+    # Prevent search engines from indexing
     X-Robots-Tag = "noindex, nofollow"
 
-# Deploy previews (pull request previews)
+# -------------------------------------------------
+# Deploy previews (PR previews)
 [context.deploy-preview]
+  [[headers]]
+    for = "/*"
+    [headers.values]
+    # Optional: same password protection
+    Authorization = "Basic ${DEV_AUTH}"
+
   [[headers]]
     for = "/*"
     [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 
+# -------------------------------------------------
 # Production / main branch
 [context.production]
   [[headers]]
     for = "/*"
     [headers.values]
+    # Allow indexing for your live site
     X-Robots-Tag = "index, follow"
