@@ -2,30 +2,27 @@
 
 [build]
   publish = "/"
-  command = ""  # no build step needed
+  command = ""  # no build step for plain HTML/CSS/JS
 
 # -------------------------------------------------
-# All non-main branches (dev, staging, feature, etc.)
+# All branch deploys (dev, staging, feature branches)
 [context.branch-deploy]
   [[headers]]
     for = "/*"
     [headers.values]
-    # Basic auth for all branch deploys
     Authorization = "Basic ${DEV_AUTH}"
 
   [[headers]]
     for = "/*"
     [headers.values]
-    # Prevent search engines from indexing
     X-Robots-Tag = "noindex, nofollow"
 
 # -------------------------------------------------
-# Deploy previews (PR previews)
+# Deploy previews (PRs)
 [context.deploy-preview]
   [[headers]]
     for = "/*"
     [headers.values]
-    # Optional: same password protection
     Authorization = "Basic ${DEV_AUTH}"
 
   [[headers]]
@@ -39,5 +36,4 @@
   [[headers]]
     for = "/*"
     [headers.values]
-    # Allow indexing for your live site
     X-Robots-Tag = "index, follow"
