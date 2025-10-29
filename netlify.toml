@@ -1,0 +1,46 @@
+[build]
+  publish = "/"
+  command = ""  # no build step needed for plain HTML/CSS/JS
+
+# Dev branch
+[context.dev]
+  [[headers]]
+    for = "/*"
+    [headers.values]
+    Authorization = "Basic ${DEV_AUTH}"
+  [[headers]]
+    for = "/*"
+    [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# Staging branch
+[context.staging]
+  [[headers]]
+    for = "/*"
+    [headers.values]
+    Authorization = "Basic ${STAGING_AUTH}"
+  [[headers]]
+    for = "/*"
+    [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# All other branch deploys (feature branches)
+[context.branch-deploy]
+  [[headers]]
+    for = "/*"
+    [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# Deploy previews (pull request previews)
+[context.deploy-preview]
+  [[headers]]
+    for = "/*"
+    [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# Production / main branch
+[context.production]
+  [[headers]]
+    for = "/*"
+    [headers.values]
+    X-Robots-Tag = "index, follow"
