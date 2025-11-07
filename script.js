@@ -21,40 +21,47 @@ setTimeout(function () {
 
 let windowWidth = "";
 
-const welcomeTextContainer = document.querySelector('.welcome-text__text-container');
-const welcomeTextContainerWidth = welcomeTextContainer.getBoundingClientRect().width;
-console.log(welcomeTextContainerWidth);
-welcomeTextContainer.style.width = welcomeTextContainerWidth + "px";
+const stickyHeadingsSectionsArr = Array.from(document.querySelectorAll(".sticky-headings-section"));
+console.log(stickyHeadingsSectionsArr);
+
+const stickyHeadingsContentArr = document.querySelectorAll(".sticky-headings-content");
+// const stickyHeadContentWidth = stickyHeadingsContent.getBoundingClientRect().width;
+
+const maxWidth = Math.max(...Array.from(stickyHeadingsContentArr).map(el => el.offsetWidth));
+console.log("Widest width:", maxWidth);
+
+// console.log(widest);
+
+stickyHeadingsContentArr.forEach(content => {
+    content.style.width = maxWidth + "px";
+})
+
+// stickyHeadingsContent.style.width = stickyHeadContainerWidth + "px";
 // console.log(welcomeTextContainer);
 
-const welcomeTextBorder = document.querySelector(".welcome-text__border");
-// console.log(titleBorder);
-
-// 2025 remix ---------------------- //
-let welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("div")];
-// console.log(welcomeTextSpans);
-const welcomeTextContentOfEachSpanArr = Array.from(welcomeTextWordContainers).map(span => span.textContent);
-// console.log(welcomeTextContentOfEachSpanArr);
-const welcomeTextEachWordsLength = welcomeTextContentOfEachSpanArr.map(w => w.length);
-// console.log(welcomeTextEachWordsLength);
-const welcomeTextOneLongWord = welcomeTextContentOfEachSpanArr.join('')
-// console.log(welcomeTextOneLongWord);
-const welcomeTextCharArr = [...welcomeTextOneLongWord]
-// console.log(welcomeTextCharArr);
-const welcomeTextTotalLength = welcomeTextCharArr.length;
-// console.log(welcomeTextTotalLength);
-
-const welcomeTextWrapper = document.querySelector(".welcome-text-wrapper ")
-// console.log(welcomeTextWrapper);
 
 // Grab title elements from page
 const titleWrapper = document.querySelector('.title-wrapper');
 const titleSpanContainer = document.querySelector(".title-span-container")
 
+stickyHeadingsSectionsArr.forEach(section => {
+    const stickyTextSpans = section.querySelectorAll(".sticky-text-span");
+    stickyTextSpans.forEach(span => {
+        const spanTextContent = span.textContent;
+        // console.log(spanTextContent);
+        span.innerHTML = "";
 
-// Grab undersconst
-const sec2TextWrapper = document.querySelector(".sec2__text-wrapper")
-// console.log(underConstWrapper);
+
+        for (const char of spanTextContent) {
+            const letterSpan = document.createElement('span');
+            letterSpan.textContent = char === ' ' ? '\u00A0' : char;
+            letterSpan.classList.add('sticky-text__letter');
+            span.appendChild(letterSpan);
+        }
+
+    })
+})
+
 
 function switchWord(div, contentArray, ownClass, interval = 8000) {
     let index = 0;
@@ -68,9 +75,56 @@ function switchWord(div, contentArray, ownClass, interval = 8000) {
     }, interval);
 }
 
+const viewportObsOptions = {
+    root: null,
+    threshold: 0,
+    rootMargin: "-50% 0px -50% 0px" // triggers when the section's middle crosses the viewport center
+}
+
+const viewportObs = new IntersectionObserver(function (entries, viewportObs) {
+    entries.forEach(entry => {
+        const index = entry.target.dataset.index;
+
+        if (entry.isIntersecting) {
+            if (index > 0) {
+                stickyHeadingsSectionsArr[index - 1].style.color = "teal";
+
+                const sectionStickyLettersArr = stickyHeadingsContentArr[index - 1].querySelectorAll(".sticky-text__letter")
+                console.log(sectionStickyLettersArr);
+
+                sectionStickyLettersArr.forEach(letter => {
+                    const letterTop = letter.getBoundingClientRect().top;
+                    const letterLeft = letter.getBoundingClientRect().left;
+                    const letterWidth = letter.getBoundingClientRect().width;
+                    const letterHeight = letter.getBoundingClientRect().height;
+
+                    const windowWidth = window.innerWidth;
+                    const windowHeight = window.innerHeight;
+
+                    
+
+                })
+
+            }
+            console.log(`Section ${index} is intersecting`, entry.target);
+
+        } else {
+            if (index > 0) {
+                stickyHeadingsSectionsArr[index - 1].style.color = "";
+            }
+            console.log(`Section ${index} is NOT intersecting`, entry.target);
+        }
+    });
+}, viewportObsOptions);
+
+stickyHeadingsSectionsArr.forEach((section, i) => {
+    section.dataset.index = i; // store index in a data attribute
+    viewportObs.observe(section);
+});
+
 // intersection observer for ${title} hitting 50% of viewport
 
-let origWelcomeHtml = welcomeTextContainer.innerHTML;
+// let origWelcomeHtml = welcomeTextContainer.innerHTML;
 let moreThanOneObservation = false;
 
 const viewportObserverOptions = {

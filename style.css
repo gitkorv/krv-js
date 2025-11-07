@@ -184,7 +184,7 @@ canvas {
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
-    /* scroll-snap-type: y mandatory; */
+    scroll-snap-type: y mandatory;
     /* z-index: 100; */
     /* mix-blend-mode: hard-light; */
     /* background-color: orange; */
@@ -215,7 +215,7 @@ section:nth-of-type(even) {
     /* background-color: pink; */
 }
 
-.sticky-headings-container {
+.sticky-headings-section {
     position: sticky;
     top: 0;
     display: flex;
@@ -228,8 +228,19 @@ section:nth-of-type(even) {
 }
 
 .sticky-headings-content {
-    height: 50%;
+    /* height: 50%; */
     /* background-color: aqua; */
+}
+
+.sticky-headings-content h2 {
+    /* display: block; */
+}
+
+.sticky-text-span {
+    font-size: var(--welcomeTextSize);
+    width: fit-content;
+    display: block;
+
 }
 
 /* WELCOME TEXT */
