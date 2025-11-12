@@ -249,6 +249,32 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
 viewportObserver.observe(sec2TextWrapper);
 
 
+// Form logic
+
+let formOpen = false;
+
+const openFormLink = document.getElementById("openFormLink");
+const formWrapper = document.querySelector(".contact-form-wrapper");
+const closeFormBtn = document.getElementById("closeFormBtn");
+console.log(formWrapper);
+
+openFormLink.addEventListener("click", (e) => {
+    e.preventDefault();       // stop the # from jumping
+    formWrapper.classList.add("contact-form-wrapper--open")
+    formOpen = true;
+});
+
+closeFormBtn.addEventListener('click', (e) => {
+    closeForm();
+})
+
+function closeForm() {
+    formWrapper.classList.remove("contact-form-wrapper--open");
+    formOpen = false;
+}
+
+
+
 // meta balls start here
 
 const canvas = document.getElementById("canvas1");

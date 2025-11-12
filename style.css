@@ -2,6 +2,7 @@
     --headerHeight: 100px;
     --headerLeft: 16px;
     --headerTop: 32px;
+    --bodyPadding: 16px;
     --org-padding: 16px;
     --blobBGColor: rgb(149, 0, 255);
     --sec2TextSize: 3rem;
@@ -355,6 +356,68 @@ section {
     -webkit-filter: url(#noice);
     filter: url(#noise);
 }
+
+.contact-form-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: block;
+    /* flex-direction: column; */
+    /* align-items: stretch; */
+    /* justify-content: space-evenly; */
+    padding: var(--bodyPadding);
+    padding-top: 48px;
+    /* background-color: orange; */
+    z-index: 110;
+    transform: translateX(100%);
+    transition: transform .25s ease-in;
+    background-color: rgb(from var(--blobBGColor) r g b / 0.75);
+}
+
+.contact-form-wrapper.contact-form-wrapper--open {
+    transform: translateX(0%);
+}
+
+#closeFormBtn {
+    position: absolute;
+    top: var(--bodyPadding);
+    z-index: 200;
+}
+
+#contactForm {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* make form take all available height */
+    font-size: 48px;
+}
+
+#contactForm label {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* each label grows equally */
+    font-size: 48px;
+    color: white;
+    /* background-color: salmon; */
+    margin-bottom: 10px; /* optional spacing */
+}
+
+#contactForm label:last-of-type {
+    /* background-color: pink; */
+}
+
+#contactForm input, #contactForm textarea {
+    flex: 1; /* input takes remaining space inside label */
+    width: 100%;
+    font-size: 36px;
+    line-height: 36px;
+    /* background-color: purple; */
+}
+
+#contactForm button {
+    flex: 1; /* or a fixed height if you want */
+    background-color: teal;
+}
+
 
 svg {
     position: absolute;
