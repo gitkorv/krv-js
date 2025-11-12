@@ -19,6 +19,16 @@ setTimeout(function () {
 
 // 1. Get variables
 
+const allSVGs = document.querySelectorAll("svg");
+console.log(allSVGs);
+
+allSVGs.forEach(svg => {
+    svg.pauseAnimations();
+    svg.setCurrentTime(0);
+    // svg.unpauseAnimations();
+})
+
+
 let windowWidth = "";
 
 const welcomeTextContainer = document.querySelector('.welcome-text__text-container');
@@ -56,17 +66,59 @@ const titleSpanContainer = document.querySelector(".title-span-container")
 const sec2TextWrapper = document.querySelector(".sec2__text-wrapper")
 // console.log(underConstWrapper);
 
-function switchWord(div, contentArray, ownClass, interval = 8000) {
+
+function switchWord(div, contentArray, interval = 8000) {
     let index = 0;
-    return setInterval(() => {
-        // change the word
-        div.innerHTML = contentArray[index];
-        index = (index + 1) % contentArray.length;
+    let cycleTimeouts = [];
+    let intervalId = null;
 
-        void div.offsetWidth;
+    function runCycle() {
+        // clear any old timeouts before running a new cycle
+        cycleTimeouts.forEach(clearTimeout);
+        cycleTimeouts = [];
 
-    }, interval);
+        // preChange
+        cycleTimeouts.push(setTimeout(() => {
+            allSVGs.forEach(svg => svg.setCurrentTime(0));
+            allSVGs.forEach(svg => svg.unpauseAnimations());
+        }, interval - 2000));
+
+        // change word
+        cycleTimeouts.push(setTimeout(() => {
+            index = (index + 1) % contentArray.length;
+            div.textContent = contentArray[index];
+        }, interval));
+
+        // postChange
+        cycleTimeouts.push(setTimeout(() => {
+            allSVGs.forEach(svg => {
+                svg.setCurrentTime(0);
+                svg.pauseAnimations();
+            });
+        }, interval + 2000));
+    }
+
+    function start() {
+        stop(); // ensure nothing is running
+        div.textContent = contentArray[index];
+        runCycle();
+        intervalId = setInterval(runCycle, interval);
+    }
+
+    function stop() {
+        if (intervalId) clearInterval(intervalId);
+        cycleTimeouts.forEach(clearTimeout);
+        cycleTimeouts = [];
+        intervalId = null;
+    }
+
+    // return controls instead of just ID
+    return { start, stop };
 }
+
+
+const switchIntervals = [];
+const switchControllers = [];
 
 // intersection observer for ${title} hitting 50% of viewport
 
@@ -98,6 +150,11 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
 
         if (entry.isIntersecting) {
             console.log("ITS INTERSECTING!!!");
+
+            switchControllers.forEach(ctrl => ctrl.stop());
+            switchControllers.length = 0;
+
+
             origWelcomeHtml = welcomeTextContainer.innerHTML;
 
             // const welcomeTextContainer = document.getElementById('welcome-text__text-container');
@@ -200,9 +257,8 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
             sec2TextWrapper.classList.add("sec2__text-wrapper--open")
             moreThanOneObservation = true;
         } else {
-
+            console.log("NO INTERSECTION", moreThanOneObservation);
             if (moreThanOneObservation) {
-                console.log("NO INTERSECTION");
                 // welcomeTextContainer.innerHTML = origWelcomeHtml;
 
                 // origWelcomeHtml = welcomeTextContainer.innerHTML;
@@ -215,26 +271,36 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                     // letter.style.color = "black";
                 })
                 viewportObserver.unobserve(sec2TextWrapper);
-                setTimeout(() => {
-                    welcomeTextContainer.innerHTML = origWelcomeHtml;
-                    if (moreThanOneObservation) viewportObserver.observe(sec2TextWrapper);
-                    moreThanOneObservation = false;
-                    requestAnimationFrame(() => {
 
-
-                        welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
-                        switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"], "glitch-word")
-                        switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live.", "create."], "glitch-word2");
-                    })
-                }, maxTransitionTime);
                 sec2TextWrapper.classList.remove("sec2__text-wrapper--open")
             }
+            setTimeout(() => {
+                welcomeTextContainer.innerHTML = origWelcomeHtml;
+                if (moreThanOneObservation) viewportObserver.observe(sec2TextWrapper);
+                moreThanOneObservation = false;
+
+                requestAnimationFrame(() => {
+                    console.log("now");
+                    welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
+                    
+                    // Start fresh 8s cycles again
+                    if (!entry.isIntersecting && switchControllers.length === 0) {
+                        switchControllers.push(
+                            switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"]),
+                            switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live.", "create."])
+                        );
+                        switchControllers.forEach(ctrl => ctrl.start());
+                    }
+                });
+            }, maxTransitionTime);
 
         }
     });
 }, viewportObserverOptions);
 
 viewportObserver.observe(sec2TextWrapper);
+
+
 
 
 // meta balls start here
