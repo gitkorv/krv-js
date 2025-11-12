@@ -68,6 +68,14 @@ function switchWord(div, contentArray, ownClass, interval = 8000) {
     }, interval);
 }
 
+const switchIntervals = [];
+
+welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
+switchIntervals.push(
+    switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"]),
+    switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live.", "create."])
+);
+
 // intersection observer for ${title} hitting 50% of viewport
 
 let origWelcomeHtml = welcomeTextContainer.innerHTML;
@@ -99,6 +107,8 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
         if (entry.isIntersecting) {
             console.log("ITS INTERSECTING!!!");
             origWelcomeHtml = welcomeTextContainer.innerHTML;
+
+            switchIntervals.forEach(id => clearInterval(id));
 
             // const welcomeTextContainer = document.getElementById('welcome-text__text-container');
             const originalSpans = Array.from(welcomeTextContainer.querySelectorAll('span')); // static snapshot
@@ -223,8 +233,10 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
 
 
                         welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
-                        switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"], "glitch-word")
-                        switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live.", "create."], "glitch-word2");
+                        switchIntervals.push(
+                            switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"]),
+                            switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live.", "create."])
+                        );
                     })
                 }, maxTransitionTime);
                 sec2TextWrapper.classList.remove("sec2__text-wrapper--open")
