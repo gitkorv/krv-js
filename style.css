@@ -357,16 +357,18 @@ section {
     filter: url(#noise);
 }
 
+/* CONTACT FORM */
+
 .contact-form-wrapper {
     position: absolute;
     height: 100%;
     width: 100%;
-    display: block;
-    /* flex-direction: column; */
+    display: flex;
+    flex-direction: column;
     /* align-items: stretch; */
     /* justify-content: space-evenly; */
     padding: var(--bodyPadding);
-    padding-top: 48px;
+    /* padding-top: 48px; */
     /* background-color: orange; */
     z-index: 110;
     transform: translateX(100%);
@@ -378,45 +380,86 @@ section {
     transform: translateX(0%);
 }
 
-#closeFormBtn {
-    position: absolute;
-    top: var(--bodyPadding);
-    z-index: 200;
+.contact-form-wrapper button {
+    height: fit-content;
+    padding: var(--bodyPadding) calc(var(--bodyPadding)*2);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
 }
 
 #contactForm {
     display: flex;
     flex-direction: column;
-    height: 100%; /* make form take all available height */
-    font-size: 48px;
+    flex: 1;
+    font-size: 40px;
+}
+
+#contactForm .hidden {
+    display: none;
 }
 
 #contactForm label {
     display: flex;
     flex-direction: column;
-    flex: 1; /* each label grows equally */
-    font-size: 48px;
+    flex: 0; /* each label grows equally */
+    /* font-size: 48px; */
     color: white;
     /* background-color: salmon; */
-    margin-bottom: 10px; /* optional spacing */
+    margin-bottom: var(--bodyPadding); /* optional spacing */
 }
 
 #contactForm label:last-of-type {
-    /* background-color: pink; */
+    flex: 1;
+    min-height: 200px;
+    /* background-color: orange; */
 }
 
 #contactForm input, #contactForm textarea {
+    all: unset;
     flex: 1; /* input takes remaining space inside label */
     width: 100%;
     font-size: 36px;
     line-height: 36px;
-    /* background-color: purple; */
+    background-color: none;
+    background: none;
+
+    background: rgba(255, 255, 255, .75);
+    height: 100%;
 }
 
-#contactForm button {
-    flex: 1; /* or a fixed height if you want */
-    background-color: teal;
+#contactForm input, #contactForm input::placeholder,
+#contactForm textarea, #contactForm textarea::placeholder {
+    color: var(--blobBGColor);
 }
+
+#contactForm input:focus, #contactForm textarea:focus {
+    outline: none;
+    box-shadow: none;
+    color: teal;
+
+}
+#contactForm .contact-form__btn-wrapper {
+    flex: 0 1 20%;
+    display: flex;
+    /* align-items: end; */
+    justify-content: end;
+    /* margin: 0px 0px 0px; */
+
+    /* background-color: white; */
+}
+
+#contactForm .form-response {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: rgba(0,0,0,0.3);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+
+
+/* SVGS */
 
 
 svg {

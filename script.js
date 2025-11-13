@@ -210,6 +210,8 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
             sec2TextWrapper.classList.add("sec2__text-wrapper--open")
             moreThanOneObservation = true;
         } else {
+            closeForm()
+            openForm()
 
             if (moreThanOneObservation) {
                 console.log("NO INTERSECTION");
@@ -250,6 +252,7 @@ viewportObserver.observe(sec2TextWrapper);
 
 
 // Form logic
+// CONTACT FORM
 
 let formOpen = false;
 
@@ -260,20 +263,53 @@ console.log(formWrapper);
 
 openFormLink.addEventListener("click", (e) => {
     e.preventDefault();       // stop the # from jumping
-    formWrapper.classList.add("contact-form-wrapper--open")
-    formOpen = true;
+    openForm()
 });
 
 closeFormBtn.addEventListener('click', (e) => {
     closeForm();
 })
 
+function openForm() {
+    formWrapper.classList.add("contact-form-wrapper--open")
+    formOpen = true;
+}
+
 function closeForm() {
     formWrapper.classList.remove("contact-form-wrapper--open");
     formOpen = false;
 }
+// openForm()
 
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contactForm");
+  const response = document.getElementById("formResponse");
 
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch("/", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        response.hidden = false;
+        response.textContent = "Thank you! Your message was sent successfully 💌";
+        form.reset();
+      } else {
+        throw new Error("Network error");
+      }
+    } catch (error) {
+      response.hidden = false;
+      response.textContent = "Oops! Something went wrong. Please try again.";
+      console.error(error);
+    }
+  });
+});
 
 // meta balls start here
 
@@ -437,4 +473,3 @@ window.addEventListener('resize', function () {
     ctx.fillStyle = "rgba(126, 225, 205, 1)";
     effect.reset(canvas.width, canvas.height);
 })
-
