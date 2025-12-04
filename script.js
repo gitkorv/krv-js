@@ -22,7 +22,7 @@ setTimeout(function () {
 let windowWidth = "";
 
 const welcomeTextContainer = document.querySelector('.welcome-text__text-container');
-const welcomeTextContainerWidth = welcomeTextContainer.getBoundingClientRect().width;
+let welcomeTextContainerWidth = welcomeTextContainer.getBoundingClientRect().width;
 console.log(welcomeTextContainerWidth);
 welcomeTextContainer.style.width = welcomeTextContainerWidth + "px";
 // console.log(welcomeTextContainer);
@@ -56,7 +56,64 @@ const titleSpanContainer = document.querySelector(".title-span-container")
 const sec2TextWrapper = document.querySelector(".sec2__text-wrapper")
 // console.log(underConstWrapper);
 
-function switchWord(div, contentArray, ownClass, interval = 8000) {
+// Grab svg anim elements
+window.addEventListener("DOMContentLoaded", () => {
+    // All animations
+    const anims = [
+        document.getElementById("welcomeAnim1"),
+        document.getElementById("welcomeAnimScale1"),
+        document.getElementById("welcomeAnim2"),
+        document.getElementById("welcomeAnimScale2")
+    ];
+
+    // Filter primitives (to reset)
+    const turb1 = document.getElementById("turb1");
+    const disp1 = document.getElementById("disp1");
+    const turb2 = document.getElementById("turb2");
+    const disp2 = document.getElementById("disp2");
+
+    // --- START animations ---
+    window.startWelcome = () => {
+        turb1.setAttribute("baseFrequency", "0.2 0");
+        turb2.setAttribute("baseFrequency", "0.2 0");
+        disp1.setAttribute("scale", "30");
+        disp2.setAttribute("scale", "30");
+
+        anims.forEach(a => a.beginElement());
+    };
+
+    // --- STOP animations + RESET filter values ---
+    window.stopWelcome = () => {
+        anims.forEach(a => a.endElement()); // stop immediately
+
+        // reset turb values
+        turb1.setAttribute("baseFrequency", "0 0");
+        turb2.setAttribute("baseFrequency", "0 0");
+
+        // reset scale values
+        disp1.setAttribute("scale", "0");
+        disp2.setAttribute("scale", "0");
+    };
+    requestAnimationFrame(() => {
+        stopWelcome()
+        setTimeout(() => {
+            startWelcome()
+            switchIntervals.push(
+                switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"]),
+                switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live.", "create."])
+            );
+        }, 1000);
+    })
+
+
+
+});
+
+
+
+
+
+function switchWord(div, contentArray, interval = 8000) {
     let index = 0;
     return setInterval(() => {
         // change the word
@@ -71,10 +128,7 @@ function switchWord(div, contentArray, ownClass, interval = 8000) {
 const switchIntervals = [];
 
 welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
-switchIntervals.push(
-    switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"]),
-    switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live.", "create."])
-);
+
 
 // intersection observer for ${title} hitting 50% of viewport
 
@@ -106,6 +160,8 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
 
         if (entry.isIntersecting) {
             console.log("ITS INTERSECTING!!!");
+            stopWelcome()
+
             origWelcomeHtml = welcomeTextContainer.innerHTML;
 
             switchIntervals.forEach(id => clearInterval(id));
@@ -173,7 +229,8 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
 
                 // Apply transform with transition
                 letter.style.transition = [
-                    `transform ${randomDuration}ms cubic-bezier(.09,1.3,.78,.98)`
+                    `transform ${randomDuration}ms cubic-bezier(.09,1.3,.78,.98)`,
+                    `color .5s ease-out`
                 ].join(", ");
 
                 switch (letter.textContent) {
@@ -210,8 +267,8 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
             sec2TextWrapper.classList.add("sec2__text-wrapper--open")
             moreThanOneObservation = true;
         } else {
-            closeForm()
-            openForm()
+            setFormOpen(false)
+            // openForm()
 
             if (moreThanOneObservation) {
                 console.log("NO INTERSECTION");
@@ -232,6 +289,7 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                     if (moreThanOneObservation) viewportObserver.observe(sec2TextWrapper);
                     moreThanOneObservation = false;
                     requestAnimationFrame(() => {
+                        startWelcome()
 
 
                         welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
@@ -239,6 +297,7 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                             switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"]),
                             switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live.", "create."])
                         );
+                        console.log(switchIntervals);
                     })
                 }, maxTransitionTime);
                 sec2TextWrapper.classList.remove("sec2__text-wrapper--open")
@@ -256,59 +315,54 @@ viewportObserver.observe(sec2TextWrapper);
 
 let formOpen = false;
 
-const openFormLink = document.getElementById("openFormLink");
+const openFormBtn = document.getElementById("openFormBtn");
 const formWrapper = document.querySelector(".contact-form-wrapper");
 const closeFormBtn = document.getElementById("closeFormBtn");
 console.log(formWrapper);
 
-openFormLink.addEventListener("click", (e) => {
-    e.preventDefault();       // stop the # from jumping
-    openForm()
-});
+openFormBtn.addEventListener("click", () => setFormOpen(true));
 
-closeFormBtn.addEventListener('click', (e) => {
-    closeForm();
-})
+closeFormBtn.addEventListener('click', () => setFormOpen(false));
 
-function openForm() {
-    formWrapper.classList.add("contact-form-wrapper--open")
-    formOpen = true;
+function setFormOpen(isOpen) {
+    formOpen = isOpen;
+    formWrapper.classList.toggle("contact-form-wrapper--open", isOpen);
+
+    welcomeTextContainer
+        .querySelectorAll(".letter")
+        .forEach(l => l.classList.toggle("dim-letter", isOpen));
 }
 
-function closeForm() {
-    formWrapper.classList.remove("contact-form-wrapper--open");
-    formOpen = false;
-}
-// openForm()
+
 
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contactForm");
-  const response = document.getElementById("formResponse");
+    const form = document.getElementById("contactForm");
+    const response = document.getElementById("formResponse");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    const formData = new FormData(form);
+        const formData = new FormData(form);
 
-    try {
-      const res = await fetch("/", {
-        method: "POST",
-        body: formData,
-      });
+        try {
+            const res = await fetch("/", {
+                method: "POST",
+                body: formData,
+            });
 
-      if (res.ok) {
-        response.hidden = false;
-        response.textContent = "Thank you! Your message was sent successfully 💌";
-        form.reset();
-      } else {
-        throw new Error("Network error");
-      }
-    } catch (error) {
-      response.hidden = false;
-      response.textContent = "Oops! Something went wrong. Please try again.";
-      console.error(error);
-    }
-  });
+            if (res.ok) {
+                response.hidden = false;
+                response.textContent = "Thank you! Your message was sent successfully 💌";
+                form.reset();
+            } else {
+                throw new Error("Network error");
+            }
+        } catch (error) {
+            response.hidden = false;
+            response.textContent = "Oops! Something went wrong. Please try again.";
+            console.error(error);
+        }
+    });
 });
 
 // meta balls start here
