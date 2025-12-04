@@ -337,11 +337,19 @@ function setFormOpen(isOpen) {
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("contactForm");
+    const subjectInput = document.getElementById("contactSubject");
     const response = document.getElementById("formResponse");
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        // get the name field
+        const name = form.querySelector("input[name='name']").value.trim();
+
+        // update the hidden subject input
+        subjectInput.value = `${name} > karlrickard.se`;
+
+        // create FormData after updating the subject
         const formData = new FormData(form);
 
         try {
@@ -364,6 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
 
 // meta balls start here
 
