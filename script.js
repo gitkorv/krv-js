@@ -343,16 +343,15 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        // get the name field
+        // update hidden subject
         const name = form.querySelector("input[name='name']").value.trim();
-
-        // update the hidden subject input
         subjectInput.value = `${name} : karlrickard.se`;
 
-        // create FormData after updating the subject
+        // create FormData AFTER updating subject
         const formData = new FormData(form);
 
         try {
+            // fetch only works when deployed on Netlify
             const res = await fetch("/", {
                 method: "POST",
                 body: formData,
@@ -371,6 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(error);
         }
     });
+
 });
 
 
