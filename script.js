@@ -336,42 +336,40 @@ function setFormOpen(isOpen) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("contactForm");
-    const subjectInput = document.getElementById("contactSubject");
-    const response = document.getElementById("formResponse");
+  const form = document.getElementById("contactForm");
+  const response = document.getElementById("formResponse");
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-        // get the name field
-        const name = form.querySelector("input[name='name']").value.trim();
+    // Collect form data
+    const formData = new FormData(form);
 
-        // update the hidden subject input
-        subjectInput.value = `${name} : karlrickard.se`;
+    // Dynamically set the email subject (without adding a visible field)
+    const name = form.querySelector("input[name='name']").value.trim();
+    formData.set("subject", `${name} (via karlrickard.se)`);
 
-        // create FormData after updating the subject
-        const formData = new FormData(form);
+    try {
+      const res = await fetch("/", {
+        method: "POST",
+        body: formData,
+      });
 
-        try {
-            const res = await fetch("/", {
-                method: "POST",
-                body: formData,
-            });
-
-            if (res.ok) {
-                response.hidden = false;
-                response.textContent = "Thank you! Your message was sent successfully 💌";
-                form.reset();
-            } else {
-                throw new Error("Network error");
-            }
-        } catch (error) {
-            response.hidden = false;
-            response.textContent = "Oops! Something went wrong. Please try again.";
-            console.error(error);
-        }
-    });
+      if (res.ok) {
+        response.hidden = false;
+        response.textContent = "Thank you! Your message was sent successfully 💌";
+        form.reset();
+      } else {
+        throw new Error("Network error");
+      }
+    } catch (error) {
+      response.hidden = false;
+      response.textContent = "Oops! Something went wrong. Please try again.";
+      console.error(error);
+    }
+  });
 });
+
 
 
 // meta balls start here
