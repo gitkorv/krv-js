@@ -343,36 +343,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Handle form submit
   form.addEventListener("submit", () => {
-    const name = form.querySelector('input[name="name"]').value.trim();
+    const nameInput = form.querySelector('input[name="name"]').value.trim();
 
-    // Remove previous subject (if any)
+    // Remove previous subject input (if any)
     subjectContainer.innerHTML = "";
 
-    // Create hidden subject input
+    // Create hidden subject input for Netlify
     const hiddenSubject = document.createElement("input");
     hiddenSubject.type = "hidden";
     hiddenSubject.name = "subject";
-    hiddenSubject.value = `${name} (via karlrickard.se)`;
+    hiddenSubject.value = `${nameInput} (via karlrickard.se)`;
     subjectContainer.appendChild(hiddenSubject);
 
-    // Show immediate feedback
+    // Show sending message immediately
     response.hidden = false;
     response.textContent = "Sending… 💌";
   });
 
-  // Handle close button
+  // Close button resets form
   closeBtn.addEventListener("click", () => {
     form.reset();
     response.hidden = true;
     subjectContainer.innerHTML = "";
   });
 
-  // Optional: detect success via redirect hash
+  // Optional: detect Netlify redirect for success
   if (window.location.hash === "#success") {
     response.hidden = false;
     response.textContent = "Thank you! Your message was sent 💌";
   }
 });
+
 
 
 
