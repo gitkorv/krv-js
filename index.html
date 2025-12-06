@@ -70,48 +70,44 @@
             </div>
 
             <div class="contact-form-wrapper">
-                <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                    <!-- Hidden input for Netlify form name -->
-                    <input type="hidden" name="form-name" value="contact">
+                <form name="contact" method="POST" data-netlify="true" id="contactForm">
+                    <input type="hidden" name="form-name" value="contact" />
 
-                    <!-- Honeypot spam protection -->
+                    <!-- Hidden subject field created by JS -->
+                    <div id="subjectContainer"></div>
+
+                    <!-- Honeypot -->
                     <p class="hidden">
-                        <label>
-                            Don’t fill this out if you’re human:
+                        <label>Don’t fill this out if you're human:
                             <input name="bot-field" />
                         </label>
                     </p>
 
-                    <label>
-                        <div class="contact-form__label__head"><span>1</span> <span class="contact-form-arrow">↴</span>
-                        </div>
-                        <input type="text" name="name" placeholder="your name" required>
-                    </label>
+                    <label for="name">Name</label>
+                    <input id="name" name="name" type="text" placeholder="Your name" required>
 
-                    <label>
-                        <div class="contact-form__label__head"><span>2</span> <span class="contact-form-arrow">↴</span>
-                        </div>
-                        <input type="email" name="email" placeholder="your@email.com" required>
-                    </label>
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" placeholder="your@email.com" required>
 
-                    <label>
-                        <div class="contact-form__label__head"><span>3</span> <span class="contact-form-arrow">↴</span>
-                        </div>
-                        <textarea name="message" placeholder="your gorgeous message..." required></textarea>
-                    </label>
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Your gorgeous message..." required></textarea>
 
                     <div class="contact-form__btn-wrapper">
+                        <!-- Close button -->
                         <button type="button" id="closeFormBtn">
-                            <span>←</span><span>close</span>
+                            <span>←</span><span>Close</span>
                         </button>
-                        <button type="submit">
-                            <span>→</span><span>send</span>
+
+                        <!-- Submit button -->
+                        <button type="submit" id="submitBtn">
+                            <span>→</span><span>Send</span>
                         </button>
                     </div>
                 </form>
 
                 <p id="formResponse" class="form-response" hidden></p>
             </div>
+
 
         </section>
     </div>

@@ -337,38 +337,44 @@ function setFormOpen(isOpen) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
+  const subjectContainer = document.getElementById("subjectContainer");
   const response = document.getElementById("formResponse");
+  const closeBtn = document.getElementById("closeFormBtn");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  // Handle form submit
+  form.addEventListener("submit", () => {
+    const name = form.querySelector('input[name="name"]').value.trim();
 
-    // Collect form data
-    const formData = new FormData(form);
+    // Remove previous subject (if any)
+    subjectContainer.innerHTML = "";
 
-    // Dynamically set the email subject (without adding a visible field)
-    const name = form.querySelector("input[name='name']").value.trim();
-    formData.set("subject", `${name} (via karlrickard.se)`);
+    // Create hidden subject input
+    const hiddenSubject = document.createElement("input");
+    hiddenSubject.type = "hidden";
+    hiddenSubject.name = "subject";
+    hiddenSubject.value = `${name} (via karlrickard.se)`;
+    subjectContainer.appendChild(hiddenSubject);
 
-    try {
-      const res = await fetch("/", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (res.ok) {
-        response.hidden = false;
-        response.textContent = "Thank you! Your message was sent successfully 💌";
-        form.reset();
-      } else {
-        throw new Error("Network error");
-      }
-    } catch (error) {
-      response.hidden = false;
-      response.textContent = "Oops! Something went wrong. Please try again.";
-      console.error(error);
-    }
+    // Show immediate feedback
+    response.hidden = false;
+    response.textContent = "Sending… 💌";
   });
+
+  // Handle close button
+  closeBtn.addEventListener("click", () => {
+    form.reset();
+    response.hidden = true;
+    subjectContainer.innerHTML = "";
+  });
+
+  // Optional: detect success via redirect hash
+  if (window.location.hash === "#success") {
+    response.hidden = false;
+    response.textContent = "Thank you! Your message was sent 💌";
+  }
 });
+
+
 
 
 
