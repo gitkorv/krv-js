@@ -336,47 +336,42 @@ function setFormOpen(isOpen) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contactForm");
-  const subjectContainer = document.getElementById("subjectContainer");
-  const response = document.getElementById("formResponse");
-  const closeBtn = document.getElementById("closeFormBtn");
+    const form = document.getElementById("contactForm");
+    const subjectInput = document.getElementById("contactSubject");
+    const response = document.getElementById("formResponse");
 
-  // Handle form submit
-  form.addEventListener("submit", () => {
-    const nameInput = form.querySelector('input[name="name"]').value.trim();
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    // Remove previous subject input (if any)
-    subjectContainer.innerHTML = "";
+        // get the name field
+        const name = form.querySelector("input[name='name']").value.trim();
 
-    // Create hidden subject input for Netlify
-    const hiddenSubject = document.createElement("input");
-    hiddenSubject.type = "hidden";
-    hiddenSubject.name = "subject";
-    hiddenSubject.value = `${nameInput} (via karlrickard.se)`;
-    subjectContainer.appendChild(hiddenSubject);
+        // update the hidden subject input
+        subjectInput.value = `${name} : karlrickard.se`;
 
-    // Show sending message immediately
-    response.hidden = false;
-    response.textContent = "Sending… 💌";
-  });
+        // create FormData after updating the subject
+        const formData = new FormData(form);
 
-  // Close button resets form
-  closeBtn.addEventListener("click", () => {
-    form.reset();
-    response.hidden = true;
-    subjectContainer.innerHTML = "";
-  });
+        try {
+            const res = await fetch("/", {
+                method: "POST",
+                body: formData,
+            });
 
-  // Optional: detect Netlify redirect for success
-  if (window.location.hash === "#success") {
-    response.hidden = false;
-    response.textContent = "Thank you! Your message was sent 💌";
-  }
+            if (res.ok) {
+                response.hidden = false;
+                response.textContent = "Thank you! Your message was sent successfully 💌";
+                form.reset();
+            } else {
+                throw new Error("Network error");
+            }
+        } catch (error) {
+            response.hidden = false;
+            response.textContent = "Oops! Something went wrong. Please try again.";
+            console.error(error);
+        }
+    });
 });
-
-
-
-
 
 
 // meta balls start here
