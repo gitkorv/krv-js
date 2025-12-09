@@ -21,6 +21,9 @@ setTimeout(function () {
 
 let windowWidth = "";
 
+const colorOverlay = document.querySelector(".color-overlay");
+console.log(colorOverlay);
+
 const welcomeTextContainer = document.querySelector('.welcome-text__text-container');
 let welcomeTextContainerWidth = welcomeTextContainer.getBoundingClientRect().width;
 console.log(welcomeTextContainerWidth);
@@ -52,9 +55,11 @@ const titleWrapper = document.querySelector('.title-wrapper');
 const titleSpanContainer = document.querySelector(".title-span-container")
 
 
-// Grab undersconst
+// Grab sec2
+const sec2 = document.querySelector(".sec2");
 const sec2TextWrapper = document.querySelector(".sec2__text-wrapper")
-// console.log(underConstWrapper);
+const sec2TextAll = Array.from(sec2TextWrapper.children);
+console.log(sec2TextAll);
 
 // Grab svg anim elements
 window.addEventListener("DOMContentLoaded", () => {
@@ -318,20 +323,47 @@ let formOpen = false;
 const openFormBtn = document.getElementById("openFormBtn");
 const formWrapper = document.querySelector(".contact-form-wrapper");
 const closeFormBtn = document.getElementById("closeFormBtn");
-console.log(formWrapper);
+const contactFormContainer = document.querySelector(".contact-form-container");
 
-openFormBtn.addEventListener("click", () => setFormOpen(true));
+openFormBtn.addEventListener("click", (e) => {
+    e.stopPropagation();          // IMPORTANT
+    setFormOpen(true);
+});
 
-closeFormBtn.addEventListener('click', () => setFormOpen(false));
+closeFormBtn.addEventListener("click", (e) => {
+    e.stopPropagation();          // IMPORTANT
+    setFormOpen(false);
+});
+
+// Keep clicks inside the form from closing it
+contactFormContainer.addEventListener("click", (e) => {
+    e.stopPropagation();
+});
+
+// Global click outside → close
+document.addEventListener("click", (e) => {
+    if (!formOpen) return;
+
+    // Click outside
+    setFormOpen(false);
+});
 
 function setFormOpen(isOpen) {
     formOpen = isOpen;
+
     formWrapper.classList.toggle("contact-form-wrapper--open", isOpen);
 
     welcomeTextContainer
         .querySelectorAll(".letter")
         .forEach(l => l.classList.toggle("dim-letter", isOpen));
+
+    colorOverlay.classList.toggle("dim", isOpen);
+    sec2TextAll.forEach(child => child.classList.toggle("dim", isOpen));
 }
+
+
+
+
 
 
 

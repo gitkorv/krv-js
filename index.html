@@ -66,58 +66,51 @@
                 <span class="sec2__text-span">breaking,</span>
                 <span class="sec2__text-span">and reinventing.</span>
                 <p class="sec2__text-para">Reach out ☞ <button href="#" id="openFormBtn">here</button></p>
-                <p class="sec2__text-para">We'd love to hear <br>from you.</p>
+                <p class="sec2__text-para">We'd love to work <br>with you.</p>
             </div>
 
             <div class="contact-form-wrapper">
 
 
-                <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" accept-charset="UTF-8">
-                    <input type="hidden" id="contactSubject" name="subject" value="" />
-
-                    <!-- Hidden input for Netlify form name -->
-                    <input type="hidden" name="form-name" value="contact">
-
-                    <!-- Honeypot spam protection -->
-                    <p class="hidden">
+                <div class="contact-form-container">
+                    <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" accept-charset="UTF-8">
+                        <input type="hidden" id="contactSubject" name="subject" value="" />
+                        <!-- Hidden input for Netlify form name -->
+                        <input type="hidden" name="form-name" value="contact">
+                        <!-- Honeypot spam protection -->
+                        <p class="hidden">
+                            <label>
+                                Don’t fill this out if you’re human:
+                                <input name="bot-field" />
+                            </label>
+                        </p>
                         <label>
-                            Don’t fill this out if you’re human:
-                            <input name="bot-field" />
+                            <div class="contact-form__label__head"><span>1</span> <span class="contact-form-arrow">↴</span>
+                            </div>
+                            <input type="text" name="name" placeholder="your name" required>
                         </label>
-                    </p>
-
-                    <label>
-                        <div class="contact-form__label__head"><span>1</span> <span class="contact-form-arrow">↴</span>
+                        <label>
+                            <div class="contact-form__label__head"><span>2</span> <span class="contact-form-arrow">↴</span>
+                            </div>
+                            <input type="email" name="email" placeholder="your@email.com" required>
+                        </label>
+                        <label>
+                            <div class="contact-form__label__head"><span>3</span> <span class="contact-form-arrow">↴</span>
+                            </div>
+                            <textarea name="message" placeholder="your gorgeous message..." required></textarea>
+                        </label>
+                        <div class="contact-form__btn-wrapper">
+                            <button type="button" id="closeFormBtn">
+                                <span>←</span>
+                                <span>close</span>
+                            </button>
+                            <button type="submit">
+                                <span>→</span>
+                                <span>send</span>
+                            </button>
                         </div>
-                        <input type="text" name="name" placeholder="your name" required>
-                    </label>
-
-                    <label>
-                        <div class="contact-form__label__head"><span>2</span> <span class="contact-form-arrow">↴</span>
-                        </div>
-                        <input type="email" name="email" placeholder="your@email.com" required>
-                    </label>
-
-                    <label>
-
-                        <div class="contact-form__label__head"><span>3</span> <span class="contact-form-arrow">↴</span>
-                        </div>
-                        <textarea name="message" placeholder="your gorgeous message..." required></textarea>
-                    </label>
-
-                    <div class="contact-form__btn-wrapper">
-                        <button type="button" id="closeFormBtn">
-                            <span>←</span>
-                            <span>close</span>
-
-
-                        </button>
-                        <button type="submit">
-                            <span>→</span>
-                            <span>send</span>
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
 
 
                 <p id="formResponse" class="form-response" hidden></p>

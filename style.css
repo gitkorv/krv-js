@@ -90,9 +90,13 @@ h2 {
 
     /* filter: saturate(80%); */
     /* filter: contrast(50); */
+    transition: background-color 2s linear;
     opacity: .85;
-    
-    
+}
+
+.color-overlay.dim {
+    background-color: pink;
+    filter: saturate(0);
 }
 
 .color-overlay::before {
@@ -152,7 +156,7 @@ canvas {
     top: 0;
     left: 0;
     mix-blend-mode: hard-light;
-    z-index: 500;
+    
 
     /* background-color: orange; */
 }
@@ -357,6 +361,10 @@ section {
     scroll-snap-align: start;
 }
 
+/* .sec2 {
+    cursor: pointer;
+} */
+
 .sec2__text-wrapper {
     height: auto;
     width: auto;
@@ -372,10 +380,13 @@ section {
     /* background-color: antiquewhite; */
 }
 
+
+
 .sec2__text-wrapper.sec2__text-wrapper--open {
     transform: scale(1);
     text-shadow: 2px 2px 0px var(--blobBGColor);
 }
+
 
 .sec2__text-span {
     /* width: fit-content; */
@@ -394,6 +405,16 @@ section {
     margin-top: calc(var(--sec2TextSize) * .25);
 }
 
+.sec2__text-para, .sec2__text-span {
+    transition: color 1s ease-out,
+                text-shadow 1s ease-out;
+}
+
+.sec2__text-para.dim, .sec2__text-span.dim {
+    color: rgba(0,0,0, .2);
+    text-shadow: 2px 2px 0px rgba(0,0,0, .2);
+}
+
 .sec2__text-para button {
     text-decoration: underline;
 }
@@ -407,26 +428,35 @@ section {
 
 .contact-form-wrapper {
     position: absolute;
-    height: 100%;
+    height: 100% ;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     align-self: flex-end;
-    /* align-items: end; */
-    /* align-items: stretch; */
-    /* justify-content: space-evenly; */
-    padding: var(--bodyPadding);
-    padding-top: calc(var(--bodyPadding) * 8);
-    /* background-color: orange; */
+    justify-content: end;
     z-index: 110;
     transform: translateX(100%);
-    transition: transform .25s ease-in;
-    background-color: rgb(from var(--blobBGColor) r g b / 0.75);
+    transition: transform .25s ease-in .5s;
+    pointer-events: none;
+    
 }
 
 .contact-form-wrapper.contact-form-wrapper--open {
     transform: translateX(0%);
+}
+
+.contact-form-container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: start; */
+    height: calc(100% - 140px) ;
+    /* height: 100%; */
+    padding: var(--bodyPadding);
+    /* padding-top: calc(var(--bodyPadding) * 8); */
+
+    background-color: rgb(from var(--blobBGColor) r g b / 0.75);
+    pointer-events: auto;
 }
 
 #contactForm {
@@ -434,6 +464,7 @@ section {
     flex-direction: column;
     flex: 1;
     font-size: 40px;
+    /* background-color: antiquewhite; */
 }
 
 #contactForm .hidden {
