@@ -377,7 +377,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // update hidden subject
         const name = form.querySelector("input[name='name']").value.trim();
-        subjectInput.value = `${name} : karlrickard.se`;
+        subjectInput.value = `Message from: ${name}`;
 
         // create FormData AFTER updating subject
         const formData = new FormData(form);
