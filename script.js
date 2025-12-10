@@ -412,7 +412,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!emailRegex.test(email)) {
             showResponse("Please enter a valid email address!")
             document.addEventListener("click", hideResponseOnClick, true);
-            emailInput.focus();
+            // emailInput.focus();
             return;
         }
 
