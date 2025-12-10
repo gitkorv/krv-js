@@ -21,6 +21,10 @@ setTimeout(function () {
 
 let windowWidth = "";
 
+const body = document.body;
+const mainWrapper = document.querySelector(".main-wrapper");
+console.log(mainWrapper);
+
 const colorOverlay = document.querySelector(".color-overlay");
 console.log(colorOverlay);
 
@@ -371,39 +375,92 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("contactForm");
     const subjectInput = document.getElementById("contactSubject");
     const response = document.getElementById("formResponse");
+    const emailInput = form.querySelector("input[name='email']");
+    const messageTextarea = document.querySelector("textarea[name='message']");
+    let windowHeight = window.innerHeight;
+    console.log(windowHeight);
+    const centerMessageTextarea = windowHeight * 2 - messageTextarea.getBoundingClientRect().bottom + messageTextarea.getBoundingClientRect().height / 2;
+    console.log(windowHeight, messageTextarea.getBoundingClientRect().bottom);
+    console.log(centerMessageTextarea);
+
+    response.style.top = windowHeight + "px";
+    console.log(windowHeight);
+
+    function hideResponseOnClick(e) {
+        console.log(e.target);
+        response.style.transform = "";
+        document.removeEventListener("click", hideResponseOnClick, true); // remove itself
+    }
+
+    function showResponse(textString) {
+        response.hidden = false;
+        response.textContent = textString;
+        let responseHeightAdjustment = response.getBoundingClientRect().height / 2;
+        requestAnimationFrame(() => {
+            response.style.transform = `translateY(-${centerMessageTextarea + responseHeightAdjustment + "px"})`;
+        })
+    }
+
+
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        // update hidden subject
-        const name = form.querySelector("input[name='name']").value.trim();
-        subjectInput.value = `Message from: ${name}`;
+        // --- EMAIL VALIDATION ---
+        const email = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showResponse("Please enter a valid email address!")
+            document.addEventListener("click", hideResponseOnClick, true);
+            emailInput.focus();
+            return;
+        }
 
-        // create FormData AFTER updating subject
+
+        // --- UPDATE HIDDEN SUBJECT ---
+        const name = form.querySelector("input[name='name']").value.trim();
+        subjectInput.value = `From: ${name}`;
+
+        // --- CREATE FORM DATA ---
         const formData = new FormData(form);
 
         try {
             // fetch only works when deployed on Netlify
             const res = await fetch("/", {
-                method: "POST",
-                body: formData,
+                // method: "POST",
+                // body: formData,
             });
 
             if (res.ok) {
-                response.hidden = false;
-                response.textContent = "Thank you! Your message was sent successfully 💌";
-                form.reset();
+                showResponse("Thank you! Your message was sent successfully 💌")
+                
+                setTimeout(() => {
+                    setFormOpen(false)
+                    setTimeout(() => {
+                        mainWrapper.scrollTo({
+                            top: 0,
+                            behavior: "smooth"
+                        });
+                    }, 1000);
+                    form.reset();
+                    response.style.transform = "";
+                }, 4000);
+                // document.addEventListener("click", hideResponseOnClick, true);
+                
+                
             } else {
                 throw new Error("Network error");
             }
         } catch (error) {
-            response.hidden = false;
-            response.textContent = "Oops! Something went wrong. Please try again.";
+            showResponse("Oops! Something went wrong. Please try again.")
             console.error(error);
         }
     });
-
 });
+
+// mainWrapper.addEventListener("scroll", (e) => {
+//     console.log(e);
+// })
 
 
 // meta balls start here
