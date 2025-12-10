@@ -427,8 +427,8 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             // fetch only works when deployed on Netlify
             const res = await fetch("/", {
-                // method: "POST",
-                // body: formData,
+                method: "POST",
+                body: formData,
             });
 
             if (res.ok) {
