@@ -117,7 +117,7 @@ h2 {
     /* background-image: url(/img/IMG_2065_R.jpg); */
     /* background-attachment: fixed; */
     background-position: center;
-    background-size: cover;
+    background-size: 100% 100%;
     /* mix-blend-mode: color-burn;
     mix-blend-mode: color-dodge;
     mix-blend-mode: darken; */
@@ -132,13 +132,21 @@ h2 {
     /* -webkit-filter: url(#liquid);
     filter: url(#liquid); */
     /* margin: 48px; */
-    /* animation: zoomBg 20s ease-in-out infinite  alternate; */
+    animation: zoomBg 20s ease-in-out infinite;
+    /* animation: bghue 20s infinite; */
 }
 
 @keyframes zoomBg {
-    0% { background-size: 120%; }
-    50% { background-size: 150%; }
-    100% { background-size: 120%; }
+    0% { background-size: 100% 100%; }
+    50% { background-size: 150% 100%; }
+    100% { background-size: 100% 100%; }
+}
+
+@keyframes bghue {
+    25% { filter: hue-rotate(358deg);}
+    50% { filter: hue-rotate(43deg);}
+    75% { filter: hue-rotate(93deg);}
+    100% { filter: hue-rotate(313deg);}
 }
 
 .contrast {
@@ -685,4 +693,13 @@ svg {
     .color-overlay::before {
         background-image: url(/img/IMG_2015_R3-rotate.jpg);
     }
+    @keyframes zoomBg {
+    0% { background-size: 100% 100%; }
+    25% { background-size: 100% 105%; }
+    35% { background-size: 100% 100%; }
+    50% { background-size: 100% 120%; }
+    70% { background-size: 100% 100%; }
+    80% { background-size: 100% 115%; }
+    100% { background-size: 100% 100%; }
+}
 }
