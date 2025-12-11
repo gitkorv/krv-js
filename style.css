@@ -111,11 +111,12 @@ h2 {
     background-image: url(/img/IMG_8721.jpg);
     
     background-image: url(/img/IMG_2015_R.jpg);
+    background-image: url(/img/IMG_2015_R3.jpg);
     /* image-rendering: pixelated; */
     /* background-image: url(/img/IMG_2023_R_72.jpg); */
     /* background-image: url(/img/IMG_2065_R.jpg); */
     /* background-attachment: fixed; */
-    background-position: center bottom;
+    background-position: center;
     background-size: cover;
     /* mix-blend-mode: color-burn;
     mix-blend-mode: color-dodge;
@@ -680,5 +681,8 @@ svg {
         --titleFontSize: 3rem;
         --sec2TextSize: 7rem;
         --welcomeTextSize: 12rem;
+    }
+    .color-overlay::before {
+        background-image: url(/img/IMG_2015_R3-rotate.jpg);
     }
 }
