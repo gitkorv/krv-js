@@ -239,7 +239,7 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                 // Apply transform with transition
                 letter.style.transition = [
                     `transform ${randomDuration}ms cubic-bezier(.09,1.3,.78,.98)`,
-                    `color .5s ease-out`
+                    `color 2s ease-out`
                 ].join(", ");
 
                 switch (letter.textContent) {
@@ -357,27 +357,13 @@ function setFormOpen(isOpen) {
 
     formWrapper.classList.toggle("contact-form-wrapper--open", isOpen);
 
-    const welcomeLetters = welcomeTextContainer.querySelectorAll(".letter");
-
-
-    welcomeLetters.forEach(letter => {
-        letter.style.transitionDelay = !isOpen ? ".35s" : "";
-
-        requestAnimationFrame(() => {
-            letter.classList.toggle("dim-letter", isOpen);
-        });
-    });
-
-    // welcomeTextContainer
-    //     .querySelectorAll(".letter")
-    //     .forEach(l => l.classList.toggle("dim-letter", isOpen));
+    welcomeTextContainer
+        .querySelectorAll(".letter")
+        .forEach(l => l.classList.toggle("dim-letter", isOpen));
 
     colorOverlay.classList.toggle("dim", isOpen);
     sec2TextAll.forEach(child => child.classList.toggle("dim", isOpen));
 }
-
-
-
 
 
 

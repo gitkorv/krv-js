@@ -317,7 +317,7 @@ canvas {
     margin-right: -.5px;
     /* transform-origin: top right; */
     transition: color 2s ease-out;
-
+    transition-delay: 1s;
 }
 
 .letter.rotate {
@@ -326,6 +326,7 @@ canvas {
     /* color: transparent; */
     
 }
+
 
 .letter.dim-letter {
     color: transparent;
