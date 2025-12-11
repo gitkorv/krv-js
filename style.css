@@ -5,6 +5,8 @@
     --bodyPadding: 16px;
     --org-padding: 16px;
     --blobBGColor: rgb(149, 0, 255);
+    --darkGreen: rgb(3, 53, 47);
+    --lightGreen: rgb(23, 148, 134);
     --sec2TextSize: 3rem;
     --sec2TextLineHeight: calc(var(--sec2TextSize) * 1);
     --welcomeTextSize: 5.5rem;
@@ -109,14 +111,17 @@ h2 {
     background-image: url(/img/IMG_8721.jpg);
     
     background-image: url(/img/IMG_2015_R.jpg);
+    /* image-rendering: pixelated; */
     /* background-image: url(/img/IMG_2023_R_72.jpg); */
     /* background-image: url(/img/IMG_2065_R.jpg); */
-    background-position: center;
+    /* background-attachment: fixed; */
+    background-position: center bottom;
     background-size: cover;
-    mix-blend-mode: color-burn;
+    /* mix-blend-mode: color-burn;
     mix-blend-mode: color-dodge;
-    mix-blend-mode: darken;
-    mix-blend-mode: difference;
+    mix-blend-mode: darken; */
+    /* mix-blend-mode: difference; */
+    filter: hue-rotate(313deg);
     /* transform: rotate(-25deg) scale(150%); */
 
     /* mix-blend-mode: exclusion; */
@@ -126,6 +131,13 @@ h2 {
     /* -webkit-filter: url(#liquid);
     filter: url(#liquid); */
     /* margin: 48px; */
+    /* animation: zoomBg 20s ease-in-out infinite  alternate; */
+}
+
+@keyframes zoomBg {
+    0% { background-size: 120%; }
+    50% { background-size: 150%; }
+    100% { background-size: 120%; }
 }
 
 .contrast {
@@ -386,6 +398,7 @@ section {
 .sec2__text-wrapper.sec2__text-wrapper--open {
     transform: scale(1);
     text-shadow: 2px 2px 0px var(--blobBGColor);
+    text-shadow: 2px 2px 0px var(--darkGreen);
 }
 
 
@@ -411,21 +424,35 @@ section {
     margin-top: calc(var(--sec2TextSize) * .5);
 }
 
-.sec2__text-para span.pointer {
-    position: relative;
-    display: inline-block;
-    transform: rotate(0deg);
-    transform-origin: center;
-    animation: pointerAnim 5s linear infinite;
+.sec2__text-para span.pointer,
+.sec2__text-para span.pointer button {
+        padding-left: 4px;
+
+}
+
+.sec2__text-para button {
+    transform: rotate(-15deg);
+    transform-origin: center left;
+    animation: pointerAnim 6s linear infinite;
 
 }
 
 @keyframes pointerAnim {
-    /* 0% { transform: rotate(0deg); } */
-    33% { transform: rotate(-15deg); }
-    66% { transform: rotate(15deg); }
-    /* 100% { transform: rotate(0deg); } */
+    0%   { transform: rotate(0deg); color: white; }
+    20%   { transform: rotate(0deg);}
+    25%  { transform: rotate(-10deg); color: pink; }
+    35%  { transform: rotate(0deg);}
+    50%  { transform: rotate(0deg); color: white; }
+    60%  { transform: rotate(3deg); color: white; }
+    75%  { transform: rotate(0deg); color: pink; }
+    80%  { transform: rotate(0deg);}
+    100% { transform: rotate(0deg); color: white; }
 }
+
+/* span.pointer {
+    border-bottom: 1ps solid pink;
+    background-color: white;
+} */
 
 .sec2__text-para, .sec2__text-span {
     transition: color 1s ease-out,
@@ -437,9 +464,6 @@ section {
     text-shadow: 2px 2px 0px rgba(0,0,0, .2);
 }
 
-.sec2__text-para button {
-    text-decoration: underline;
-}
 
 .sec2__text-span:nth-of-type(2) {
     -webkit-filter: url(#noice);
@@ -478,7 +502,7 @@ section {
     border-top-left-radius: calc(var(--bodyPadding) * 2) ;
     /* padding-top: calc(var(--bodyPadding) * 8); */
 
-    background-color: rgb(from var(--blobBGColor) r g b / 0.75);
+    background-color: rgb(from var(--darkGreen) r g b / 0.75);
     pointer-events: auto;
 }
 
@@ -542,14 +566,16 @@ section {
 #contactForm input::placeholder,
 #contactForm textarea,
 #contactForm textarea::placeholder {
-    color: var(--blobBGColor);
+    color: teal;
 }
 
 #contactForm input:focus,
-#contactForm textarea:focus {
+#contactForm textarea:focus,
+#contactForm input:valid,
+#contactForm textarea:valid {
     outline: none;
     box-shadow: none;
-    color: teal;
+    color: var(--darkGreen);
 
 }
 
