@@ -357,20 +357,20 @@ function setFormOpen(isOpen) {
 
     formWrapper.classList.toggle("contact-form-wrapper--open", isOpen);
 
-    // const welcomeLetters = welcomeTextContainer.querySelectorAll(".letter");
+    const welcomeLetters = welcomeTextContainer.querySelectorAll(".letter");
 
 
-    // welcomeLetters.forEach(letter => {
-    //     letter.style.transitionDelay = !isOpen ? ".35s" : "";
+    welcomeLetters.forEach(letter => {
+        letter.style.transitionDelay = !isOpen ? ".35s" : "";
 
-    //     requestAnimationFrame(() => {
-    //         letter.classList.toggle("dim-letter", isOpen);
-    //     });
-    // });
+        requestAnimationFrame(() => {
+            letter.classList.toggle("dim-letter", isOpen);
+        });
+    });
 
-    welcomeTextContainer
-        .querySelectorAll(".letter")
-        .forEach(l => l.classList.toggle("dim-letter", isOpen));
+    // welcomeTextContainer
+    //     .querySelectorAll(".letter")
+    //     .forEach(l => l.classList.toggle("dim-letter", isOpen));
 
     colorOverlay.classList.toggle("dim", isOpen);
     sec2TextAll.forEach(child => child.classList.toggle("dim", isOpen));
