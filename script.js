@@ -357,9 +357,20 @@ function setFormOpen(isOpen) {
 
     formWrapper.classList.toggle("contact-form-wrapper--open", isOpen);
 
-    welcomeTextContainer
-        .querySelectorAll(".letter")
-        .forEach(l => l.classList.toggle("dim-letter", isOpen));
+    const welcomeLetters = welcomeTextContainer.querySelectorAll(".letter");
+
+
+    welcomeLetters.forEach(letter => {
+        letter.style.transitionDelay = !isOpen ? ".35s" : "";
+
+        requestAnimationFrame(() => {
+            letter.classList.toggle("dim-letter", isOpen);
+        });
+    });
+
+    // welcomeTextContainer
+    //     .querySelectorAll(".letter")
+    //     .forEach(l => l.classList.toggle("dim-letter", isOpen));
 
     colorOverlay.classList.toggle("dim", isOpen);
     sec2TextAll.forEach(child => child.classList.toggle("dim", isOpen));
@@ -433,7 +444,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (res.ok) {
                 showResponse("Thank you! Your message was sent successfully 💌")
-                
+
                 setTimeout(() => {
                     setFormOpen(false)
                     setTimeout(() => {
@@ -446,8 +457,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     response.style.transform = "";
                 }, 4000);
                 // document.addEventListener("click", hideResponseOnClick, true);
-                
-                
+
+
             } else {
                 throw new Error("Network error");
             }
