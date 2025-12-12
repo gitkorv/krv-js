@@ -102,35 +102,26 @@ h2 {
 }
 
 .color-overlay::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    /* replaces width/height inherit */
-    display: block;
-    background-image: url(/img/IMG_2015_R3.jpg);
-    background-position: center;
-    background-size: 100% 100%;
-    filter: hue-rotate(313deg);
-    transform-origin: center;
-    /* optional but helps */
-    animation: zoomBg 50s ease-in-out infinite;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(/img/IMG_2015_R3.jpg);
+  background-position: center;
+  background-size: cover;
+  filter: hue-rotate(313deg);
+  transform: scale(1);
+  animation: zoomBg 50s ease-in-out infinite;
 }
 
 @keyframes zoomBg {
-    0% {
-        background-size: 100% 100%;
-    }
-    50% {
-        background-size: 150% 100%;
-    }
-    75% {
-        background-size: 120% 150%;
-    }
-
-    100% {
-        background-size: 100% 100%;
-    }
+  0%   { transform: scale(1); }
+  /* 25%  { transform: skew(15deg);} */
+  25%  { transform: scale(1.2) skew(-10deg);}
+  50%  { transform: scale(1.5) skew(15deg);}
+  75%  { transform: scale(1.2) skew(-5deg); }
+  100% { transform: scale(1); }
 }
+
 
 
 
@@ -270,27 +261,17 @@ canvas {
     height: 100%;
     align-items: center;
     justify-content: center;
-    /* color: orange; */
-    /* background-color: orange; */
     perspective: 500px;
-    /* pointer-events: all; */
-    /* z-index: -50; */
-    /* background-color: antiquewhite; */
 }
 
 .welcome-text__text-container {
     display: flex;
     flex-direction: column;
-
     z-index: 20;
     transition: all .2s ease-out;
     gap: 24px;
     perspective: 500px;
     transform-style: preserve-3d;
-    /* z-index: 100; */
-    /* height: 440px; */
-    /* background-color: orange; */
-    /* overflow: hidden; */
 }
 
 .welcome-text__text-container span {
@@ -740,7 +721,7 @@ svg {
         background-image: url(/img/IMG_2015_R3-rotate.jpg);
     }
 
-    @keyframes zoomBg {
+    /* @keyframes zoomBg {
         0% {
             background-size: 100% 100%;
         }
@@ -768,5 +749,5 @@ svg {
         100% {
             background-size: 100% 100%;
         }
-    }
+    } */
 }
