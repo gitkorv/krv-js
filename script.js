@@ -115,6 +115,11 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
+// Music
+document.body.addEventListener("click", () => {
+  document.querySelector("#bg-music").play();
+}, { once: true });
+
 
 
 

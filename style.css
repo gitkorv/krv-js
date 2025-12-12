@@ -129,7 +129,7 @@ h2 {
     }
 
     75% {
-        transform: scaleY(1.2) scaleX(1) skew(15deg);
+        transform: scaleY(1.2) scaleX(2) skew(15deg);
     }
 
     100% {
