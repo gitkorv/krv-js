@@ -105,7 +105,7 @@ window.addEventListener("DOMContentLoaded", () => {
             startWelcome()
             switchIntervals.push(
                 switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"]),
-                switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live.", "create."])
+                switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live", "create"])
             );
         }, 1000);
     })
@@ -300,7 +300,7 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                         welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
                         switchIntervals.push(
                             switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"]),
-                            switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live.", "create."])
+                            switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live", "create"])
                         );
                         console.log(switchIntervals);
                     })
