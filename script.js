@@ -491,16 +491,17 @@ class Ball {
         // this.y = Math.random() * this.effect.height;
         // Make different sized balls depending on window width
         console.log(this.effect.width);
-        if (this.effect.width < 400 || this.effect.height < 200) {
-            console.log("under 400");
-            this.radius = Math.random() * 800 + 10;
-        } else if (this.effect.width < 900) {
-            this.radius = Math.random() * 1000 + 30;
+        
+        if (this.effect.width < 900) {
+            this.radius = Math.random() * 900 + 30;
         } else if (this.effect.width < 1200) {
-            console.log("under 1200");
+            // console.log("under 1200");
             this.radius = Math.random() * 1500 + 40;
-        } else {
+        } else if (this.effect.width > 1200 && this.effect.height < 1200) {
+            // console.log("here", this.effect.height);
             this.radius = Math.random() * 1800 + 75;
+        } else {
+            this.radius = Math.random() * 2800 + 100;
         }
         // this.radius = Math.random() * 200 + 10;
 
