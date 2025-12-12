@@ -65,15 +65,21 @@
                 <span class="sec2__text-span">breaking,</span>
                 <span class="sec2__text-span">and reinventing</span>
                 <p class="sec2__text-para">we are creatives–<br>and we'd love to work with you</p>
-                <p class="sec2__text-para">reach out <button href="#" id="openFormBtn"><span class="pointer">☞ </span> here</button></p>
-                
+                <p class="sec2__text-para">
+                    reach out
+                    <button id="openFormBtn">
+                        <span class="pointer">☞</span> <span class="here">here</span>
+                    </button>
+                </p>
+
             </div>
 
             <div class="contact-form-wrapper">
 
 
                 <div class="contact-form-container">
-                    <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" accept-charset="UTF-8">
+                    <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+                        accept-charset="UTF-8">
                         <input type="hidden" id="contactSubject" name="subject" value="" />
                         <!-- Hidden input for Netlify form name -->
                         <input type="hidden" name="form-name" value="contact">
@@ -85,17 +91,20 @@
                             </label>
                         </p>
                         <label>
-                            <div class="contact-form__label__head"><span>1</span> <span class="contact-form-arrow">↴</span>
+                            <div class="contact-form__label__head"><span>1</span> <span
+                                    class="contact-form-arrow">↴</span>
                             </div>
                             <input type="text" name="name" placeholder="your name" required>
                         </label>
                         <label>
-                            <div class="contact-form__label__head"><span>2</span> <span class="contact-form-arrow">↴</span>
+                            <div class="contact-form__label__head"><span>2</span> <span
+                                    class="contact-form-arrow">↴</span>
                             </div>
                             <input type="email" name="email" placeholder="your@email.com" required>
                         </label>
                         <label>
-                            <div class="contact-form__label__head"><span>3</span> <span class="contact-form-arrow">↴</span>
+                            <div class="contact-form__label__head"><span>3</span> <span
+                                    class="contact-form-arrow">↴</span>
                             </div>
                             <textarea name="message" placeholder="your gorgeous message..." required></textarea>
                         </label>
@@ -159,10 +168,7 @@
         <filter id="welcomeFilter1">
             <!-- Fractal noise generator -->
             <feTurbulence id="turb1" type="fractalNoise" baseFrequency="0.2 0" numOctaves="2" result="NOISE">
-                <animate id="welcomeAnim1"
-                    attributeName="baseFrequency"
-                    dur="3s"
-                    values="
+                <animate id="welcomeAnim1" attributeName="baseFrequency" dur="3s" values="
                         .05 0;
                         0 0;
                         0 0.2;
@@ -172,15 +178,12 @@
                         0 0;
                         0 0;
                         0 0;
-                        0 0.2"
-                    repeatCount="indefinite"
-                    calcMode="discrete"
-                    begin="indefinite" />
+                        0 0.2" repeatCount="indefinite" calcMode="discrete" begin="indefinite" />
             </feTurbulence>
 
-            <feDisplacementMap id="disp1" in="SourceGraphic" in2="NOISE" scale="30" xChannelSelector="R" yChannelSelector="G">
-                <animate id="welcomeAnimScale1" attributeName="scale" dur="8s" 
-                values="
+            <feDisplacementMap id="disp1" in="SourceGraphic" in2="NOISE" scale="30" xChannelSelector="R"
+                yChannelSelector="G">
+                <animate id="welcomeAnimScale1" attributeName="scale" dur="8s" values="
                     70;
                     0;
                     0;
@@ -193,8 +196,7 @@
                     100;
                     18;
                     60;
-                    95"
-                    repeatCount="indefinite" calcMode="discrete" />
+                    95" repeatCount="indefinite" calcMode="discrete" />
             </feDisplacementMap>
         </filter>
     </svg>
@@ -203,8 +205,7 @@
         <filter id="welcomeFilter2">
             <!-- Fractal noise generator -->
             <feTurbulence id="turb2" type="fractalNoise" baseFrequency="0.2 0" numOctaves="2" result="NOISE">
-                <animate id="welcomeAnim2" attributeName="baseFrequency" dur="3s"
-                    values="
+                <animate id="welcomeAnim2" attributeName="baseFrequency" dur="3s" values="
                         0 0.05;
                         0.05 0;
                         0 0.5;
@@ -214,14 +215,12 @@
                         0 0;
                         0 0;
                         0.2 0;
-                        0 0.2" 
-                        repeatCount="indefinite"
-                    calcMode="discrete" begin="indefinite" />
+                        0 0.2" repeatCount="indefinite" calcMode="discrete" begin="indefinite" />
             </feTurbulence>
 
-            <feDisplacementMap id="disp2" in="SourceGraphic" in2="NOISE" scale="30" xChannelSelector="R" yChannelSelector="G">
-                <animate id="welcomeAnimScale2" attributeName="scale" dur="8s" 
-                    values="
+            <feDisplacementMap id="disp2" in="SourceGraphic" in2="NOISE" scale="30" xChannelSelector="R"
+                yChannelSelector="G">
+                <animate id="welcomeAnimScale2" attributeName="scale" dur="8s" values="
                     20;
                     10;
                     0;
@@ -234,8 +233,7 @@
                     0;
                     0;
                     82;
-                    96"
-                    repeatCount="indefinite" calcMode="discrete" />
+                    96" repeatCount="indefinite" calcMode="discrete" />
             </feDisplacementMap>
         </filter>
     </svg>
@@ -245,10 +243,7 @@
         <filter id="gooey">
 
             <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur">
-                <animate attributeName="stdDeviation"
-               values="5;20;5"
-               dur="4s"
-               repeatCount="indefinite" />
+                <animate attributeName="stdDeviation" values="5;20;5" dur="4s" repeatCount="indefinite" />
             </feGaussianBlur>
 
             <feColorMatrix in="blur" mode="matrix" values="

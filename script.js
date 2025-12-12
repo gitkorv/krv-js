@@ -29,10 +29,6 @@ const colorOverlay = document.querySelector(".color-overlay");
 console.log(colorOverlay);
 
 const welcomeTextContainer = document.querySelector('.welcome-text__text-container');
-let welcomeTextContainerWidth = welcomeTextContainer.getBoundingClientRect().width;
-console.log(welcomeTextContainerWidth);
-welcomeTextContainer.style.width = welcomeTextContainerWidth + "px";
-// console.log(welcomeTextContainer);
 
 const welcomeTextBorder = document.querySelector(".welcome-text__border");
 // console.log(titleBorder);
