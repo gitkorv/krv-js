@@ -69,6 +69,33 @@ h2 {
     font-weight: 900;
 }
 
+/* MUSIC */
+
+audio {
+    position: fixed;
+    bottom: var(--bodyPadding);
+    left: var(--bodyPadding);
+    /* transform: translate(0, -50%); */
+    /* width: 200px; */
+    height: 40px;
+    z-index: 1;
+}
+
+.count-down-wrapper {
+    position: fixed;
+    right: 25%;
+    top: 50%;
+    z-index: 100;
+    /* background-color: aqua; */
+}
+
+.count-down-span {
+    z-index: 100;
+    color: white;
+    font-size: var(--sec2TextSize);
+}
+
+
 .fullscreen-bg {
     position: fixed;
     inset: 0;

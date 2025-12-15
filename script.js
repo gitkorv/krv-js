@@ -116,9 +116,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 // Music
-document.body.addEventListener("click", () => {
-  document.querySelector("#bg-music").play();
-}, { once: true });
+// document.body.addEventListener("click", () => {
+//   document.querySelector("#bg-music").play();
+// }, { once: true });
 
 
 
@@ -266,10 +266,7 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
 
                 // trigger transition after layout
                 setTimeout(() => {
-                    // letter.style.transform = `translate3d(${randomX}px, ${randomY}px, 100px) rotate(${rotateX}deg) scale(${scale})`;
                     letter.style.transform = `translate3d(${randomX}px, ${randomY}px, 500px) rotate(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
-                    // letter.style.textShadow = `5px 5px 5px rgba(0, 0, 0, 0.2)`;
-                    // letter.style.color = 'black';
                     letter.classList.add("rotate");
                 }, sec2textWrapperTransDur * 0.8);
 
@@ -282,16 +279,9 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
 
             if (moreThanOneObservation) {
                 console.log("NO INTERSECTION");
-                // welcomeTextContainer.innerHTML = origWelcomeHtml;
-
-                // origWelcomeHtml = welcomeTextContainer.innerHTML;
-
                 letterArr.forEach((letter, i) => {
                     letter.classList.remove("rotate")
                     letter.style.transform = `translate3d(-1px, 0px, 0px) rotate(0deg) rotateY(0deg) scale(1)`;
-                    // letter.style.textShadow = `0px 0px 0px black`;
-                    // letter.style.marginLeft = "20px";
-                    // letter.style.color = "black";
                 })
                 viewportObserver.unobserve(sec2TextWrapper);
                 setTimeout(() => {
@@ -300,19 +290,16 @@ const viewportObserver = new IntersectionObserver(function (entries, viewportObs
                     moreThanOneObservation = false;
                     requestAnimationFrame(() => {
                         startWelcome()
-
-
                         welcomeTextWordContainers = [...welcomeTextContainer.querySelectorAll("span")];
                         switchIntervals.push(
                             switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 3], ["create", "love"]),
                             switchWord(welcomeTextWordContainers[welcomeTextWordContainers.length - 1], ["live", "create"])
                         );
-                        console.log(switchIntervals);
+                        console.log(switchIntervals, "now");
                     })
                 }, maxTransitionTime);
                 sec2TextWrapper.classList.remove("sec2__text-wrapper--open")
             }
-
         }
     });
 }, viewportObserverOptions);
