@@ -469,19 +469,9 @@ ctx.fillStyle = "rgba(165, 147, 128, 1)";
 class Ball {
     constructor(effect) {
         this.effect = effect;
-        // this.x = this.effect.width * 0.5;
-        // this.x = this.effect.width * (0.48 + Math.random() * (0.52 - 0.48));
-        // this.x = Math.random() * this.effect.width - this.effect.width * 0.2;
         this.x = Math.random() * this.effect.width;
-        // this.y = Math.random() * (this.effect.height - this.effect.height * 0.8) + 0.4;
         this.y = Math.random() * this.effect.height;
-        // this.y = this.effect.height * (0.48 + Math.random() * (0.52 - 0.48));
-        // this.y = this.effect.height * (Math.random() * 0.01) + 4 ;
-        // this.y = this.effect.height * 0.5;
 
-        // this.x = Math.random() * this.effect.width;
-        // this.y = Math.random() * this.effect.height;
-        // Make different sized balls depending on window width
         console.log(this.effect.width);
         
         if (this.effect.width < 900) {
@@ -495,51 +485,25 @@ class Ball {
         } else {
             this.radius = Math.random() * 2800 + 100;
         }
-        // this.radius = Math.random() * 200 + 10;
 
         this.growSpeed = 1.00;
         this.index = 1;
         this.orgRadius = this.radius;
         this.newRadius = this.radius * 0.1;
         this.radius = this.newRadius;
-
-        // this.radius = Math.random() * 80 + 20;
-        // console.log(this.effect.width);
-        // console.log(this.orgRadius.toFixed(3), this.newRadius.toFixed(3));
-        this.speedX = Math.random() - 0.5;
-        this.speedY = Math.random() - 0.5;
+        this.speedX =  Math.random() * (0.3 - 0.01) + 0.01;
+        this.speedY =  Math.random() * (0.3 - 0.01) + 0.01;
     }
     update() {
-        // for (let i = this.index; i < 100; i++) {
-        //     this.radius = this.radius + .001;
-        //     // console.log(this.radius, this.orgRadius);
-
-        // }
 
         if (this.radius < this.orgRadius) {
             this.radius *= this.growSpeed;
         }
 
-
-        // if (this.index < 200) {
-        //     this.radius = this.radius + 0.25;
-        // } 
-
-        // this.index++;
-
-
-
         if (this.x < this.radius || this.x > this.effect.width - this.radius) this.speedX *= -1;
         if (this.y < this.radius || this.y > this.effect.height - this.radius) this.speedY *= -1;
         this.x += this.speedX;
         this.y += this.speedY;
-
-
-        // this.radius = this.radius * 0.002;
-
-
-        // console.log(this.index);
-
 
     }
     draw(context) {
@@ -549,16 +513,11 @@ class Ball {
         // context.stroke();
     }
     reset() {
-        // this.x = this.effect.width * 0.5;
-        // this.y = Math.random() * this.effect.height * 0.6 + this.effect.height * 0.2;
-        // this.x = this.effect.width * 0.5;
-        // this.x = this.effect.width;
+
         this.x = Math.random() * this.effect.width;
-        // this.y = this.effect.height * 0.5;
-        // this.y = this.effect.height;
         this.y = Math.random() * this.effect.height;
-        this.speedX = Math.random() - 0.5;
-        this.speedY = Math.random() - 0.5;
+        this.speedX =  Math.random() * (0.3 - 0.01) + 0.01;
+        this.speedY =  Math.random() * (0.3 - 0.01) + 0.01;
     }
 }
 

@@ -69,18 +69,6 @@ h2 {
     font-weight: 900;
 }
 
-/* MUSIC */
-
-audio {
-    position: fixed;
-    bottom: var(--bodyPadding);
-    left: var(--bodyPadding);
-    /* transform: translate(0, -50%); */
-    /* width: 200px; */
-    height: 40px;
-    z-index: 1;
-}
-
 .count-down-wrapper {
     position: fixed;
     right: 25%;
@@ -138,7 +126,7 @@ audio {
     background-size: cover;
     filter: hue-rotate(313deg);
     transform: scaleY(2) scaleX(1) skew(0);
-    animation: zoomBg 50s ease-in-out infinite;
+    animation: zoomBg 300s ease-in-out infinite;
 }
 
 @keyframes zoomBg {
