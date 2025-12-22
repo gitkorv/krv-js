@@ -570,3 +570,22 @@ window.addEventListener('resize', function () {
     ctx.fillStyle = "rgba(126, 225, 205, 1)";
     effect.reset(canvas.width, canvas.height);
 })
+
+
+// Text Circles
+
+const textCircleAnims = document.querySelectorAll('svg.text-circle animate');
+const textCircleDur = 20;
+
+document.querySelectorAll('svg.text-circle').forEach((svg, i) => {
+  const anim = svg.querySelector('animate');
+  const windowWidth = window.innerWidth;
+  console.log(windowWidth);
+
+  svg.style.left = Math.random() * windowWidth + "px";
+
+  anim.setAttribute('dur', '20s');
+  anim.setAttribute('begin', i % 2 ? textCircleDur / 2 + "s" : '0s');
+});
+
+

@@ -83,6 +83,33 @@ h2 {
     font-size: var(--sec2TextSize);
 }
 
+svg.text-circle {
+    position: absolute;
+    left: 80%;
+    top: 10%;
+    z-index: 500;
+    transform: translateX(-50%);
+    /* animation: svg-circle-spin 10s linear infinite; */
+}
+
+svg.text-circle#circle-1 {
+    left: 20%;
+    transform: rotate(180deg);
+}
+svg.text-circle#circle-2 {
+    left: 10%;
+    /* transform: translateX(148px); */
+    /* display: none; */
+
+}
+
+svg.text-circle text {
+    letter-spacing: 2.5px;
+}
+
+@keyframes svg-circle-spin {
+  to { transform: rotate(360deg); }
+}
 
 .fullscreen-bg {
     position: fixed;
